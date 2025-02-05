@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.share.payload.response;
+package com.openclassrooms.mddapi.share.dto.response;
 
 public class MessageResponse {
     private String message;

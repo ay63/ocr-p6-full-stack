@@ -3,7 +3,7 @@ package com.openclassrooms.mddapi.user.service.user;
 
 import org.springframework.stereotype.Service;
 
-import com.openclassrooms.mddapi.user.models.User;
+import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.repository.UserRepository;
 
 @Service

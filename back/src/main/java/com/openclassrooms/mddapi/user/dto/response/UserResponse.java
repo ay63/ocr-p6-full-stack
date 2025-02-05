@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.user.payload.response;
+package com.openclassrooms.mddapi.user.dto.response;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

@@ -16,16 +16,14 @@ import com.openclassrooms.mddapi.auth.payload.request.AuthLoginRequest;
 import com.openclassrooms.mddapi.auth.payload.request.AuthRegistrationRequest;
 import com.openclassrooms.mddapi.auth.payload.response.AuthTokenResponse;
 import com.openclassrooms.mddapi.auth.service.jwt.JwtService;
-import com.openclassrooms.mddapi.share.payload.response.MessageResponse;
-import com.openclassrooms.mddapi.user.models.User;
+import com.openclassrooms.mddapi.share.dto.response.MessageResponse;
+import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.user.UserService;
 
 import jakarta.validation.Valid;
-import lombok.extern.log4j.Log4j2;
 
 @RestController()
 @RequestMapping("auth")
-@Log4j2
 public class AuthController {
 
     private final UserService userService;

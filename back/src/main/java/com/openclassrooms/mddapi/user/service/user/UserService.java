@@ -1,6 +1,6 @@
 package com.openclassrooms.mddapi.user.service.user;
 
-import com.openclassrooms.mddapi.user.models.User;
+import com.openclassrooms.mddapi.user.model.User;
 
 public interface UserService {
 

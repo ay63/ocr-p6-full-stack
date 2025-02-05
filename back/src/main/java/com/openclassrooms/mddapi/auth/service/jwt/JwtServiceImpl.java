@@ -10,14 +10,10 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
-import com.openclassrooms.mddapi.user.service.user.UserDetailsImpl;
-
-import lombok.extern.log4j.Log4j2;
 
 import org.springframework.security.core.Authentication;
 
 @Service
-@Log4j2
 public class JwtServiceImpl implements JwtService {
 
     private final JwtEncoder jwtEncoder;
@@ -30,16 +26,11 @@ public class JwtServiceImpl implements JwtService {
     public String generateToken(Authentication authentication) {
 
         Instant now = Instant.now();
-
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-
-        log.info("AZERTY" + " " + userPrincipal.getUsername());
-
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)
                 .expiresAt(now.plus(1, ChronoUnit.DAYS))
-                .subject(userPrincipal.getUsername())
+                .subject(authentication.getName())
                 .build();
 
         JwtEncoderParameters jwtEncoderParameters = JwtEncoderParameters.from(

@@ -1,12 +1,14 @@
 package com.openclassrooms.mddapi.user.payload.response;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class UserResponse {
 
     @NotBlank

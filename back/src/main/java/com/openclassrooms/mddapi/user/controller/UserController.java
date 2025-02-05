@@ -5,13 +5,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.openclassrooms.mddapi.user.service.UserService;
 
-import lombok.extern.log4j.Log4j2;
+import com.openclassrooms.mddapi.user.models.User;
+import com.openclassrooms.mddapi.user.payload.response.UserResponse;
+import com.openclassrooms.mddapi.user.service.user.UserService;
 
 @RestController
 @RequestMapping("user")
-@Log4j2
 public class UserController {
 
     private UserService userService;
@@ -20,16 +20,15 @@ public class UserController {
         this.userService = userService;
     }
 
-
-    //@todo 
     @GetMapping("/me")
     public ResponseEntity<?> me(Authentication authentication) {
+        User user = this.userService.findUserByEmail(authentication.getName());
 
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
 
-   
-        return ResponseEntity.ok().body("userResponse");
+        return ResponseEntity.ok().body(new UserResponse(user.getEmail(), user.getProfileName()));
     }
 
-
-    
 }

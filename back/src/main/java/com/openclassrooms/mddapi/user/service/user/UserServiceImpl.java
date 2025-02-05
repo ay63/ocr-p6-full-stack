@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.user.models.User;
 import com.openclassrooms.mddapi.user.repository.UserRepository;
-import com.openclassrooms.mddapi.user.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {

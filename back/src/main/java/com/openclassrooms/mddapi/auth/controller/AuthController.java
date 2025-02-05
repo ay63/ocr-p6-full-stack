@@ -1,8 +1,10 @@
 package com.openclassrooms.mddapi.auth.controller;
 
+import org.apache.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,13 +18,14 @@ import com.openclassrooms.mddapi.auth.payload.response.AuthTokenResponse;
 import com.openclassrooms.mddapi.auth.service.jwt.JwtService;
 import com.openclassrooms.mddapi.share.payload.response.MessageResponse;
 import com.openclassrooms.mddapi.user.models.User;
-import com.openclassrooms.mddapi.user.service.UserService;
+import com.openclassrooms.mddapi.user.service.user.UserService;
 
 import jakarta.validation.Valid;
-
+import lombok.extern.log4j.Log4j2;
 
 @RestController()
 @RequestMapping("auth")
+@Log4j2
 public class AuthController {
 
     private final UserService userService;
@@ -48,6 +51,12 @@ public class AuthController {
                         authLoginRequest.getEmail(),
                         authLoginRequest.getPassword()));
 
+        if (!authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED).build();
+        }
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
         String token = jwtService.generateToken(authentication);
 
         return ResponseEntity.ok(new AuthTokenResponse(token));
@@ -69,7 +78,5 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User created !"));
     }
-
-    
 
 }

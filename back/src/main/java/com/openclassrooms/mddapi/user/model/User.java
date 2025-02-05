@@ -10,6 +10,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openclassrooms.mddapi.article.model.Article;
 
 import jakarta.persistence.Column;
@@ -48,11 +50,10 @@ public class User implements UserDetails {
 
     @NotNull
     @Size(min = 8, max = 64)
-    @Column(name = "email", unique = true)
+    @Column(unique = true)
     private String email;
 
     @Size(min = 8, max = 64)
-    @Column(name = "password")
     private String password;
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
@@ -74,5 +75,10 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return this.email;
+    }
+
+    @Override
+    public String toString() {
+        return "User{id=" + id + ", email='" + email + "'}";
     }
 }

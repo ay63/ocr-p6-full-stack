@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<?> me(Authentication authentication) {
-        User user = this.userService.findUserByEmail(authentication.getName());
+        User user = this.userService.findByEmail(authentication.getName());
 
         if (user == null) {
             return ResponseEntity.notFound().build();

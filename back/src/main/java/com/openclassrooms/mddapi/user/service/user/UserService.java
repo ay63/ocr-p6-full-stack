@@ -4,9 +4,9 @@ import com.openclassrooms.mddapi.user.model.User;
 
 public interface UserService {
 
-    User findUserById(Long id);
+    User findById(Long id);
 
-    User findUserByEmail(String email);
+    User findByEmail(String email);
 
     Boolean existsByEmail(String email);
 

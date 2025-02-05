@@ -16,12 +16,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserById(Long id) {
+    public User findById(Long id) {
         return this.userRepository.findById(id).orElse(null);
     }
 
     @Override
-    public User findUserByEmail(String email) {
+    public User findByEmail(String email) {
         return this.userRepository.findByEmail(email).orElse(null);
     }
 

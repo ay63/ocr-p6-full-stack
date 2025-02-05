@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class SubjectController {
 
     public ResponseEntity<?> getAll() {
+
+        
+
         return ResponseEntity.ok().build();
     }
 

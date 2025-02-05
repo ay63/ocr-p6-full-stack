@@ -8,7 +8,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.openclassrooms.mddapi.subject.model.Subject;
 import com.openclassrooms.mddapi.user.model.User;
 
@@ -52,6 +51,7 @@ public class Article {
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "articles_subjects", joinColumns = @JoinColumn(name = "articles_id"), inverseJoinColumns = @JoinColumn(name = "subjects_id"))
+    @Builder.Default
     private List<Subject> subjects = new ArrayList<>();
 
     @NotBlank

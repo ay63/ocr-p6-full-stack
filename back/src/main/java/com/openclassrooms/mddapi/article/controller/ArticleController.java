@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.article.dto.model.ArticleDto;
-import com.openclassrooms.mddapi.article.mapper.ArticleMapper;
+import com.openclassrooms.mddapi.article.dto.response.ArticleResponseDto;
+import com.openclassrooms.mddapi.article.mapper.article.ArticleMapper;
+import com.openclassrooms.mddapi.article.mapper.article.ArticleResponseMapper;
 import com.openclassrooms.mddapi.article.model.Article;
-import com.openclassrooms.mddapi.article.service.ArticleService;
+import com.openclassrooms.mddapi.article.service.article.ArticleService;
 
 import jakarta.validation.Valid;
 
@@ -21,12 +23,16 @@ public class ArticleController {
 
     private ArticleMapper articleMapper;
     private ArticleService articleService;
+    private ArticleResponseMapper articleResponseMapper;
 
     public ArticleController(
             ArticleMapper articleMapper,
-            ArticleService articleService) {
+            ArticleService articleService,
+            ArticleResponseMapper articleResponseMapper) {
         this.articleMapper = articleMapper;
         this.articleService = articleService;
+        this.articleResponseMapper = articleResponseMapper;
+
     }
 
     @PostMapping("create")
@@ -43,17 +49,16 @@ public class ArticleController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ArticleDto> get(@PathVariable("id") Long id) {
-
+    public ResponseEntity<ArticleResponseDto> get(@PathVariable("id") Long id) {
         Article article = this.articleService.findById(id);
 
         if (article == null) {
             ResponseEntity.badRequest().build();
         }
 
-        ArticleDto articleDto = this.articleMapper.toDto(article);
+        ArticleResponseDto articleResponseDto = this.articleResponseMapper.toDto(article);
 
-        return ResponseEntity.ok().body(articleDto);
+        return ResponseEntity.ok().body(articleResponseDto);
     }
 
 }

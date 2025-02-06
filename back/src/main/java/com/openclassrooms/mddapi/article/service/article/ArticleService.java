@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.article.service;
+package com.openclassrooms.mddapi.article.service.article;
 
 import com.openclassrooms.mddapi.article.model.Article;
 

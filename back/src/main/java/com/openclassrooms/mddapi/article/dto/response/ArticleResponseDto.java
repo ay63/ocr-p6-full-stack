@@ -2,8 +2,9 @@ package com.openclassrooms.mddapi.article.dto.response;
 
 import java.time.LocalDateTime;
 
-import com.openclassrooms.mddapi.subject.model.Subject;
-import com.openclassrooms.mddapi.user.model.User;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,15 +14,22 @@ public class ArticleResponseDto {
 
     private Long id;
 
+    @NotBlank
+    @Size(min = 10, max = 64)
     private String title;
 
-    private Subject subjects;
+    @NotNull
+    private String subjectName;
 
+    @NotBlank
+    @Size(max = 2000)
     private String content;
 
-    private User author;
+    @NotNull
+    private String authorName;
 
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
 }

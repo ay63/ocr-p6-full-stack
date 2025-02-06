@@ -35,6 +35,10 @@ public class Subject {
     @Column(unique = true)
     private String name;
 
+    @Size(max = 256)
+    @NotBlank
+    private String description;
+
     @OneToMany(mappedBy = "subject")
     private List<Article> articles;
 

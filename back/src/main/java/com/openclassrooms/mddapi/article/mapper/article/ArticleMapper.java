@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.article.mapper;
+package com.openclassrooms.mddapi.article.mapper.article;
 
 import java.util.Collections;
 import java.util.List;

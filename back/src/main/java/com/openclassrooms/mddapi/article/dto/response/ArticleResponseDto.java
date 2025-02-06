@@ -19,7 +19,7 @@ public class ArticleResponseDto {
     private String title;
 
     @NotNull
-    private String subjectName;
+    private String subjectTitle;
 
     @NotBlank
     @Size(max = 2000)

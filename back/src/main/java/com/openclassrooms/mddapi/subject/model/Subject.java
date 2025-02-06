@@ -33,7 +33,7 @@ public class Subject {
     @Size(min = 3, max = 32)
     @NotBlank
     @Column(unique = true)
-    private String name;
+    private String title;
 
     @Size(max = 256)
     @NotBlank

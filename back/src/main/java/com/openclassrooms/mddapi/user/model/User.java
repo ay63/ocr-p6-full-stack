@@ -2,7 +2,9 @@ package com.openclassrooms.mddapi.user.model;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.openclassrooms.mddapi.article.model.Article;
+import com.openclassrooms.mddapi.subject.model.Subject;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,6 +45,7 @@ public class User implements UserDetails {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @NotNull
     @Size(min = 3, max = 64)
     @Column(name = "profile_name")
     private String profileName;
@@ -56,6 +60,7 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Article> articles;
+
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)

@@ -2,7 +2,6 @@ package com.openclassrooms.mddapi.article.mapper;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,6 @@ import com.openclassrooms.mddapi.subject.service.SubjectService;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.user.UserService;
 
-
 @Mapper(componentModel = "spring", uses = { UserService.class, SubjectService.class }, imports = { List.class,
         Collections.class, Collectors.class, Optional.class, User.class, Subject.class })
 public abstract class ArticleMapper implements EntityMapper<ArticleDto, Article> {
@@ -30,36 +28,25 @@ public abstract class ArticleMapper implements EntityMapper<ArticleDto, Article>
     protected UserService userService;
 
     @Mapping(target = "author", expression = "java(getAuthorFromId(articleDto.getAuthorId()))")
-    @Mapping(target = "subjects", expression = "java(getSubjectsFromIds(articleDto.getSubjects()))")
+    @Mapping(target = "subject", expression = "java(getSubjectId(articleDto.getSubject()))")
     public abstract Article toEntity(ArticleDto articleDto);
 
     @Mapping(source = "author.id", target = "authorId")
-    @Mapping(target = "subjects", expression = "java(getSubjectIdsFromEntities(article.getSubjects()))")
+    @Mapping(source = "subject.id", target = "subject")
     public abstract ArticleDto toDto(Article article);
 
     public User getAuthorFromId(Long authorId) {
-        if (authorId != null) {
-            return userService.findById(authorId);
+        if (authorId == null) {
+            return null;
         }
-        return null;
+        return userService.findById(authorId);
     }
 
-    public List<Subject> getSubjectsFromIds(List<Long> subjectIds) {
-        if (subjectIds != null) {
-            return subjectIds.stream()
-                    .map(subjectService::findById)
-                    .filter(Objects::nonNull)
-                    .collect(Collectors.toList());
+    public Subject getSubjectId(Long subjectId) {
+        if (subjectId == null) {
+            return null;
         }
-        return Collections.emptyList();
+        return subjectService.findById(subjectId);
     }
 
-    public List<Long> getSubjectIdsFromEntities(List<Subject> subjects) {
-        if (subjects != null) {
-            return subjects.stream()
-                    .map(Subject::getId)
-                    .collect(Collectors.toList());
-        }
-        return Collections.emptyList();
-    }
 }

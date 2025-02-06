@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserResponse {
+public class UserResponseDto {
 
     @NotBlank
     private String email;

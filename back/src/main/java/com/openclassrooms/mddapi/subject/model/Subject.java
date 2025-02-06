@@ -4,11 +4,12 @@ import java.util.List;
 
 import com.openclassrooms.mddapi.article.model.Article;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -31,9 +32,10 @@ public class Subject {
 
     @Size(min = 3, max = 32)
     @NotBlank
+    @Column(unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "subjects")
+    @OneToMany(mappedBy = "subject")
     private List<Article> articles;
 
 }

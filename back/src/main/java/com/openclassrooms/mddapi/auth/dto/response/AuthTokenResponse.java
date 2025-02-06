@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.auth.payload.response;
+package com.openclassrooms.mddapi.auth.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

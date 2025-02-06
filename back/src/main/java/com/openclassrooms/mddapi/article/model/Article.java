@@ -1,8 +1,6 @@
 package com.openclassrooms.mddapi.article.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,7 +9,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.openclassrooms.mddapi.subject.model.Subject;
 import com.openclassrooms.mddapi.user.model.User;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -20,8 +17,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -49,10 +44,9 @@ public class Article {
     @Size(min = 10, max = 64)
     private String title;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "articles_subjects", joinColumns = @JoinColumn(name = "articles_id"), inverseJoinColumns = @JoinColumn(name = "subjects_id"))
-    @Builder.Default
-    private List<Subject> subjects = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    private Subject subject;
 
     @NotBlank
     @Size(max = 2000)
@@ -72,9 +66,9 @@ public class Article {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-
     @Override
     public String toString() {
-        return "Article{id=" + id + ", title='" + this.title + "', author=" + (author != null ? author.getId() : null) + "}";
+        return "Article{id=" + id + ", title='" + this.title + "', author=" + (author != null ? author.getId() : null)
+                + "}";
     }
 }

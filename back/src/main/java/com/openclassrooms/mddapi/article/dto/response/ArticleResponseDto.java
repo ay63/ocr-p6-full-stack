@@ -1,7 +1,6 @@
 package com.openclassrooms.mddapi.article.dto.response;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import com.openclassrooms.mddapi.subject.model.Subject;
 import com.openclassrooms.mddapi.user.model.User;
@@ -10,13 +9,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ArticleResponse {
+public class ArticleResponseDto {
 
     private Long id;
 
     private String title;
 
-    private List<Subject> subjects;
+    private Subject subjects;
 
     private String content;
 

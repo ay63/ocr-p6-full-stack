@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.article.dto.model.ArticleDto;
-import com.openclassrooms.mddapi.article.dto.response.ArticleResponse;
 import com.openclassrooms.mddapi.article.mapper.ArticleMapper;
-import com.openclassrooms.mddapi.article.mapper.ArticleResponseMapper;
 import com.openclassrooms.mddapi.article.model.Article;
 import com.openclassrooms.mddapi.article.service.ArticleService;
 
@@ -23,21 +21,21 @@ public class ArticleController {
 
     private ArticleMapper articleMapper;
     private ArticleService articleService;
-    private ArticleResponseMapper articleResponseMapper;
 
     public ArticleController(
             ArticleMapper articleMapper,
-            ArticleService articleService,
-            ArticleResponseMapper articleResponseMapper) {
+            ArticleService articleService) {
         this.articleMapper = articleMapper;
         this.articleService = articleService;
-        this.articleResponseMapper = articleResponseMapper;
-
     }
 
     @PostMapping("create")
     public ResponseEntity<?> create(@Valid @RequestBody ArticleDto articleDto) {
         Article article = this.articleMapper.toEntity(articleDto);
+
+        if (article == null) {
+            return ResponseEntity.badRequest().build();
+        }
 
         this.articleService.save(article);
 
@@ -45,7 +43,7 @@ public class ArticleController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ArticleResponse> get(@PathVariable("id") Long id) {
+    public ResponseEntity<ArticleDto> get(@PathVariable("id") Long id) {
 
         Article article = this.articleService.findById(id);
 
@@ -53,9 +51,9 @@ public class ArticleController {
             ResponseEntity.badRequest().build();
         }
 
-        ArticleResponse articleResponse = this.articleResponseMapper.toArticleResponse(article);
+        ArticleDto articleDto = this.articleMapper.toDto(article);
 
-        return ResponseEntity.ok().body(articleResponse);
+        return ResponseEntity.ok().body(articleDto);
     }
 
 }

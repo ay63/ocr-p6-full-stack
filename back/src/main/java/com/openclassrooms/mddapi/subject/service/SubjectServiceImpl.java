@@ -18,7 +18,6 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public List<Subject> getAll() {
-
         return null;
     }
 

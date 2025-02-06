@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openclassrooms.mddapi.user.dto.response.UserResponse;
+import com.openclassrooms.mddapi.user.dto.response.UserResponseDto;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.user.UserService;
 
@@ -28,7 +28,7 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(new UserResponse(user.getEmail(), user.getProfileName()));
+        return ResponseEntity.ok().body(new UserResponseDto(user.getEmail(), user.getProfileName()));
     }
 
 }

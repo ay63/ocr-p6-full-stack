@@ -29,10 +29,10 @@ public class SubjectController {
 
     @GetMapping
     public ResponseEntity<List<SubjectDto>> getAll() {
-
         List<SubjectDto> subjectsDto = subjectMapper.toDto(subjectService.getAll());
 
         return ResponseEntity.ok().body(subjectsDto);
     }
+    
 
 }

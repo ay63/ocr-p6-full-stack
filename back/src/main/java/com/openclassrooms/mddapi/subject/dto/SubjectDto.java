@@ -3,9 +3,7 @@ package com.openclassrooms.mddapi.subject.dto;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.openclassrooms.mddapi.article.dto.model.ArticleDto;
 import com.openclassrooms.mddapi.article.dto.response.ArticleResponseDto;
-import com.openclassrooms.mddapi.article.model.Article;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

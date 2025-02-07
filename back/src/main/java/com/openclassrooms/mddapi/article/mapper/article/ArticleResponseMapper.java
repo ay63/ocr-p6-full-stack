@@ -2,12 +2,13 @@ package com.openclassrooms.mddapi.article.mapper.article;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import com.openclassrooms.mddapi.article.dto.response.ArticleResponseDto;
 import com.openclassrooms.mddapi.article.model.Article;
 import com.openclassrooms.mddapi.share.mapper.EntityMapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class ArticleResponseMapper implements EntityMapper<ArticleResponseDto, Article> {
 
     @Mapping(target = "id", source = "id")

@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.article.mapper.article;
+package com.openclassrooms.mddapi.feed.mapper;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,18 +10,18 @@ import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.openclassrooms.mddapi.article.dto.model.ArticleDto;
 import com.openclassrooms.mddapi.article.model.Article;
+import com.openclassrooms.mddapi.feed.dto.response.FeedResponseDto;
 import com.openclassrooms.mddapi.share.mapper.EntityMapper;
 import com.openclassrooms.mddapi.subject.model.Subject;
 import com.openclassrooms.mddapi.subject.service.SubjectService;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.UserService;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        uses = { UserService.class, SubjectService.class }, imports = { List.class,
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = { UserService.class,
+        SubjectService.class }, imports = { List.class,
                 Collections.class, Collectors.class, Optional.class, User.class, Subject.class })
-public abstract class ArticleMapper implements EntityMapper<ArticleDto, Article> {
+public abstract class FeedMapper implements EntityMapper<FeedResponseDto, Article> {
 
     @Autowired
     protected SubjectService subjectService;
@@ -29,13 +29,13 @@ public abstract class ArticleMapper implements EntityMapper<ArticleDto, Article>
     @Autowired
     protected UserService userService;
 
-    @Mapping(target = "author", expression = "java(getAuthorFromId(articleDto.getAuthorId()))")
-    @Mapping(target = "subject", expression = "java(getSubjectId(articleDto.getSubject()))")
-    public abstract Article toEntity(ArticleDto articleDto);
+    @Mapping(target = "author", expression = "java(getAuthorFromId(feedResponseDto.getAuthor()))")
+    @Mapping(target = "subject", expression = "java(getSubjectId(feedResponseDto.getSubject()))")
+    public abstract Article toEntity(FeedResponseDto feedResponseDto);
 
-    @Mapping(source = "author.id", target = "authorId")
+    @Mapping(source = "author.profileName", target = "author")
     @Mapping(source = "subject.id", target = "subject")
-    public abstract ArticleDto toDto(Article article);
+    public abstract FeedResponseDto toDto(Article article);
 
     public User getAuthorFromId(Long authorId) {
         if (authorId == null) {

@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.user.service.user;
+package com.openclassrooms.mddapi.user.service;
 
 import com.openclassrooms.mddapi.user.model.User;
 

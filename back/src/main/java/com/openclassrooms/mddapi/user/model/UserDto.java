@@ -3,6 +3,7 @@ package com.openclassrooms.mddapi.user.model;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.openclassrooms.mddapi.auth.validator.password.isValidPassword;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.validation.constraints.Email;
@@ -31,7 +32,7 @@ public class UserDto {
     @Size(min = 3, max = 20)
     private String firstName;
 
-    // @todo add custom validation for password
+    @isValidPassword
     @JsonIgnore
     @Size(min = 8, max = 64)
     private String password;

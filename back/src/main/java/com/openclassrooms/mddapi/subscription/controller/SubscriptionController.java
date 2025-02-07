@@ -33,7 +33,8 @@ public class SubscriptionController {
     }
 
     @DeleteMapping("subject/{subjectId}/user/{userId}")
-    public ResponseEntity<?> delete(@PathVariable("subjectId") String subjectId,
+    public ResponseEntity<?> delete(
+            @PathVariable("subjectId") String subjectId,
             @PathVariable("userId") String userId) {
 
         try {

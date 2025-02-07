@@ -21,7 +21,7 @@ import com.openclassrooms.mddapi.auth.mapper.AuthUpdateMapper;
 import com.openclassrooms.mddapi.auth.service.jwt.JwtService;
 import com.openclassrooms.mddapi.share.dto.response.MessageResponse;
 import com.openclassrooms.mddapi.user.model.User;
-import com.openclassrooms.mddapi.user.service.user.UserService;
+import com.openclassrooms.mddapi.user.service.UserService;
 
 import jakarta.validation.Valid;
 
@@ -94,9 +94,10 @@ public class AuthController {
                 return ResponseEntity.notFound().build();
             }
             userService.save(user);
+            return ResponseEntity.ok().build();
         }
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.badRequest().build();
     }
 
 }

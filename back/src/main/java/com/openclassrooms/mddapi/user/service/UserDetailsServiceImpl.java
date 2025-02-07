@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.user.service.user;
+package com.openclassrooms.mddapi.user.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.user.dto.response.UserResponseDto;
 import com.openclassrooms.mddapi.user.model.User;
-import com.openclassrooms.mddapi.user.service.user.UserService;
+import com.openclassrooms.mddapi.user.service.UserService;
 
 @RestController
 @RequestMapping("user")

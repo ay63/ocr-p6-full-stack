@@ -1,0 +1,65 @@
+import { Component } from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Router} from "@angular/router";
+import {RegisterRequest} from "../../interface/request/registerRequest";
+import {AuthService} from "../../services/auth.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+
+
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss',
+  standalone: false
+})
+export class RegisterComponent {
+
+  public onError:boolean = false;
+
+  constructor(
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private matSnackBar: MatSnackBar) {}
+
+  registerForm = this.formBuilder.group({
+    username: ['',
+     [
+       Validators.required,
+       Validators.minLength(3),
+       Validators.maxLength(16)
+     ]
+    ],
+    email: ['', [
+      Validators.required,
+      Validators.email,
+      Validators.minLength(8),
+      Validators.maxLength(64)
+    ]
+    ],
+    password: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(64)
+        //@todo add pattern for password
+      ]
+    ]
+  });
+
+  onSubmit(): void {
+    if (this.registerForm.valid) {
+      const registerRequest = this.registerForm.value as RegisterRequest;
+      this.authService.register(registerRequest).subscribe({
+          next: (_: void) => {
+            this.matSnackBar.open("Your account has been deleted !", 'Close', { duration: 3000 });
+            this.router.navigate(['/login'])
+          },
+          error: _ => this.onError = true,
+        }
+      );
+    }
+  }
+
+}

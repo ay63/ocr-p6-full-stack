@@ -7,49 +7,53 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.authentication.AuthenticationManager;
 
-import com.openclassrooms.mddapi.auth.payload.request.AuthLoginRequest;
-import com.openclassrooms.mddapi.auth.payload.request.AuthRegistrationRequest;
-import com.openclassrooms.mddapi.auth.payload.response.AuthTokenResponse;
+import com.openclassrooms.mddapi.auth.dto.request.AuthLoginRequestDto;
+import com.openclassrooms.mddapi.auth.dto.request.AuthRegistrationRequestDto;
+import com.openclassrooms.mddapi.auth.dto.request.AuthUpdateRequestDto;
+import com.openclassrooms.mddapi.auth.dto.response.AuthTokenResponse;
+import com.openclassrooms.mddapi.auth.mapper.AuthUpdateMapper;
 import com.openclassrooms.mddapi.auth.service.jwt.JwtService;
-import com.openclassrooms.mddapi.share.payload.response.MessageResponse;
-import com.openclassrooms.mddapi.user.models.User;
-import com.openclassrooms.mddapi.user.service.user.UserService;
+import com.openclassrooms.mddapi.share.dto.response.MessageResponse;
+import com.openclassrooms.mddapi.user.model.User;
+import com.openclassrooms.mddapi.user.service.UserService;
 
 import jakarta.validation.Valid;
-import lombok.extern.log4j.Log4j2;
 
 @RestController()
 @RequestMapping("auth")
-@Log4j2
 public class AuthController {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final AuthUpdateMapper authUpdateMapper;
 
     public AuthController(
             UserService userService,
             PasswordEncoder passwordEncoder,
             JwtService jwtService,
-            AuthenticationManager authenticationManager) {
+            AuthenticationManager authenticationManager,
+            AuthUpdateMapper authUpdateMapper) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
+        this.authUpdateMapper = authUpdateMapper;
     }
 
     @PostMapping("login")
-    public ResponseEntity<?> login(@Valid @RequestBody AuthLoginRequest authLoginRequest) {
+    public ResponseEntity<?> login(@Valid @RequestBody AuthLoginRequestDto authLoginRequestDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        authLoginRequest.getEmail(),
-                        authLoginRequest.getPassword()));
+                        authLoginRequestDto.getEmail(),
+                        authLoginRequestDto.getPassword()));
 
         if (!authentication.isAuthenticated()) {
             return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED).build();
@@ -64,19 +68,36 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(
-            @Valid @RequestBody AuthRegistrationRequest authRegistrationRequest) {
-        if (userService.existsByEmail(authRegistrationRequest.getEmail())) {
+            @Valid @RequestBody AuthRegistrationRequestDto authRegistrationRequestDto) {
+        if (userService.existsByEmail(authRegistrationRequestDto.getEmail())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: email already exist !"));
         }
 
         User user = new User();
-        user.setEmail(authRegistrationRequest.getEmail());
-        user.setProfileName(authRegistrationRequest.getUsername());
-        user.setPassword(passwordEncoder.encode(authRegistrationRequest.getPassword()));
+        user.setEmail(authRegistrationRequestDto.getEmail());
+        user.setProfileName(authRegistrationRequestDto.getUsername());
+        user.setPassword(passwordEncoder.encode(authRegistrationRequestDto.getPassword()));
 
         userService.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User created !"));
+    }
+
+    @PutMapping(path = "/update")
+    public ResponseEntity<?> update(@Valid @RequestBody AuthUpdateRequestDto authUpdateRequestDto,
+            Authentication authentication) {
+
+        if (authentication.isAuthenticated()) {
+            User user = authUpdateMapper.toEntity(authUpdateRequestDto);
+
+            if (user == null) {
+                return ResponseEntity.notFound().build();
+            }
+            userService.save(user);
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.badRequest().build();
     }
 
 }

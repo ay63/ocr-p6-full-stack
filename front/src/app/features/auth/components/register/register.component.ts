@@ -53,7 +53,7 @@ export class RegisterComponent {
       const registerRequest = this.registerForm.value as RegisterRequest;
       this.authService.register(registerRequest).subscribe({
           next: (_: void) => {
-            this.matSnackBar.open("Your account has been deleted !", 'Close', { duration: 3000 });
+            this.matSnackBar.open("Your account has been created !", 'Close', { duration: 4000 });
             this.router.navigate(['/login'])
           },
           error: _ => this.onError = true,

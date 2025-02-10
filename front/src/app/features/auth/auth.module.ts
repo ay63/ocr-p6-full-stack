@@ -8,7 +8,6 @@ import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {ReactiveFormsModule} from "@angular/forms";
-import {MatSnackBar} from "@angular/material/snack-bar";
 
 const materialModule = [
   MatButton,
@@ -16,8 +15,7 @@ const materialModule = [
   MatFormField,
   MatInput,
   MatLabel,
-  MatError,
-  MatSnackBar
+  MatError
 ];
 
 @NgModule({

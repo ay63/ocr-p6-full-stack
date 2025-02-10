@@ -43,7 +43,7 @@ public class User implements UserDetails {
     private Long id;
 
     @NotNull
-    @Size(min = 3, max = 64)
+    @Size(min = 3, max = 16)
     @Column(name = "profile_name")
     private String profileName;
 

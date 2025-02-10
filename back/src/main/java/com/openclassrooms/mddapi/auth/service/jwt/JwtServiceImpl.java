@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
+import com.openclassrooms.mddapi.user.service.UserDetailsImpl;
 
 import org.springframework.security.core.Authentication;
 
@@ -25,12 +26,16 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String generateToken(Authentication authentication) {
 
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         Instant now = Instant.now();
+
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)
                 .expiresAt(now.plus(1, ChronoUnit.DAYS))
-                .subject(authentication.getName())
+                .subject(userDetails.getUsername())
+                .claim("id", userDetails.getId())
+                .claim("profileName", userDetails.getProfileName())
                 .build();
 
         JwtEncoderParameters jwtEncoderParameters = JwtEncoderParameters.from(

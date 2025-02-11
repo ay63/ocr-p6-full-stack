@@ -9,6 +9,8 @@ import {JwtInterceptor} from "./core/interceptors/jwt.interceptor";
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {AuthModule} from "./features/auth/auth.module";
+import {FeedModule} from "./features/feed/feed.module";
+import {FeedRoutingModule} from "./features/feed/feed-routing.module";
 
 const materialModule = [
   MatButton,
@@ -22,11 +24,10 @@ const materialModule = [
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    FeedModule,
+    FeedRoutingModule,
     BrowserAnimationsModule,
       ...materialModule
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 

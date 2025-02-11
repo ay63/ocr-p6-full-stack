@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {RegisterRequest} from "../../interface/request/registerRequest";
 import {AuthService} from "../../services/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {AuthApiService} from "../../services/auth-api.service";
 
 
 @Component({
@@ -17,7 +18,7 @@ export class RegisterComponent {
   public onError:boolean = false;
 
   constructor(
-    private authService: AuthService,
+    private authApiService: AuthApiService,
     private formBuilder: FormBuilder,
     private router: Router,
     private matSnackBar: MatSnackBar) {}
@@ -51,7 +52,7 @@ export class RegisterComponent {
   onSubmit(): void {
     if (this.registerForm.valid) {
       const registerRequest = this.registerForm.value as RegisterRequest;
-      this.authService.register(registerRequest).subscribe({
+      this.authApiService.register(registerRequest).subscribe({
           next: (_: void) => {
             this.matSnackBar.open("Your account has been created !", 'Close', { duration: 4000 });
             this.router.navigate(['/login'])

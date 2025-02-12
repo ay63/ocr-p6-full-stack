@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
-import {UserSessionInfo} from "../../../../core/interfaces/user-session-Info";
+import {UserSessionInfo} from "../../../../core/interfaces/userSessionInfo";
 import {Router} from "@angular/router";
 import {LoginRequest} from "../../interface/request/loginRequest";
 import {AuthApiService} from "../../services/auth-api.service";
@@ -33,7 +33,7 @@ export class LoginComponent {
       const loginRequest = this.loginForm.value as LoginRequest;
       this.authApiService.login(loginRequest).subscribe({
         next: (response: UserSessionInfo) => {
-          this.authService.saveToken(response.token)
+          this.authService.saveUserSession(response)
           this.router.navigate(['/feed'])
         },
         error: _ => this.onError = true,

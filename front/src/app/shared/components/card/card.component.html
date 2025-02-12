@@ -1,0 +1,24 @@
+<mat-grid-list class="card-container" [cols]="cols" cols="2" rowHeight="180"  gutterSize="16px" >
+  <mat-grid-tile *ngFor="let item of items | async">
+    <mat-card class="article-card">
+      <mat-card-header>
+        <mat-card-title>{{ item.title }}</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <!--Articles -->
+        <ng-container *ngIf="isArticle(item)">
+          <p>{{ item.createdAt | date:'dd/MM/yyyy' }} - {{ item.author | titlecase}}</p>
+          <p>{{  item.content }}</p>
+        </ng-container>
+
+        <!--Subject -->
+        <ng-container *ngIf="isSubject(item)">
+          <p>{{ item.description }}</p>
+        </ng-container>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<p *ngIf="!(items | async)?.length">Aucun contenu disponible.</p>

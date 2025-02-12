@@ -2,7 +2,7 @@ import {HttpClient} from "@angular/common/http";
 import {RegisterRequest} from "../interface/request/registerRequest";
 import {Observable} from "rxjs";
 import {LoginRequest} from "../interface/request/loginRequest";
-import {UserSessionInfo} from "../../../core/interfaces/user-session-Info";
+import {UserSessionInfo} from "../../../core/interfaces/userSessionInfo";
 import {Injectable} from "@angular/core";
 
 @Injectable(

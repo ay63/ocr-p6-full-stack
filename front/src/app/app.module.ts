@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './shared/components/home/home.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {JwtInterceptor} from "./core/interceptors/jwt.interceptor";
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {AuthModule} from "./features/auth/auth.module";
 import {FeedModule} from "./features/feed/feed.module";
 import {FeedRoutingModule} from "./features/feed/feed-routing.module";
+import {NotFoundComponent} from "./shared/components/not-found/not-found.component";
+import {HeaderComponent} from "./shared/components/header/header.component";
+import {JwtInterceptor} from "./core/interceptors/jwt.interceptor";
 
 const materialModule = [
   MatButton,
@@ -27,9 +29,14 @@ const materialModule = [
     FeedModule,
     FeedRoutingModule,
     BrowserAnimationsModule,
-      ...materialModule
+    HeaderComponent,
+    ...materialModule,
+    NotFoundComponent
   ],
   bootstrap: [AppComponent],
+  providers:   [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+  ],
 
 })
 export class AppModule {}

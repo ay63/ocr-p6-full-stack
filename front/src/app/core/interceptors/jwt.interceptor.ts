@@ -5,6 +5,7 @@ import {AuthService} from "../../features/auth/services/auth.service";
 @Injectable({ providedIn: 'root' })
 export class JwtInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
+
   public intercept(req: HttpRequest<any>, next: HttpHandler) {
     if (this.authService.isAuthentication()) {
       req = req.clone({

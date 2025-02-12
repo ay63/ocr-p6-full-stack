@@ -1,25 +1,37 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import {RegisterRequest} from "../interface/request/registerRequest";
-import {LoginRequest} from "../interface/request/loginRequest";
-import {UserSessionInfo} from "../../../core/interfaces/user-session-Info";
 import {jwtDecode, JwtPayload} from "jwt-decode";
+import {UserSessionInfo} from "../../../core/interfaces/userSessionInfo";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private  TOKEN_KEY: string = 'auth_token';
+  private USER_SESSION_KEY: string = 'userSession';
 
-  public saveToken(token: string): void{
-    sessionStorage.setItem(this.TOKEN_KEY, token);
+  public saveUserSession(userSessionInfo : UserSessionInfo): void {
+    sessionStorage.setItem(this.USER_SESSION_KEY,JSON.stringify(userSessionInfo));
+  }
+
+  public getUserSession(): UserSessionInfo | null {
+    const userSession= sessionStorage.getItem(this.USER_SESSION_KEY);
+
+    if(!userSession){
+      return null;
+    }
+
+    return JSON.parse(userSession);
   }
 
   public getToken(): string | null
   {
-    return sessionStorage.getItem(this.TOKEN_KEY);
+    const userSession= sessionStorage.getItem(this.USER_SESSION_KEY);
+    if(!userSession){
+      return null;
+    }
+
+    const parseUserSession : UserSessionInfo = JSON.parse(userSession);
+    return parseUserSession.token;
   }
 
   public isAuthentication(): boolean {

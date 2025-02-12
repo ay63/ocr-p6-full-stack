@@ -6,6 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,15 +17,17 @@ import org.springframework.security.authentication.AuthenticationManager;
 import com.openclassrooms.mddapi.auth.dto.request.AuthLoginRequestDto;
 import com.openclassrooms.mddapi.auth.dto.request.AuthRegistrationRequestDto;
 import com.openclassrooms.mddapi.auth.dto.request.AuthUpdateRequestDto;
-import com.openclassrooms.mddapi.auth.dto.response.AuthTokenResponse;
+import com.openclassrooms.mddapi.auth.dto.response.AuthResponse;
 import com.openclassrooms.mddapi.auth.mapper.AuthUpdateMapper;
 import com.openclassrooms.mddapi.auth.service.jwt.JwtService;
 import com.openclassrooms.mddapi.share.dto.response.MessageResponse;
 import com.openclassrooms.mddapi.user.model.User;
+import com.openclassrooms.mddapi.user.service.UserDetailsImpl;
 import com.openclassrooms.mddapi.user.service.UserService;
 
 import jakarta.validation.Valid;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController()
 @RequestMapping("auth")
 public class AuthController {
@@ -61,9 +64,14 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        UserDetailsImpl userDetailsImpl = (UserDetailsImpl) authentication.getPrincipal();
         String token = jwtService.generateToken(authentication);
 
-        return ResponseEntity.ok(new AuthTokenResponse(token));
+        return ResponseEntity.ok(new AuthResponse(
+                userDetailsImpl.getId(),
+                userDetailsImpl.getEmail(),
+                userDetailsImpl.getProfileName(),
+                token));
     }
 
     @PostMapping("/register")

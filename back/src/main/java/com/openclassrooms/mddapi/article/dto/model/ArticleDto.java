@@ -25,9 +25,6 @@ public class ArticleDto {
     @Size(max = 2000)
     private String content;
 
-    @NotNull
-    private Long authorId;
-
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;

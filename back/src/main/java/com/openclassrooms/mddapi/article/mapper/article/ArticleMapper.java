@@ -29,11 +29,9 @@ public abstract class ArticleMapper implements EntityMapper<ArticleDto, Article>
     @Autowired
     protected UserService userService;
 
-    @Mapping(target = "author", expression = "java(getAuthorFromId(articleDto.getAuthorId()))")
     @Mapping(target = "subject", expression = "java(getSubjectId(articleDto.getSubject()))")
     public abstract Article toEntity(ArticleDto articleDto);
 
-    @Mapping(source = "author.id", target = "authorId")
     @Mapping(source = "subject.id", target = "subject")
     public abstract ArticleDto toDto(Article article);
 

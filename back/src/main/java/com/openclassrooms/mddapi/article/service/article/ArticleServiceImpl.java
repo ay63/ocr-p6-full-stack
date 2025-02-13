@@ -1,5 +1,7 @@
 package com.openclassrooms.mddapi.article.service.article;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.article.model.Article;
@@ -20,6 +22,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     public Article findById(Long id) {
         return this.articleRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Article> findAllArticleByAuthorIdNot(Long id) {
+        return this.articleRepository.findAllArticleByAuthorIdNot(id);
     }
 
 }

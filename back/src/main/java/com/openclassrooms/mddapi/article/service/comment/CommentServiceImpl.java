@@ -1,7 +1,10 @@
 package com.openclassrooms.mddapi.article.service.comment;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.openclassrooms.mddapi.article.model.Article;
 import com.openclassrooms.mddapi.article.model.Comment;
 import com.openclassrooms.mddapi.article.repository.CommentRepository;
 
@@ -25,4 +28,8 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.save(comment);
     }
 
+    @Override
+    public List<Comment> findAllByArticle(Article article) {
+        return commentRepository.findAllByArticle(article);
+    }
 }

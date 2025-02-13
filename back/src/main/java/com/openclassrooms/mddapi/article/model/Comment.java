@@ -6,6 +6,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.openclassrooms.mddapi.user.model.User;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -39,6 +41,10 @@ public class Comment {
     @Size(max = 256)
     private String comment;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false) 
+    private User user;
+    
     @ManyToOne
     @JoinColumn(name = "article_id", nullable = false)
     private Article article;

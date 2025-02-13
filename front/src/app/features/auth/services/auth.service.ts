@@ -51,6 +51,5 @@ export class AuthService {
 
     return !(now.getTime() > expiry * 1000);
   }
-
 }
 

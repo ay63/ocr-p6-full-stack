@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatIconButton} from "@angular/material/button";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,8 @@ import {MatButton, MatIconButton} from "@angular/material/button";
     MatToolbar,
     MatIcon,
     MatButton,
-    MatIconButton
+    MatIconButton,
+    RouterLink
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -17,4 +19,10 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 })
 export class HeaderComponent {
 
+  constructor(private router: Router) {
+  }
+
+  goHome(): void {
+    this.router.navigate(['/feed'])
+  }
 }

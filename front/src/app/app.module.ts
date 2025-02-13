@@ -1,18 +1,17 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './shared/components/home/home.component';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {HomeComponent} from './shared/components/home/home.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {AuthModule} from "./features/auth/auth.module";
 import {FeedModule} from "./features/feed/feed.module";
-import {FeedRoutingModule} from "./features/feed/feed-routing.module";
-import {NotFoundComponent} from "./shared/components/not-found/not-found.component";
-import {HeaderComponent} from "./shared/components/header/header.component";
 import {JwtInterceptor} from "./core/interceptors/jwt.interceptor";
+import {ArticleModule} from "./features/article/article.module";
+import {HeaderComponent} from "./shared/components/header/header.component";
 
 const materialModule = [
   MatButton,
@@ -27,16 +26,16 @@ const materialModule = [
     AppRoutingModule,
     AuthModule,
     FeedModule,
-    FeedRoutingModule,
+    ArticleModule,
     BrowserAnimationsModule,
-    HeaderComponent,
     ...materialModule,
-    NotFoundComponent
+    HeaderComponent,
   ],
   bootstrap: [AppComponent],
-  providers:   [
+  providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ],
 
 })
-export class AppModule {}
+export class AppModule {
+}

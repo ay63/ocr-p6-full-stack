@@ -5,6 +5,8 @@ import {FeedComponent} from "./components/feed/feed.component";
 import {MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle} from "@angular/material/card";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {CardComponent} from "../../shared/components/card/card.component";
+import {MatButton, MatIconButton} from "@angular/material/button";
+import {MatIcon} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -20,7 +22,10 @@ import {CardComponent} from "../../shared/components/card/card.component";
     MatCardTitle,
     MatGridList,
     MatGridTile,
-    CardComponent
+    CardComponent,
+    MatButton,
+    MatIcon,
+    MatIconButton
   ],
 })
 export class FeedModule { }

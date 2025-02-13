@@ -19,10 +19,6 @@ export class FeedComponent implements OnInit {
 
   ngOnInit(): void {
     this.items$ =  this.feedApi.get()
-    this.feedApi.get().subscribe(feed => {
-      console.log("TOTO", feed); // 🔍 Vérifie si `date` est présent
-    });
   }
-
 
 }

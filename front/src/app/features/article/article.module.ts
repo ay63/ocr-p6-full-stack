@@ -1,0 +1,35 @@
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormComponent} from "./components/form/form.component";
+import {ArticleRoutingModule} from "./article-routing.module";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {MatOption} from "@angular/material/autocomplete";
+import {MatSelect} from "@angular/material/select";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatButton} from "@angular/material/button";
+import {HeaderComponent} from "../../shared/components/header/header.component";
+
+
+const materialModule = [
+  MatFormField,
+  MatInput,
+  MatLabel,
+  MatSelect,
+  MatOption,
+  MatFormField,
+  MatButton,
+];
+
+@NgModule({
+  declarations: [FormComponent],
+  imports: [
+    CommonModule,
+    ArticleRoutingModule,
+    ...materialModule,
+    ReactiveFormsModule,
+    HeaderComponent
+  ],
+})
+export class ArticleModule {
+}

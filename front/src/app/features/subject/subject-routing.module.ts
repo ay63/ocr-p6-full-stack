@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {RouterModule, Routes} from "@angular/router";
+import {FeedComponent} from "../feed/components/feed/feed.component";
+import {ListSubjectComponent} from "./components/list-subject/list-subject.component";
 
 
+
+const routes: Routes = [
+  { title: 'Subjects', path: '', component: ListSubjectComponent },
+];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
-export class SubjectModule { }
+export class SubjectRoutingModule { }

@@ -7,7 +7,7 @@ import {UserSessionInfo} from "../../../core/interfaces/userSessionInfo";
 })
 export class AuthService {
 
-  private USER_SESSION_KEY: string = 'userSession';
+  public USER_SESSION_KEY: string = 'userSession';
 
   public saveUserSession(userSessionInfo : UserSessionInfo): void {
     sessionStorage.setItem(this.USER_SESSION_KEY,JSON.stringify(userSessionInfo));

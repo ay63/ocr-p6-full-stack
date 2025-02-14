@@ -12,6 +12,9 @@ import {FeedModule} from "./features/feed/feed.module";
 import {JwtInterceptor} from "./core/interceptors/jwt.interceptor";
 import {ArticleModule} from "./features/article/article.module";
 import {HeaderComponent} from "./shared/components/header/header.component";
+import {Subject} from "rxjs";
+import {SubjectModule} from "./features/subject/subject.module";
+import {ProfileModule} from "./features/profile/profile.module";
 
 const materialModule = [
   MatButton,
@@ -27,9 +30,11 @@ const materialModule = [
     AuthModule,
     FeedModule,
     ArticleModule,
+    SubjectModule,
+    ProfileModule,
     BrowserAnimationsModule,
-    ...materialModule,
     HeaderComponent,
+    ...materialModule,
   ],
   bootstrap: [AppComponent],
   providers: [

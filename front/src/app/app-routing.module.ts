@@ -26,6 +26,16 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./features/article/article.module').then(m => m.ArticleModule)
   },
+  {
+    path: 'subject',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./features/subject/subject.module').then(m => m.SubjectModule)
+  },
+  {
+    path: 'profile',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./features/profile/profile.module').then(m => m.ProfileModule)
+  },
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '404'}
 ];

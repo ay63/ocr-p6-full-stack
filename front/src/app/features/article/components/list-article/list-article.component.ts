@@ -8,7 +8,7 @@ import {BaseItem} from "../../../../core/interfaces/baseItem";
 import {ArticleApiService} from "../../services/article-api.service";
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-list-article',
   imports: [
     MatButton,
     MatIcon,
@@ -16,10 +16,10 @@ import {ArticleApiService} from "../../services/article-api.service";
     RouterLink,
     CardComponent
   ],
-  templateUrl: './list.component.html',
-  styleUrl: './list.component.scss',
+  templateUrl: './list-article.component.html',
+  styleUrl: './list-article.component.scss',
 })
-export class ListComponent implements OnInit {
+export class ListArticleComponent implements OnInit {
   items$!:Observable<BaseItem[]>;
 
   constructor(

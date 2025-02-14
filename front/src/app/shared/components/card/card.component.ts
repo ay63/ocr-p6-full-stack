@@ -1,56 +1,67 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {booleanAttribute, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AsyncPipe, DatePipe, NgForOf, NgIf, TitleCasePipe} from "@angular/common";
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {Article} from "../../../features/article/interfaces/article";
-import {Subject} from "../../../core/interfaces/subject";
 import {Observable} from "rxjs";
 import {BaseItem} from "../../../core/interfaces/baseItem";
-import {MatButton} from "@angular/material/button";
+
 import {RouterLink} from "@angular/router";
+import {Subject} from "../../../features/subject/interfaces/subject";
+import {MatButton} from "@angular/material/button";
 
 @Component({
-    selector: 'app-card',
-    imports: [
-        AsyncPipe,
-        DatePipe,
-        MatCard,
-        MatCardContent,
-        MatCardHeader,
-        MatCardTitle,
-        MatGridList,
-        MatGridTile,
-        NgForOf,
-        NgIf,
-        TitleCasePipe,
-        RouterLink
-    ],
-    templateUrl: './card.component.html',
-    styleUrl: './card.component.scss',
+  selector: 'app-card',
+  imports: [
+    AsyncPipe,
+    DatePipe,
+    MatCard,
+    MatCardContent,
+    MatCardHeader,
+    MatCardTitle,
+    MatGridList,
+    MatGridTile,
+    NgForOf,
+    NgIf,
+    TitleCasePipe,
+    RouterLink,
+    MatButton
+  ],
+  templateUrl: './card.component.html',
+  styleUrl: './card.component.scss',
 })
 export class CardComponent implements OnInit {
-    cols: number = 2;
+  cols: number = 2;
 
-    @Input()
-    public items!: Observable<BaseItem[]>;
+  @Input()
+  public items!: Observable<BaseItem[]>;
+  @Output()
+  onBtnAction:EventEmitter<string> = new EventEmitter<string>();
 
-    constructor(
-        private breakpointObserver: BreakpointObserver
-    ) {
-    }
+  @Input()
+  canUnsubscribe!: boolean;
 
-    ngOnInit(): void {
-        this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.XSmall]).subscribe(result => {
-            this.cols = result.matches ? 1 : 2;
-        });
-    }
+  constructor(
+    private breakpointObserver: BreakpointObserver
+  ) {
+  }
 
-    isArticle(item: BaseItem): item is Article {
-        return (item as Article).author !== undefined;
-    }
+  ngOnInit(): void {
+    this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.XSmall]).subscribe(result => {
+      this.cols = result.matches ? 1 : 2;
+    });
+  }
 
-    isSubject(item: BaseItem): item is Subject {
-        return (item as Subject).description !== undefined;
-    }
+  isArticle(item: BaseItem): item is Article {
+    return (item as Article).author !== undefined;
+  }
+
+  isSubject(item: BaseItem): item is Subject {
+    return (item as Subject).description !== undefined;
+  }
+
+  onButtonClick(itemId: number) {
+    this.onBtnAction.emit(String(itemId));
+  }
 }

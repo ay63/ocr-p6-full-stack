@@ -1,10 +1,10 @@
 <mat-grid-list [cols]="cols" class="card-container" cols="2" gutterSize="16px" rowHeight="250">
   <mat-grid-tile *ngFor="let item of items | async">
-    <mat-card class="article-card">
+    <mat-card class="item-card">
       <mat-card-header>
         <!--Articles -->
         <mat-card-title *ngIf="isArticle(item)">
-          <a [routerLink]="['/article/detail-article',item.id]"> {{ item.title }} </a>
+          <a [routerLink]="['/article/detail-profile-article-article',item.id]"> {{ item.title }} </a>
         </mat-card-title>
 
         <!--Subject -->
@@ -25,8 +25,28 @@
           <p>{{ item.description }}</p>
         </ng-container>
       </mat-card-content>
+
+      <!--Subject -->
+      <div class="card-actions">
+        <ng-container *ngIf="isSubject(item)">
+          <button (click)="onButtonClick(item.id)" [disabled]="!canUnsubscribe && item.isSubscribed || (canUnsubscribe && item.isSubscribed === null)" class="subscribe-btn"
+                  color="primary"
+                  mat-raised-button>
+
+            <ng-container *ngIf="!canUnsubscribe">
+              S'abonner
+            </ng-container>
+
+            <ng-container *ngIf="canUnsubscribe">
+              {{ item.isSubscribed ? "Se désabonner" : "S'abonner" }}
+            </ng-container>
+
+          </button>
+        </ng-container>
+      </div>
     </mat-card>
   </mat-grid-tile>
+
 </mat-grid-list>
 
 <p *ngIf="!(items | async)?.length">Aucun contenu disponible !</p>

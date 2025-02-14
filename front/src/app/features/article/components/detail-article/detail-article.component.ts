@@ -14,7 +14,7 @@ import {ArticlePostComment} from "../../interfaces/article-post-comment";
 import {ArticleResponseComment} from "../../interfaces/article-response-comment";
 
 @Component({
-  selector: 'app-detail',
+  selector: 'app-detail-profile-article',
   imports: [
     MatCardContent,
     MatCard,
@@ -29,10 +29,10 @@ import {ArticleResponseComment} from "../../interfaces/article-response-comment"
     NgForOf,
     NgIf
   ],
-  templateUrl: './detail.component.html',
-  styleUrl: './detail.component.scss'
+  templateUrl: './detail-article.component.html',
+  styleUrl: './detail-article.component.scss'
 })
-export class DetailComponent implements OnInit {
+export class DetailArticleComponent implements OnInit {
 
   @Input()
   detail$!: Observable<ArticleDetail>;

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormComponent} from "./components/form/form.component";
+import {FormArticleComponent} from "./components/form-article/form-article.component";
 import {ArticleRoutingModule} from "./article-routing.module";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
@@ -22,7 +22,7 @@ const materialModule = [
 ];
 
 @NgModule({
-  declarations: [FormComponent],
+  declarations: [FormArticleComponent],
   imports: [
     CommonModule,
     ArticleRoutingModule,

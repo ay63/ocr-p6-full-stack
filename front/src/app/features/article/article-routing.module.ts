@@ -1,13 +1,13 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {FormComponent} from "./components/form/form.component";
-import {DetailComponent} from "./components/detail/detail.component";
-import {ListComponent} from "./components/list/list.component";
+import {FormArticleComponent} from "./components/form-article/form-article.component";
+import {DetailArticleComponent} from "./components/detail-article/detail-article.component";
+import {ListArticleComponent} from "./components/list-article/list-article.component";
 
 const routes: Routes = [
-  {title : 'AllArticles', path : '', component : ListComponent},
-  {title: 'CreateArticle', path: 'create-article', component: FormComponent},
-  {title: 'DetailArticle', path: 'detail-article/:id', component: DetailComponent},
+  {title : 'AllArticles', path : '', component : ListArticleComponent},
+  {title: 'CreateArticle', path: 'create-article', component: FormArticleComponent},
+  {title: 'DetailArticle', path: 'detail-profile-article-article/:id', component: DetailArticleComponent},
 
 ];
 

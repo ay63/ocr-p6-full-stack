@@ -1,22 +1,22 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
-import {Subject} from "../../../../core/interfaces/subject";
 import {SubjectApiService} from "../../../subject/services/subject-api.service";
 import {ArticleApiService} from "../../services/article-api.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {ArticleRequest} from "../../interfaces/article-request";
+import {BaseItem} from "../../../../core/interfaces/baseItem";
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrl: './form.component.scss',
+  selector: 'app-form-article',
+  templateUrl: './form-article.component.html',
+  styleUrl: './form-article.component.scss',
   standalone: false
 })
-export class FormComponent implements OnInit {
+export class FormArticleComponent implements OnInit {
 
-  subject$!: Observable<Subject[]>;
+  subject$!: Observable<BaseItem[]>;
   articleForm = new FormGroup({
     subject: new FormControl('', [Validators.required, Validators.minLength(3)]),
     title: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -32,7 +32,7 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subject$ = this.subjectApi.get();
+    this.subject$ = this.subjectApi.getAll();
   }
 
   onSubmit(): void {

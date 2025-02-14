@@ -1,0 +1,28 @@
+<div class="profile-container">
+  <mat-card>
+    <h2>Profil utilisateur</h2>
+    <form (ngSubmit)="saveProfile()" [formGroup]="profileForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Nom utilisation</mat-label>
+        <input formControlName="profileName" matInput>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput type="email">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Mot de passe</mat-label>
+        <input formControlName="password" matInput type="password">
+      </mat-form-field>
+
+      <div class="actions">
+        <button color="primary" mat-raised-button type="submit">Sauvegarder</button>
+        <button (click)="onLogout()" color="warn" mat-button>Se déconnecter</button>
+      </div>
+    </form>
+  </mat-card>
+  <hr/>
+</div>
+<app-card (onBtnAction)="onUnsubscribe($event)" [canUnsubscribe]="true" [items]="items$"/>

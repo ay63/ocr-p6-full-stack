@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {RegisterRequest} from "../../interface/request/registerRequest";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthApiService} from "../../services/auth-api.service";
+import {PATTERN_PASSWORD} from "../../../../core/utils/validator-form";
 
 
 @Component({
@@ -30,8 +31,8 @@ export class RegisterComponent {
     password: new FormControl("", [
       Validators.required,
       Validators.minLength(8),
-      Validators.maxLength(64)
-      //@todo add pattern for password
+      Validators.maxLength(64),
+      Validators.pattern(PATTERN_PASSWORD)
     ])
   })
 

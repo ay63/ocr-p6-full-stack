@@ -1,6 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
+import {BaseItem} from "../../../core/interfaces/baseItem";
 
 @Injectable(
   {
@@ -19,6 +20,11 @@ export class SubscriptionApiService {
 
   public deleteSubscription(subjectId: string, userId: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.pathService}/subject/${subjectId}/user/${userId}`)
+  }
+
+
+  public getProfileSubjectSubscription(): Observable<BaseItem[]> {
+    return this.httpClient.get<BaseItem[]>(`${this.pathService}/subscribed`)
   }
 
 }

@@ -4,7 +4,7 @@ import {BaseItem} from "../../../../core/interfaces/baseItem";
 import {SubjectApiService} from "../../services/subject-api.service";
 import {SubscriptionApiService} from "../../../subscription/services/subscription-api.service";
 import {AuthService} from "../../../auth/services/auth.service";
-import {UserSessionInfo} from "../../../../core/interfaces/userSessionInfo";
+import {AuthDataUser} from "../../../../core/interfaces/authDataUser";
 
 @Component({
   selector: 'app-list-article-subject',
@@ -16,9 +16,10 @@ export class ListSubjectComponent implements OnInit {
 
   items$!: Observable<BaseItem[]>;
 
-  constructor(private authService: AuthService,
-              private subjectApiService: SubjectApiService,
-              private subscriptionApiService: SubscriptionApiService) {
+  constructor(
+    private authService: AuthService,
+    private subjectApiService: SubjectApiService,
+    private subscriptionApiService: SubscriptionApiService) {
   }
 
   ngOnInit(): void {
@@ -26,10 +27,7 @@ export class ListSubjectComponent implements OnInit {
   }
 
   onSubscribe(subjectId: string): void {
-    const userSessionInfo: UserSessionInfo | null = this.authService.getUserSession()
-    if (!userSessionInfo) {
-      //@todo send error and redict
-    }
+    const userSessionInfo: AuthDataUser | null = this.authService.getAuthUser()
     const userId = userSessionInfo?.id
     if (userId === undefined) {
       return

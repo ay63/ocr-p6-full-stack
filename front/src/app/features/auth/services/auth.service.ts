@@ -1,55 +1,84 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {jwtDecode, JwtPayload} from "jwt-decode";
-import {UserSessionInfo} from "../../../core/interfaces/userSessionInfo";
+import {AuthDataUser} from "../../../core/interfaces/authDataUser";
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  public USER_SESSION_KEY: string = 'userSession';
+  private AUTH_DATA_USER_COOKIE: string = 'authDataUser';
 
-  public saveUserSession(userSessionInfo : UserSessionInfo): void {
-    sessionStorage.setItem(this.USER_SESSION_KEY,JSON.stringify(userSessionInfo));
+  private ONE_DAY_COOKIE_EXP: number = 1;
+
+  constructor(private cookieService: CookieService) {
   }
 
-  public getUserSession(): UserSessionInfo | null {
-    const userSession= sessionStorage.getItem(this.USER_SESSION_KEY);
+  public saveAuthUser(authDataUser: AuthDataUser): void {
+    const jsonData = JSON.stringify(authDataUser);
+    this.cookieService.set(this.AUTH_DATA_USER_COOKIE
+      , jsonData, {
+        expires: this.ONE_DAY_COOKIE_EXP,
+        path: '/',
+        secure: true,
+        sameSite: 'Strict'
+      });
+  }
 
-    if(!userSession){
+  public getAuthUser(): AuthDataUser | null {
+    const authDataUser = this.getAuthData();
+
+    if (!authDataUser) {
       return null;
     }
 
-    return JSON.parse(userSession);
+    return authDataUser;
   }
 
-  public getToken(): string | null
-  {
-    const userSession= sessionStorage.getItem(this.USER_SESSION_KEY);
-    if(!userSession){
+  public getToken(): string | null {
+    const authDataUser: AuthDataUser | null = this.getAuthData();
+    if (!authDataUser) {
       return null;
     }
 
-    const parseUserSession : UserSessionInfo = JSON.parse(userSession);
-    return parseUserSession.token;
+    return authDataUser.token;
   }
 
   public isAuthentication(): boolean {
-    const tokenInSession = this.getToken();
+    const token = this.getToken();
 
-    if(tokenInSession == null){
+    if (token == null) {
       return false;
     }
 
-    const decoded: JwtPayload  = jwtDecode(tokenInSession, { header: false });
+    const decoded: JwtPayload = jwtDecode(token, {header: false});
     const expiry = decoded.exp;
 
-    if(expiry == null || expiry == undefined){
+    if (expiry == null || expiry == undefined) {
       return false;
     }
     const now = new Date();
 
     return !(now.getTime() > expiry * 1000);
   }
+
+  setAuthData(authDataUser: AuthDataUser) {
+    const jsonData = JSON.stringify(authDataUser);
+    this.cookieService.set(this.AUTH_DATA_USER_COOKIE
+      , jsonData, {path: '/', expires: this.ONE_DAY_COOKIE_EXP});
+  }
+
+  getAuthData(): AuthDataUser | null {
+    const jsonData = this.cookieService.get(this.AUTH_DATA_USER_COOKIE
+    );
+    return jsonData ? JSON.parse(jsonData) : null;
+  }
+
+  clearAuthData() {
+    this.cookieService.delete(this.AUTH_DATA_USER_COOKIE
+      , '/');
+  }
+
 }
 

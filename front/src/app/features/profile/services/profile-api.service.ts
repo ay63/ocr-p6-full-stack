@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {BaseItem} from "../../../core/interfaces/baseItem";
 import {ProfileUpdate} from "../interface/profile-update";
+import {AuthDataUser} from "../../../core/interfaces/authDataUser";
 
 @Injectable(
   {
@@ -10,17 +11,12 @@ import {ProfileUpdate} from "../interface/profile-update";
   }
 )
 export class ProfileApiService {
-  private pathService = '/api/subscription';
+  private pathService = '/api/user';
 
   constructor(private httpClient: HttpClient) {
   }
 
-  public putProfile(profileUpdate: ProfileUpdate): Observable<ProfileUpdate[]> {
-    return this.httpClient.put<ProfileUpdate[]>(`${this.pathService}/update`, profileUpdate)
+  public putProfile(profileUpdate: ProfileUpdate): Observable<AuthDataUser> {
+    return this.httpClient.put<AuthDataUser>(`${this.pathService}/update`, profileUpdate)
   }
-
-  public getProfileSubjectSubscription(): Observable<BaseItem[]> {
-    return this.httpClient.get<BaseItem[]>(`${this.pathService}/subscribed`)
-  }
-
 }

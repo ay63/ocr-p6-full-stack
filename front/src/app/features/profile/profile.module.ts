@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatCard} from "@angular/material/card";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatInput} from "@angular/material/input";
 import {DetailProfileComponent} from "./components/detail-profile/detail-profile.component";
@@ -24,6 +24,7 @@ import {CardComponent} from "../../shared/components/card/card.component";
     MatButton,
     MatLabel,
     MatDivider,
+    MatError,
     CardComponent
   ]
 })

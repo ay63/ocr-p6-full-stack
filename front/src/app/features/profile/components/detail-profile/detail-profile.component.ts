@@ -4,11 +4,12 @@ import {Observable} from "rxjs";
 import {BaseItem} from "../../../../core/interfaces/baseItem";
 import {ProfileApiService} from "../../services/profile-api.service";
 import {SubscriptionApiService} from "../../../subscription/services/subscription-api.service";
-import {UserSessionInfo} from "../../../../core/interfaces/userSessionInfo";
+import {AuthDataUser} from "../../../../core/interfaces/authDataUser";
 import {AuthService} from "../../../auth/services/auth.service";
 import {ProfileUpdate} from "../../interface/profile-update";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
+import {PATTERN_PASSWORD} from "../../../../core/utils/validator-form";
 
 @Component({
   selector: 'app-detail-profile-article',
@@ -20,9 +21,9 @@ export class DetailProfileComponent implements OnInit {
 
   items$!: Observable<BaseItem[]>;
   profileForm = new FormGroup({
-    profileName: new FormControl('', [Validators.minLength(5)]),
+    profileName: new FormControl('', [Validators.minLength(3)]),
     email: new FormControl('', [Validators.email]),
-    password: new FormControl('', [Validators.minLength(8)]),
+    password: new FormControl('', [Validators.minLength(8), Validators.pattern(PATTERN_PASSWORD)]),
   });
 
   constructor(
@@ -34,8 +35,8 @@ export class DetailProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.items$ = this.profileApiService.getProfileSubjectSubscription()
-    const userSessionInfo = this.authService.getUserSession();
+    this.items$ = this.subscriptionApiService.getProfileSubjectSubscription()
+    const userSessionInfo = this.authService.getAuthUser();
     if (userSessionInfo != null) {
 
       this.profileForm.patchValue({
@@ -49,25 +50,20 @@ export class DetailProfileComponent implements OnInit {
     if (this.profileForm.valid) {
       const profile: ProfileUpdate = this.profileForm.value as ProfileUpdate;
       this.profileApiService.putProfile(profile).subscribe({
-        next: () => {
-          this.matSnackBar.open("Profile updated!", 'Close', {duration: 4000});
+        next: (response: AuthDataUser) => {
+            this.authService.saveAuthUser(response)
+            this.matSnackBar.open("Profile updated!", 'Close', {duration: 4000});
         }
-      })
+      });
     }
   }
 
   onUnsubscribe(subjectId: string): void {
-    const userSessionInfo: UserSessionInfo | null = this.authService.getUserSession()
-    if (!userSessionInfo) {
-      //@todo send error and redicte
-    }
+    const userSessionInfo: AuthDataUser | null = this.authService.getAuthUser()
     const userId = userSessionInfo?.id
-    if (userId === undefined) {
-      return
-    }
     this.subscriptionApiService.deleteSubscription(subjectId, String(userId)).subscribe({
       next: () => {
-        this.items$ = this.profileApiService.getProfileSubjectSubscription()
+        this.items$ = this.subscriptionApiService.getProfileSubjectSubscription()
       }
     })
   }

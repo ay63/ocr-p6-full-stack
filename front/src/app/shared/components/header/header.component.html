@@ -1,0 +1,13 @@
+<mat-toolbar color="white">
+  <span class="logo">
+    <img (click)="goHome()" class="logo-img" src="./assets/logo_p6.png" alt="mdd logo" >
+  </span>
+
+  <nav>
+    <button mat-button routerLink="/article">Articles</button>
+    <button mat-button routerLink="/subject">Thèmes</button>
+    <button mat-icon-button routerLink="/profile">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </nav>
+</mat-toolbar>

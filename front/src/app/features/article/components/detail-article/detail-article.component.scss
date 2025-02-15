@@ -1,0 +1,76 @@
+.article-card {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 16px;
+  gap: 16px;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.meta-info {
+  display: flex;
+  font-size: 14px;
+  color: gray;
+  gap: 16px;
+}
+
+
+.article-content {
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+
+.comments-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.comment-bubble {
+  background: #f1f1f1;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 80%;
+}
+
+/* ✍ Zone de saisie */
+.comment-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+.send-icon {
+  cursor: pointer;
+  color: purple;
+}

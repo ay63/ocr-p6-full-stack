@@ -19,14 +19,14 @@ public class ArticleResponseDto {
     private String title;
 
     @NotNull
-    private String subjectTitle;
+    private String subject;
 
     @NotBlank
     @Size(max = 2000)
     private String content;
 
     @NotNull
-    private String authorName;
+    private String author;
 
     private LocalDateTime createdAt;
 

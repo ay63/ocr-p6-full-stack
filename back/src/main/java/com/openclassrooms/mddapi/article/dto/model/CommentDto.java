@@ -20,6 +20,8 @@ public class CommentDto {
     @Positive
     @NotNull
     private Long articleId;
+    
+    private String profileName;
 
     private LocalDateTime createdAt;
 

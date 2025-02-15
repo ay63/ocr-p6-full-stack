@@ -29,12 +29,11 @@ public abstract class FeedMapper implements EntityMapper<FeedResponseDto, Articl
     @Autowired
     protected UserService userService;
 
-    @Mapping(target = "author", expression = "java(getAuthorFromId(feedResponseDto.getAuthor()))")
     @Mapping(target = "subject", expression = "java(getSubjectId(feedResponseDto.getSubject()))")
     public abstract Article toEntity(FeedResponseDto feedResponseDto);
 
     @Mapping(source = "author.profileName", target = "author")
-    @Mapping(source = "subject.id", target = "subject")
+    @Mapping(source = "subject.title", target = "subject")
     public abstract FeedResponseDto toDto(Article article);
 
     public User getAuthorFromId(Long authorId) {

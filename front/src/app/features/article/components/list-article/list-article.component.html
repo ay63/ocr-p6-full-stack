@@ -1,0 +1,14 @@
+<section class="list-article-container">
+  <div class="list-article-btn">
+    <div class="create-article">
+      <button routerLink="/article/create-article" color="primary" mat-raised-button>Créer un article</button>
+    </div>
+    <div class="list-article-sort">
+      <span>Trier par</span>
+      <button mat-icon-button>
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+    </div>
+  </div>
+  <app-card [items]="items$" />
+</section>

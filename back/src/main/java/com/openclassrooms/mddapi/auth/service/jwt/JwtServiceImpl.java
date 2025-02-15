@@ -35,6 +35,7 @@ public class JwtServiceImpl implements JwtService {
                 .expiresAt(now.plus(1, ChronoUnit.DAYS))
                 .subject(userDetails.getUsername())
                 .claim("id", userDetails.getId())
+                .claim("email", userDetails.getEmail())
                 .claim("profileName", userDetails.getProfileName())
                 .build();
 

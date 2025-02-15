@@ -57,7 +57,7 @@ public class SpringSecurityConfig {
      * @return HttpSecurity
      */
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -83,7 +83,7 @@ public class SpringSecurityConfig {
      * @throws Exception
      */
     @Bean
-    public RSAPublicKey publicKey() throws Exception {
+    RSAPublicKey publicKey() throws Exception {
 
         String publicKeyContent = readRsaKeyFromPath(publicKeyPath);
         String publicKey = this.getSanitizeRsaKey(publicKeyContent, PUBLIC_KEY);
@@ -106,7 +106,7 @@ public class SpringSecurityConfig {
      * @throws Exception
      */
     @Bean
-    public RSAPrivateKey privateKey() throws Exception {
+    RSAPrivateKey privateKey() throws Exception {
 
         String privateKeyContent = readRsaKeyFromPath(privateKeyPath);
         String privateKey = this.getSanitizeRsaKey(privateKeyContent, PRIVATE_KEY);
@@ -133,7 +133,7 @@ public class SpringSecurityConfig {
     }
 
     @Bean
-    public JwtEncoder jwtEncoder(RSAPublicKey publicKey, RSAPrivateKey privateKey) {
+    JwtEncoder jwtEncoder(RSAPublicKey publicKey, RSAPrivateKey privateKey) {
         RSAKey rsaKey = new RSAKey.Builder(publicKey)
                 .privateKey(privateKey)
                 .keyID(UUID.randomUUID().toString())
@@ -144,18 +144,18 @@ public class SpringSecurityConfig {
     }
 
     @Bean
-    public JwtDecoder jwtDecoder(RSAPublicKey publicKey) {
+    JwtDecoder jwtDecoder(RSAPublicKey publicKey) {
         return NimbusJwtDecoder.withPublicKey(publicKey)
                 .signatureAlgorithm(SignatureAlgorithm.RS512).build();
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }

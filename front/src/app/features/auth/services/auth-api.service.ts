@@ -2,7 +2,7 @@ import {HttpClient} from "@angular/common/http";
 import {RegisterRequest} from "../interface/request/registerRequest";
 import {Observable} from "rxjs";
 import {LoginRequest} from "../interface/request/loginRequest";
-import {UserSessionInfo} from "../../../core/interfaces/user-session-Info";
+import {AuthDataUser} from "../../../core/interfaces/authDataUser";
 import {Injectable} from "@angular/core";
 
 @Injectable(
@@ -19,7 +19,7 @@ export class AuthApiService{
     return this.httpClient.post<void>(`${this.pathService}/register`, registerRequest);
   }
 
-  public login(loginRequest: LoginRequest): Observable<UserSessionInfo> {
-    return this.httpClient.post<UserSessionInfo>(`${this.pathService}/login`, loginRequest);
+  public login(loginRequest: LoginRequest): Observable<AuthDataUser> {
+    return this.httpClient.post<AuthDataUser>(`${this.pathService}/login`, loginRequest);
   }
 }

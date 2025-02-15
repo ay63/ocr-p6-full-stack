@@ -1,0 +1,45 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  height: auto;
+
+  mat-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: none;
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+  }
+
+  hr{
+    width: 95vw;
+    border: 1px solid black;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .profile-container {
+    height: auto;
+    padding: 20px;
+  }
+}

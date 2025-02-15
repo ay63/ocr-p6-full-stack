@@ -1,0 +1,21 @@
+<form [formGroup]="articleForm" (ngSubmit)="onSubmit()" class="form-container">
+  <h1>Créer un nouvel article</h1>
+  <mat-form-field appearance="fill">
+    <mat-label>Thème</mat-label>
+    <mat-select formControlName="subject">
+      <mat-option *ngFor="let subject of subject$ | async" [value]="subject.id">{{ subject.title }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Titre</mat-label>
+    <input matInput formControlName="title" placeholder="Titre de l'article">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Contenu</mat-label>
+    <textarea matInput formControlName="content" placeholder="Contenu de l'article"></textarea>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="articleForm.invalid">Créer</button>
+</form>

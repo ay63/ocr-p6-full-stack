@@ -22,6 +22,8 @@ public class SubjectDto {
     @Size(max = 256)
     private String description;
 
+    private Boolean isSubscribed;
+
     @JsonIgnore
     private List<ArticleResponseDto> articles;
 }

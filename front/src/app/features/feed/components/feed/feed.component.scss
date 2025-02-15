@@ -1,0 +1,31 @@
+.list-article-container {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px;
+}
+
+.list-article-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.list-article-sort {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 480px) {
+  .list-article-btn {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .list-article-btn {
+    padding: 8px;
+  }
+}

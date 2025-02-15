@@ -1,4 +1,4 @@
-export interface UserSessionInfo {
+export interface AuthDataUser {
   id: number;
   email: string;
   profileName: string;

@@ -1,6 +1,6 @@
 package com.openclassrooms.mddapi.subscription.service;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -76,5 +76,18 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         }
 
         this.subscriptionRepository.deleteByUserIdAndSubjectId(user.getId(), subject.getId());
+    }
+
+    @Override
+    public boolean isUserSubscribed(Long userId, Long subjectId) {
+        if (userId == null || subjectId == null) {
+            return false;
+        }
+        return subscriptionRepository.existsByUserIdAndSubjectId(userId, subjectId);
+    }
+
+    @Override
+    public List<Subject> findAllSubscribeSubject(Long userId) {
+        return subscriptionRepository.findAllSubscribeSubject(userId);
     }
 }

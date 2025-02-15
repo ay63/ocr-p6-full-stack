@@ -8,7 +8,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 
 import com.openclassrooms.mddapi.auth.dto.request.AuthLoginRequestDto;
 import com.openclassrooms.mddapi.auth.dto.request.AuthRegistrationRequestDto;
-import com.openclassrooms.mddapi.auth.dto.request.AuthUpdateRequestDto;
 import com.openclassrooms.mddapi.auth.dto.response.AuthResponse;
-import com.openclassrooms.mddapi.auth.mapper.AuthUpdateMapper;
 import com.openclassrooms.mddapi.auth.service.jwt.JwtService;
 import com.openclassrooms.mddapi.share.dto.response.MessageResponse;
 import com.openclassrooms.mddapi.user.model.User;
@@ -36,19 +33,17 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-    private final AuthUpdateMapper authUpdateMapper;
 
     public AuthController(
             UserService userService,
             PasswordEncoder passwordEncoder,
             JwtService jwtService,
-            AuthenticationManager authenticationManager,
-            AuthUpdateMapper authUpdateMapper) {
+            AuthenticationManager authenticationManager) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
-        this.authUpdateMapper = authUpdateMapper;
+        ;
     }
 
     @PostMapping("login")
@@ -89,23 +84,6 @@ public class AuthController {
         userService.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User created !"));
-    }
-
-    @PutMapping(path = "/update")
-    public ResponseEntity<?> update(@Valid @RequestBody AuthUpdateRequestDto authUpdateRequestDto,
-            Authentication authentication) {
-
-        if (authentication.isAuthenticated()) {
-            User user = authUpdateMapper.toEntity(authUpdateRequestDto);
-
-            if (user == null) {
-                return ResponseEntity.notFound().build();
-            }
-            userService.save(user);
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.badRequest().build();
     }
 
 }

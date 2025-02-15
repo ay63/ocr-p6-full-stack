@@ -3,7 +3,7 @@ import {CardComponent} from "../../../../shared/components/card/card.component";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
-import {Observable} from "rxjs";
+import {Observable, shareReplay} from "rxjs";
 import {BaseItem} from "../../../../core/interfaces/baseItem";
 import {ArticleApiService} from "../../services/article-api.service";
 

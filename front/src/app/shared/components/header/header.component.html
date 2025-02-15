@@ -1,13 +1,33 @@
-<mat-toolbar color="white">
+<mat-toolbar>
   <span class="logo">
-    <img (click)="goHome()" class="logo-img" src="./assets/logo_p6.png" alt="mdd logo" >
+    <img (click)="goHome()" alt="mdd logo" class="logo-img"  src="./assets/logo_p6.png">
   </span>
-
-  <nav>
-    <button mat-button routerLink="/article">Articles</button>
-    <button mat-button routerLink="/subject">Thèmes</button>
-    <button mat-icon-button routerLink="/profile">
-      <mat-icon>account_circle</mat-icon>
+  <nav *ngIf="!isMobile" class="header-menu">
+    <button (click)="OnClose()" mat-button routerLink="/article" routerLinkActive="isActive">Articles</button>
+    <button (click)="OnClose()" mat-button routerLink="/subject" routerLinkActive="isActive">Thèmes</button>
+    <button (click)="OnClose()" mat-icon-button routerLink="/profile">
+      <mat-icon class="profile-button">account_circle</mat-icon>
     </button>
   </nav>
+  <button (click)="toggleMenu()" *ngIf="isMobile" aria-label="Menu icon" mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
 </mat-toolbar>
+
+<mat-sidenav-container autosize="true">
+  <mat-sidenav class="expanded" mode="over" position="end">
+    <mat-nav-list>
+      <button (click)="OnClose()" mat-button routerLink="/article" routerLinkActive="isActive">Articles</button>
+      <button (click)="OnClose()" mat-button routerLink="/subject" routerLinkActive="isActive">Thèmes</button>
+    </mat-nav-list>
+    <div class="profile-mobile-button ">
+      <button (click)="OnClose()" mat-icon-button routerLink="/profile">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

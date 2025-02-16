@@ -1,17 +1,17 @@
 <div class="register-container">
   <h2>Inscription</h2>
-  <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill">
+  <form (ngSubmit)="onSubmit()" [formGroup]="registerForm" class="register-form">
+    <mat-form-field appearance="outline">
       <mat-label>Nom utilisateur</mat-label>
-      <input matInput formControlName="username" required>
+      <input formControlName="username" matInput required>
       <mat-error *ngIf="registerForm.get('username')?.hasError('required')">
         Le nom d'utilisateur est requis.
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input matInput formControlName="email" type="email" required>
+      <input formControlName="email" matInput required type="email">
       <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
         L'email est requis.
       </mat-error>
@@ -20,17 +20,16 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Mot de passe</mat-label>
-      <input matInput formControlName="password" type="password" required>
+      <input formControlName="password" matInput required type="password">
       <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
         Le mot de passe est requis.
       </mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">
+    <button [disabled]="registerForm.invalid" class="btn-default-color" mat-raised-button type="submit">
       S'inscrire
     </button>
-    <p *ngIf="onError" class="error">Un erreur s'est produite</p>
   </form>
 </div>

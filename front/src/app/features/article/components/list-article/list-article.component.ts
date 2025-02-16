@@ -3,9 +3,12 @@ import {CardComponent} from "../../../../shared/components/card/card.component";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
-import {Observable, shareReplay} from "rxjs";
+import {Observable} from "rxjs";
 import {BaseItem} from "../../../../core/interfaces/baseItem";
 import {ArticleApiService} from "../../services/article-api.service";
+import {
+  UnsubscribeObservableService
+} from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
 
 @Component({
   selector: 'app-list-article',
@@ -20,15 +23,16 @@ import {ArticleApiService} from "../../services/article-api.service";
   styleUrl: './list-article.component.scss',
 })
 export class ListArticleComponent implements OnInit {
-  items$!:Observable<BaseItem[]>;
+  items$!: Observable<BaseItem[]>;
 
   constructor(
     private articleApiService: ArticleApiService,
+    private unsubscribeObservable: UnsubscribeObservableService
   ) {
   }
 
   ngOnInit(): void {
-    this.items$ =  this.articleApiService.getAllArticles()
+    this.items$ = this.articleApiService.getAllArticles().pipe(this.unsubscribeObservable.takeUntilDestroy)
   }
 
 }

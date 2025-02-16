@@ -1,10 +1,10 @@
-.center {
+.home-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  height: 100vh;
+  height: 100%;
 }
 
 .responsive-img {
@@ -13,7 +13,7 @@
   width: 600px;
 }
 
-.home-btn-container{
+.home-btn-container {
   display: flex;
   flex-direction: row;
   justify-content: center;

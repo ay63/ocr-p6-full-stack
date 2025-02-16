@@ -5,6 +5,9 @@ import {AuthDataUser} from "../../../../core/interfaces/authDataUser";
 import {Router} from "@angular/router";
 import {LoginRequest} from "../../interface/request/loginRequest";
 import {AuthApiService} from "../../services/auth-api.service";
+import {
+  UnsubscribeObservableService
+} from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
 
 @Component({
   selector: 'app-login',
@@ -14,13 +17,13 @@ import {AuthApiService} from "../../services/auth-api.service";
 })
 export class LoginComponent {
   loginForm: FormGroup;
-  public onError: boolean = false
 
   constructor(
     private fb: FormBuilder,
     private authApiService: AuthApiService,
     private authService: AuthService,
     private router: Router,
+    private unsubscribeObservable: UnsubscribeObservableService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.email, Validators.required]],
@@ -31,12 +34,11 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       const loginRequest = this.loginForm.value as LoginRequest;
-      this.authApiService.login(loginRequest).subscribe({
+      this.authApiService.login(loginRequest).pipe(this.unsubscribeObservable.takeUntilDestroy).subscribe({
         next: (response: AuthDataUser) => {
           this.authService.saveAuthUser(response)
           this.router.navigate(['/feed'])
-        },
-        error: _ => this.onError = true,
+        }
       });
     }
   }

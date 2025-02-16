@@ -5,8 +5,12 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {Router, RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {MatNavList} from "@angular/material/list";
-import {NgIf, NgOptimizedImage} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {AuthService} from "../../../features/auth/services/auth.service";
+import {
+  UnsubscribeObservableService
+} from "../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
 
 @Component({
   selector: 'app-header',
@@ -34,8 +38,13 @@ export class HeaderComponent implements OnInit {
   sidenav!: MatSidenav;
   isMobile = true;
   isCollapsed = true;
+  isLoggedIn = false;
+  allowedNotLoginHeader: string[] = ['/register', '/login']
+  cantShowHeader: boolean = false;
 
   constructor(
+    private unsubscribeObservable: UnsubscribeObservableService,
+    private authService: AuthService,
     private breakpointObserver: BreakpointObserver,
     private router: Router) {
   }
@@ -45,9 +54,19 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
-      this.isMobile = result.matches;
-    });
+    this.breakpointObserver.observe([Breakpoints.Handset])
+      .pipe(this.unsubscribeObservable.takeUntilDestroy)
+      .subscribe(result => {
+        this.isMobile = result.matches;
+      });
+
+    this.router.events
+      .pipe(this.unsubscribeObservable.takeUntilDestroy)
+      .subscribe(() => {
+        this.cantShowHeader = this.allowedNotLoginHeader.includes(this.router.url)
+      });
+
+    this.isLoggedIn = this.authService.isAuthentication()
   }
 
   OnClose(): void {

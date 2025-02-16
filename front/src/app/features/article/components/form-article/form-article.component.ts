@@ -7,6 +7,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {ArticleRequest} from "../../interfaces/article-request";
 import {BaseItem} from "../../../../core/interfaces/baseItem";
+import {
+  UnsubscribeObservableService
+} from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
 
 @Component({
   selector: 'app-form-article',
@@ -28,6 +31,7 @@ export class FormArticleComponent implements OnInit {
     private articleApi: ArticleApiService,
     private matSnackBar: MatSnackBar,
     private router: Router,
+    private unsubscribeObservable: UnsubscribeObservableService
   ) {
   }
 
@@ -37,8 +41,8 @@ export class FormArticleComponent implements OnInit {
 
   onSubmit(): void {
     if (this.articleForm.valid) {
-      const articleRequest = this.articleForm.value as  unknown as ArticleRequest;
-      this.articleApi.post(articleRequest).subscribe({
+      const articleRequest = this.articleForm.value as unknown as ArticleRequest;
+      this.articleApi.post(articleRequest).pipe(this.unsubscribeObservable.takeUntilDestroy).subscribe({
         next: (_: void) => {
           this.matSnackBar.open("Article created !", 'Close', {duration: 4000});
           this.router.navigate(['/feed'])

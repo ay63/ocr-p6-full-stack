@@ -6,12 +6,15 @@ import {ArticleApiService} from "../../services/article-api.service";
 import {ActivatedRoute} from "@angular/router";
 import {MatCard, MatCardContent} from "@angular/material/card";
 import {MatInput} from "@angular/material/input";
-import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, DatePipe, NgClass, NgForOf} from "@angular/common";
 import {MatDivider} from "@angular/material/divider";
 import {MatIcon} from "@angular/material/icon";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ArticlePostComment} from "../../interfaces/article-post-comment";
 import {ArticleResponseComment} from "../../interfaces/article-response-comment";
+import {
+  UnsubscribeObservableService
+} from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
 
 @Component({
   selector: 'app-detail-profile-article',
@@ -26,8 +29,7 @@ import {ArticleResponseComment} from "../../interfaces/article-response-comment"
     FormsModule,
     ReactiveFormsModule,
     NgClass,
-    NgForOf,
-    NgIf
+    NgForOf
   ],
   templateUrl: './detail-article.component.html',
   styleUrl: './detail-article.component.scss'
@@ -37,7 +39,6 @@ export class DetailArticleComponent implements OnInit {
   @Input()
   detail$!: Observable<ArticleDetail>;
   articleId!: string;
-  onError: boolean = false;
 
   @Input() comments$!: Observable<ArticleResponseComment[]>;
 
@@ -47,8 +48,9 @@ export class DetailArticleComponent implements OnInit {
 
   constructor(private httpClient: HttpClient,
               private articleApiService: ArticleApiService,
-              private route: ActivatedRoute
-              ) {
+              private route: ActivatedRoute,
+              private unsubscribeObservable: UnsubscribeObservableService
+  ) {
   }
 
   ngOnInit(): void {
@@ -58,8 +60,8 @@ export class DetailArticleComponent implements OnInit {
       distinctUntilChanged()
     ).subscribe(id => {
       this.articleId = id!;
-      this.detail$ = this.articleApiService.getArticleById(this.articleId);
-      this.comments$ = this.articleApiService.getCommentsByArticleId(this.articleId);
+      this.detail$ = this.articleApiService.getArticleById(this.articleId).pipe(this.unsubscribeObservable.takeUntilDestroy);
+      this.comments$ = this.articleApiService.getCommentsByArticleId(this.articleId).pipe(this.unsubscribeObservable.takeUntilDestroy);
     });
   }
 
@@ -71,13 +73,12 @@ export class DetailArticleComponent implements OnInit {
     if (this.commentForm.valid) {
       const comment: ArticlePostComment = this.commentForm.value as ArticlePostComment;
       comment.articleId = this.articleId;
-        this.articleApiService.postArticleComment(comment).subscribe({
-          next: result => {
-           this.comments$ = this.articleApiService.getCommentsByArticleId(this.articleId)
-            this.commentForm.reset();
-          },
-          error: () => this.onError = true
-        })
+      this.articleApiService.postArticleComment(comment).pipe(this.unsubscribeObservable.takeUntilDestroy).subscribe({
+        next: result => {
+          this.comments$ = this.articleApiService.getCommentsByArticleId(this.articleId)
+          this.commentForm.reset();
+        }
+      })
     }
   }
 

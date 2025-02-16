@@ -28,14 +28,17 @@
       </mat-form-field>
 
       <div class="actions">
-        <button [disabled]="profileForm.invalid" color="primary" mat-raised-button type="submit">
+        <button [disabled]="profileForm.invalid" class="btn-default-color" mat-raised-button type="submit">
           Sauvegarder
         </button>
         <button (click)="onLogout()" color="warn" mat-button>Se déconnecter</button>
       </div>
     </form>
   </mat-card>
-  <hr/>
 </div>
+<hr/>
 
-<app-card (onBtnAction)="onUnsubscribe($event)" [canUnsubscribe]="true" [items]="items$"/>
+<div class="subscribe-container">
+  <h1>Abonnements</h1>
+  <app-card (onBtnAction)="onUnsubscribe($event)" [canUnsubscribe]="true" [cardItems$]="items$"/>
+</div>

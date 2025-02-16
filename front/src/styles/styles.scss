@@ -1,5 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
 @use "sanitize";
+
+$base-btn-color: #7763C5;
 
 * {
   box-sizing: border-box;
@@ -20,3 +21,35 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+.btn-default-color{
+  background-color: $base-btn-color !important;
+  color: white !important;
+}
+
+
+.mat-mdc-dialog-container,
+.mat-mdc-menu-panel,
+.mat-mdc-select-panel,
+.mat-mdc-tooltip,
+.mat-mdc-button,
+.mat-mdc-fab,
+.mat-mdc-sidenav,
+.mat-mdc-toolbar,
+.mat-mdc-expansion-panel,
+.mat-mdc-snack-bar-container,
+.mat-mdc-chip {
+  background-color: white !important;
+  color: black !important;
+}
+
+.mat-drawer-container,
+.mat-mdc-dialog-content,
+.mat-mdc-list-item,
+.mat-mdc-tab-label,
+.mat-mdc-stepper-header,
+.mat-mdc-autocomplete-panel {
+  background-color: white !important;
+  color: black !important;
+}
+

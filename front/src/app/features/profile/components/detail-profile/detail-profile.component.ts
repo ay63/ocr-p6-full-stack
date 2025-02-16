@@ -69,7 +69,7 @@ export class DetailProfileComponent implements OnInit {
   }
 
   onLogout(): void {
-    sessionStorage.removeItem('userSession')
+    this.authService.clearAuthData()
     this.router.navigate(['/']);
   }
 }

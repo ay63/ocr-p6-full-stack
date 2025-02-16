@@ -10,6 +10,7 @@ import {BaseItem} from "../../../core/interfaces/baseItem";
 import {RouterLink} from "@angular/router";
 import {Subject} from "../../../features/subject/interfaces/subject";
 import {MatButton} from "@angular/material/button";
+import {TruncatePipe} from "../../../core/pipe/truncate.pipe";
 
 @Component({
   selector: 'app-card',
@@ -26,7 +27,8 @@ import {MatButton} from "@angular/material/button";
     NgIf,
     TitleCasePipe,
     RouterLink,
-    MatButton
+    MatButton,
+    TruncatePipe
   ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
@@ -35,7 +37,7 @@ export class CardComponent implements OnInit {
   cols: number = 2;
 
   @Input()
-  public items!: Observable<BaseItem[]>;
+  public cardItems$!: Observable<BaseItem[]>;
   @Output()
   onBtnAction:EventEmitter<string> = new EventEmitter<string>();
 

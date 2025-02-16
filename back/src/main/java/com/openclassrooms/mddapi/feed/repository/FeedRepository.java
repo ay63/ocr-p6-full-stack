@@ -12,6 +12,6 @@ import com.openclassrooms.mddapi.article.model.Article;
 @Repository
 public interface FeedRepository extends JpaRepository<Article, Long> {
     
-    @Query("SELECT a FROM Article a WHERE a.subject.id IN (SELECT s.subject.id FROM Subscription s WHERE s.user.id = :userId)")
+    @Query("SELECT a FROM Article a WHERE a.subject.id IN (SELECT s.subject.id FROM Subscription s WHERE s.user.id = :userId) ORDER BY a.createdAt DESC")
     List<Article> findFeedByUserId(@Param("userId") Long userId);
 }

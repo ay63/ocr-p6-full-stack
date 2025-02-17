@@ -35,26 +35,24 @@ mat-grid-tile {
   padding: 16px;
 }
 
+.not-items {
+  font-size: 14px;
+  font-weight: bold;
+  color: #673ab7;
+}
+
 .title {
   color: black;
   font-size: 16px;
-
-
+  font-weight: 700;
 }
-
 
 .subtitle {
   color: black;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .content {
   font-size: 14px;
   color: black;
-}
-
-.not-items{
-  font-size: 14px;
-  font-weight: bold;
-  color: #673ab7;
 }

@@ -1,16 +1,27 @@
 <section class="list-article-container">
   <div class="list-article-btn">
     <div class="create-article">
-      <button routerLink="/article/create-article" color="primary" mat-raised-button>Créer un article</button>
-    </div>
-    <div class="list-article-sort">
-      <span>Trier par</span>
-      <button mat-icon-button>
-        <mat-icon>arrow_downward</mat-icon>
+      <button class="btn-default" mat-raised-button routerLink="/article/create-article">Créer un article
       </button>
     </div>
+    <div>
+      <mat-menu #sortMenu="matMenu">
+        <button (click)="onSort('asc')" mat-menu-item>
+          <mat-icon>arrow_upward</mat-icon>
+          Date croissante
+        </button>
+        <button (click)="onSort('desc')" mat-menu-item>
+          <mat-icon>arrow_downward</mat-icon>
+          Date décroissante
+        </button>
+      </mat-menu>
+      <div class="list-article-sort">
+        <span>Trier par</span>
+        <button [matMenuTriggerFor]="sortMenu" mat-icon-button>
+          <mat-icon>arrow_downward</mat-icon>
+        </button>
+      </div>
+    </div>
   </div>
-  <div class="test">
-    <app-card [cardItems$]="items$" />
-  </div>
+  <app-card [cardItems$]="items$"/>
 </section>

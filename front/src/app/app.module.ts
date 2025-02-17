@@ -11,7 +11,7 @@ import {AuthModule} from "./features/auth/auth.module";
 import {FeedModule} from "./features/feed/feed.module";
 import {JwtInterceptor} from "./core/interceptors/jwt/jwt.interceptor";
 import {ArticleModule} from "./features/article/article.module";
-import {HeaderComponent} from "./shared/components/header/header.component";
+import {MainLayoutComponent} from "./shared/components/main-layout/main-layout.component";
 import {SubjectModule} from "./features/subject/subject.module";
 import {ProfileModule} from "./features/profile/profile.module";
 import {ErrorInterceptor} from "./core/interceptors/error/error.interceptor";
@@ -33,7 +33,7 @@ const materialModule = [
     SubjectModule,
     ProfileModule,
     BrowserAnimationsModule,
-    HeaderComponent,
+    MainLayoutComponent,
     ...materialModule,
   ],
   bootstrap: [AppComponent],

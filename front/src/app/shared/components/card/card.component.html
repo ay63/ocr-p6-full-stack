@@ -37,7 +37,7 @@
           <ng-container *ngIf="isSubject(item)">
             <button (click)="onButtonClick(item.id)"
                     [disabled]="!canUnsubscribe && item.isSubscribed || (canUnsubscribe && item.isSubscribed === null)"
-                    class="subscribe-btn btn-default-color"
+                    class="subscribe-btn btn-default"
                     mat-raised-button>
 
               <ng-container *ngIf="!canUnsubscribe">

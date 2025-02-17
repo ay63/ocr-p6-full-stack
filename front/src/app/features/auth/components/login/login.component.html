@@ -1,3 +1,4 @@
+<app-go-back-button></app-go-back-button>
 <div class="login-container">
   <h2>Se connecter</h2>
   <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="login-form">
@@ -13,7 +14,7 @@
       <mat-error *ngIf="loginForm.get('password')?.invalid">Le mot de passe doit avoir au moins 8 caractères</mat-error>
     </mat-form-field>
 
-    <button [disabled]="loginForm.invalid" class="btn-default-color" mat-raised-button type="submit">Se connecter
+    <button [disabled]="loginForm.invalid" class="btn-default" mat-raised-button type="submit">Se connecter
     </button>
   </form>
 </div>

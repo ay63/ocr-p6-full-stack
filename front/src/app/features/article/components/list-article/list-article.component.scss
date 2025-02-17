@@ -17,6 +17,11 @@
 .list-article-sort {
   display: flex;
   align-items: center;
+
+  span {
+    font-size: 16px;
+    font-weight: 700;
+  }
 }
 
 @media (max-width: 480px) {

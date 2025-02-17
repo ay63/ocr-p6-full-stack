@@ -1,3 +1,4 @@
+<app-go-back-button></app-go-back-button>
 <form (ngSubmit)="onSubmit()" [formGroup]="articleForm" class="form-container">
   <h1>Créer un nouvel article</h1>
   <mat-form-field appearance="outline">
@@ -29,5 +30,5 @@
     </mat-error>
   </mat-form-field>
 
-  <button [disabled]="articleForm.invalid" class="btn-default-color" mat-raised-button type="submit">Créer</button>
+  <button [disabled]="articleForm.invalid" class="btn-default" mat-raised-button type="submit">Créer</button>
 </form>

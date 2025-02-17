@@ -8,7 +8,8 @@ import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatButton} from "@angular/material/button";
-import {HeaderComponent} from "../../shared/components/header/header.component";
+import {MainLayoutComponent} from "../../shared/components/main-layout/main-layout.component";
+import {GoBackButtonComponent} from "../../shared/components/go-back-button/go-back-button.component";
 
 
 const materialModule = [
@@ -23,14 +24,15 @@ const materialModule = [
 
 @NgModule({
   declarations: [FormArticleComponent],
-    imports: [
-        CommonModule,
-        ArticleRoutingModule,
-        ...materialModule,
-        ReactiveFormsModule,
-        HeaderComponent,
-        MatError
-    ],
+  imports: [
+    CommonModule,
+    ArticleRoutingModule,
+    ...materialModule,
+    ReactiveFormsModule,
+    MainLayoutComponent,
+    MatError,
+    GoBackButtonComponent
+  ],
 })
 export class ArticleModule {
 }

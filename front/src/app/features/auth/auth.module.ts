@@ -8,6 +8,7 @@ import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {ReactiveFormsModule} from "@angular/forms";
+import {GoBackButtonComponent} from "../../shared/components/go-back-button/go-back-button.component";
 
 const materialModule = [
   MatButton,
@@ -23,12 +24,13 @@ const materialModule = [
     RegisterComponent,
     LoginComponent
   ],
-  imports: [
-    CommonModule,
-    AuthRoutingModule,
-    ReactiveFormsModule,
-    ...materialModule,
-  ],
+    imports: [
+        CommonModule,
+        AuthRoutingModule,
+        ReactiveFormsModule,
+        ...materialModule,
+        GoBackButtonComponent,
+    ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
   ]

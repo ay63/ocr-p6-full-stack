@@ -7,8 +7,7 @@ $base-btn-color: #7763C5;
 }
 
 body {
-  font-family: Roboto,
-  "Helvetica Neue", sans-serif;
+  font-family: Inter, "Helvetica Neue", sans-serif;
   height: 100vh;
   width: 100vw;
 }
@@ -24,12 +23,6 @@ a {
 
 a:hover {
   text-decoration: underline;
-}
-
-
-.btn-default-color {
-  background-color: $base-btn-color !important;
-  color: white !important;
 }
 
 
@@ -56,5 +49,15 @@ a:hover {
 .mat-mdc-autocomplete-panel {
   background-color: white !important;
   color: black !important;
+}
+
+.isActive {
+  color: #673ab7 !important;
+}
+
+.btn-default {
+  background-color: $base-btn-color !important;
+  color: white !important;
+  border-radius: 8px;
 }
 

@@ -16,7 +16,6 @@ import {
   standalone: false
 })
 export class ListSubjectComponent implements OnInit {
-
   items$!: Observable<BaseItem[]>;
 
   constructor(
@@ -39,7 +38,7 @@ export class ListSubjectComponent implements OnInit {
     }
 
     this.subscriptionApiService.postSubscription(subjectId, String(userId)).pipe(this.unsubscribeObservable.takeUntilDestroy).subscribe({
-      next: () => this.items$ = this.subjectApiService.getAll()
+      next: () => this.items$ = this.subjectApiService.getAll().pipe(this.unsubscribeObservable.takeUntilDestroy)
     })
   }
 

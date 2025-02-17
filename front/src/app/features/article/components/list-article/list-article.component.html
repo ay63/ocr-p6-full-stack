@@ -16,12 +16,12 @@
         </button>
       </mat-menu>
       <div class="list-article-sort">
-        <span>Trier par</span>
+        <span class="title">Trier par</span>
         <button [matMenuTriggerFor]="sortMenu" mat-icon-button>
           <mat-icon>arrow_downward</mat-icon>
         </button>
       </div>
     </div>
   </div>
-  <app-card [cardItems$]="items$"/>
+  <app-card  [itemType]="{type: 'article'}" [cardItems$]="items$"/>
 </section>

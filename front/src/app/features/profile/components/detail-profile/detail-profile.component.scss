@@ -39,6 +39,10 @@ mat-card {
     flex-direction: column;
     justify-content: center;
     gap: 16px;
+
+    .logout-btn {
+      color: #A40F0F !important;
+    }
   }
 }
 
@@ -51,7 +55,6 @@ button {
   width: 50%;
   align-self: center;
 }
-
 
 
 @media (max-width: 600px) {

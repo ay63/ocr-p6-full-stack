@@ -2,27 +2,26 @@
 <mat-card class="article-card">
   <span class="title">Titre de l’article sélectionné</span>
   <div class="meta-info">
-    <span class="subtitle">{{ (detail$ | async)?.createdAt | date:'dd/MM/yyyy' }}</span>
-    <span class="subtitle">{{ (detail$ | async)?.authorName }}</span>
-    <span class="subtitle">{{ (detail$ | async)?.subject }}</span>
+    <span class="subtitle">{{ detail.createdAt | date:'dd/MM/yyyy' }}</span>
+    <span class="subtitle">{{ detail.authorName }}</span>
+    <span class="subtitle">{{ detail.subject }}</span>
   </div>
 
   <mat-card-content class="article-content">
-    <p class="content">{{ (detail$ | async)?.content }}</p>
+    <p class="content">{{ detail.content }}</p>
   </mat-card-content>
 
   <mat-divider></mat-divider>
-
   <div class="comments-section">
     <h3>Commentaires</h3>
     <div *ngFor="let comment of comments$ | async" class="comment">
       <span class="profileName">{{ comment.profileName }}</span>
       <div class="comment-bubble">{{ comment.comment }}</div>
     </div>
-
     <form (ngSubmit)="onSubmitComment()" [formGroup]="commentForm">
       <div class="comment-input">
-        <textarea formControlName="comment" matInput placeholder="Écrivez ici votre commentaire" required></textarea>
+        <textarea (keydown.enter)="onSubmitComment()" formControlName="comment" matInput
+                  placeholder="Écrivez ici votre commentaire" required></textarea>
         <mat-icon
           (click)="onSubmitComment()"
           [class.disabled]="commentForm.invalid"
@@ -32,6 +31,5 @@
         </mat-icon>
       </div>
     </form>
-
   </div>
 </mat-card>

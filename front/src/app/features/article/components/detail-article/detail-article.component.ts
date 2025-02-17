@@ -22,7 +22,6 @@ import {GoBackButtonComponent} from "../../../../shared/components/go-back-butto
   imports: [
     MatCardContent,
     MatCard,
-    MatInput,
     AsyncPipe,
     DatePipe,
     MatDivider,
@@ -31,7 +30,8 @@ import {GoBackButtonComponent} from "../../../../shared/components/go-back-butto
     ReactiveFormsModule,
     NgClass,
     NgForOf,
-    GoBackButtonComponent
+    GoBackButtonComponent,
+    MatInput
   ],
   templateUrl: './detail-article.component.html',
   styleUrl: './detail-article.component.scss'
@@ -39,7 +39,7 @@ import {GoBackButtonComponent} from "../../../../shared/components/go-back-butto
 export class DetailArticleComponent implements OnInit {
 
   @Input()
-  detail$!: Observable<ArticleDetail>;
+  detail!: ArticleDetail;
   articleId!: string;
 
   @Input() comments$!: Observable<ArticleResponseComment[]>;
@@ -62,7 +62,9 @@ export class DetailArticleComponent implements OnInit {
       distinctUntilChanged()
     ).subscribe(id => {
       this.articleId = id!;
-      this.detail$ = this.articleApiService.getArticleById(this.articleId).pipe(this.unsubscribeObservable.takeUntilDestroy);
+      this.articleApiService.getArticleById(this.articleId).pipe(this.unsubscribeObservable.takeUntilDestroy).subscribe((detail: ArticleDetail) => {
+        this.detail = detail;
+      });
       this.comments$ = this.articleApiService.getCommentsByArticleId(this.articleId).pipe(this.unsubscribeObservable.takeUntilDestroy);
     });
   }

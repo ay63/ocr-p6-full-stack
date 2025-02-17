@@ -61,3 +61,25 @@ a:hover {
   border-radius: 8px;
 }
 
+.btn-default-disabled {
+  background-color: gray !important;
+  color: white !important;
+  border-radius: 8px;
+}
+
+.title {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: black;
+  font-size: 14px;
+}
+
+.content {
+  font-size: 14px;
+  color: black;
+}
+

@@ -41,18 +41,7 @@ mat-grid-tile {
   color: #673ab7;
 }
 
-.title {
-  color: black;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.subtitle {
-  color: black;
-  font-size: 14px;
-}
-
-.content {
-  font-size: 14px;
-  color: black;
+.card-actions button.mat-mdc-button-disabled {
+  background-color: gray !important;
+  color: white;
 }

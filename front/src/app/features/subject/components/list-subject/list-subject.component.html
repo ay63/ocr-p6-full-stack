@@ -1,3 +1,3 @@
 <section class="list-subject-container">
-  <app-card [cardItems$]="items$" (onBtnAction)="onSubscribe($event)"/>
+  <app-card [itemType]="{type: 'subject'}" [cardItems$]="items$" (onBtnAction)="onSubscribe($event)"/>
 </section>

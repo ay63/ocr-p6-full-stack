@@ -34,17 +34,6 @@ public class UserController {
         this.jwtService = jwtService;
     }
 
-    @GetMapping("/me")
-    public ResponseEntity<?> me(Authentication authentication) {
-        User user = this.userService.findByEmail(authentication.getName());
-
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok().body(new UserResponseDto(user.getEmail(), user.getProfileName()));
-    }
-
     @PutMapping(path = "/update")
     public ResponseEntity<?> update(@Valid @RequestBody UserUpdateRequestDto userUpdateRequestDto,
             Authentication authentication) {

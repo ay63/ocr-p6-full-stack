@@ -10,6 +10,7 @@ import {BaseItem} from "../../../../core/interfaces/baseItem";
 import {
   UnsubscribeObservableService
 } from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
+import {getFormErrorMessage} from "../../../../core/utils/errors-message";
 
 @Component({
   selector: 'app-form-article',
@@ -19,11 +20,12 @@ import {
 })
 export class FormArticleComponent implements OnInit {
 
+  errorsFormMessage = getFormErrorMessage()
   subject$!: Observable<BaseItem[]>;
   articleForm = new FormGroup({
     subject: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    title: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    content: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
+    title: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(32)]),
+    content: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(2000)]),
   })
 
   constructor(
@@ -53,5 +55,6 @@ export class FormArticleComponent implements OnInit {
       })
     }
   }
+
 
 }

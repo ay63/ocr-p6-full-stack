@@ -1,45 +1,50 @@
 <div class="profile-container">
-  <mat-card>
-    <h2>Profil utilisateur</h2>
-    <form (ngSubmit)="saveProfile()" [formGroup]="profileForm">
-      <mat-form-field appearance="outline">
-        <mat-label>Nom d'utilisateur</mat-label>
-        <input formControlName="profileName" matInput>
-        <mat-error
-          *ngIf="profileForm.get('profileName')?.hasError('minlength') && profileForm.get('profileName')?.touched">
-          Le nom d'utilisateur doit contenir au moins 3 caractères.
-        </mat-error>
-      </mat-form-field>
+    <mat-card>
+        <h2>Profil utilisateur</h2>
+        <form (ngSubmit)="saveProfile()" [formGroup]="profileForm">
+            <mat-form-field appearance="outline">
+                <mat-label>Nom d'utilisateur</mat-label>
+                <input formControlName="profileName" matInput>
+                <mat-error
+                        *ngIf="profileForm.get('profileName')?.hasError('minlength') && profileForm.get('profileName')?.touched">
+                    {{ errorsFormMessage.user.profileName.minLength }}
+                </mat-error>
+                <mat-error
+                        *ngIf="profileForm.get('profileName')?.hasError('maxlength') && profileForm.get('profileName')?.touched">
+                    {{ errorsFormMessage.user.profileName.maxLength }}
+                </mat-error>
+            </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input formControlName="email" matInput type="email">
-        <mat-error *ngIf="profileForm.get('email')?.hasError('email') && profileForm.get('email')?.touched">
-          L'email n'est pas valide.
-        </mat-error>
-      </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput type="email">
+                <mat-error *ngIf="profileForm.get('email')?.hasError('email') && profileForm.get('email')?.touched">
+                    {{ errorsFormMessage.required }}
+                </mat-error>
+            </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Mot de passe</mat-label>
-        <input formControlName="password" matInput type="password">
-        <mat-error *ngIf="profileForm.get('password')?.hasError('minlength') && profileForm.get('password')?.touched">
-          Le mot de passe doit contenir au moins 8 caractères.
-        </mat-error>
-      </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Mot de passe</mat-label>
+                <input formControlName="password" matInput type="password">
+                <mat-error
+                        *ngIf="profileForm.get('password')?.hasError('pattern') && profileForm.get('password')?.touched">
+                    {{ errorsFormMessage.password.pattern }}
+                </mat-error>
+            </mat-form-field>
 
-      <div class="actions">
-        <button [disabled]="profileForm.invalid" class="btn-default" mat-raised-button type="submit">
-          Sauvegarder
-        </button>
-        <button (click)="onLogout()" class="title logout-btn" color="warn" mat-button>Se déconnecter</button>
-      </div>
-    </form>
-  </mat-card>
+            <div class="actions">
+                <button [disabled]="profileForm.invalid" class="btn-default" mat-raised-button type="submit">
+                    Sauvegarder
+                </button>
+                <button (click)="onLogout()" class="title logout-btn" color="warn" mat-button>Se déconnecter</button>
+            </div>
+        </form>
+    </mat-card>
 </div>
 <hr/>
 
 <div class="subscribe-container">
-  <h1>Abonnements</h1>
-  <app-card (onBtnAction)="onUnsubscribe($event)" [canUnsubscribe]="true" [cardItems$]="items$"
-            [itemType]="{type: 'subject'}"/>
+    <h1>Abonnements</h1>
+    <app-card (onBtnAction)="onUnsubscribe($event)" [canUnsubscribe]="true" [cardItems$]="items$"
+              [itemType]="{type: 'subject'}"/>
 </div>

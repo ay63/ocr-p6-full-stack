@@ -7,7 +7,7 @@
       <mat-option *ngFor="let subject of subject$ | async" [value]="subject.id">{{ subject.title }}</mat-option>
     </mat-select>
     <mat-error *ngIf="articleForm.get('subject')?.hasError('required') && articleForm.get('subject')?.touched">
-      This field is required
+      {{ errorsFormMessage.required }}
     </mat-error>
   </mat-form-field>
 
@@ -15,7 +15,13 @@
     <mat-label>Titre</mat-label>
     <input formControlName="title" matInput placeholder="Titre de l'article">
     <mat-error *ngIf="articleForm.get('title')?.hasError('required') && articleForm.get('title')?.touched">
-      Titre obligatoire
+      {{ errorsFormMessage.required }}
+    </mat-error>
+    <mat-error *ngIf="articleForm.get('title')?.hasError('minLength') && articleForm.get('title')?.touched">
+      {{ errorsFormMessage.article.title.minLength }}
+    </mat-error>
+    <mat-error *ngIf="articleForm.get('title')?.hasError('maxLength') && articleForm.get('title')?.touched">
+      {{ errorsFormMessage.article.title.maxLength }}
     </mat-error>
   </mat-form-field>
 
@@ -23,10 +29,13 @@
     <mat-label>Contenu</mat-label>
     <textarea cols="50" formControlName="content" matInput placeholder="Contenu de l'article" rows="8"></textarea>
     <mat-error *ngIf="articleForm.get('content')?.hasError('required') && articleForm.get('content')?.touched">
-      Contenu obligatoire
+      {{ errorsFormMessage.required }}
     </mat-error>
     <mat-error *ngIf="articleForm.get('content')?.hasError('maxlength')">
-      2000 caractères au maximum
+      {{ errorsFormMessage.article.content.maxLength }}
+    </mat-error>
+    <mat-error *ngIf="articleForm.get('content')?.hasError('minLength')">
+      {{ errorsFormMessage.article.content.minLength }}
     </mat-error>
   </mat-form-field>
 

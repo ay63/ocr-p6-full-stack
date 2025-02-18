@@ -13,6 +13,7 @@ import {PATTERN_PASSWORD} from "../../../../core/utils/validator-form";
 import {
   UnsubscribeObservableService
 } from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
+import {getFormErrorMessage} from "../../../../core/utils/errors-message";
 
 @Component({
   selector: 'app-detail-profile-article',
@@ -22,11 +23,13 @@ import {
 })
 export class DetailProfileComponent implements OnInit {
 
+  errorsFormMessage = getFormErrorMessage()
   items$!: Observable<BaseItem[]>;
+
   profileForm = new FormGroup({
     profileName: new FormControl('', [Validators.minLength(3)]),
     email: new FormControl('', [Validators.email]),
-    password: new FormControl('', [Validators.minLength(8), Validators.pattern(PATTERN_PASSWORD)]),
+    password: new FormControl('', [Validators.pattern(PATTERN_PASSWORD)]),
   });
 
   constructor(

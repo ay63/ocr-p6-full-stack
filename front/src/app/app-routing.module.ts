@@ -37,6 +37,7 @@ const routes: Routes = [
     loadChildren: () => import('./features/profile/profile.module').then(m => m.ProfileModule)
   },
   {path: '404', component: NotFoundComponent},
+  {path: '500', component: NotFoundComponent},
   {path: '**', redirectTo: '404'}
 ];
 

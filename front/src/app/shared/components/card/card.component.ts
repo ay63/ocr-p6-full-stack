@@ -1,4 +1,4 @@
-import {booleanAttribute, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AsyncPipe, DatePipe, NgForOf, NgIf, TitleCasePipe} from "@angular/common";
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
@@ -10,6 +10,7 @@ import {BaseItem} from "../../../core/interfaces/baseItem";
 import {RouterLink} from "@angular/router";
 import {Subject} from "../../../features/subject/interfaces/subject";
 import {MatButton} from "@angular/material/button";
+import {baseItemType} from "../../../core/types/baseItemType";
 
 @Component({
   selector: 'app-card',
@@ -35,9 +36,13 @@ export class CardComponent implements OnInit {
   cols: number = 2;
 
   @Input()
-  public items!: Observable<BaseItem[]>;
+  public cardItems$!: Observable<BaseItem[]>;
+
+  @Input()
+  itemType!: baseItemType;
+
   @Output()
-  onBtnAction:EventEmitter<string> = new EventEmitter<string>();
+  onBtnAction: EventEmitter<string> = new EventEmitter<string>();
 
   @Input()
   canUnsubscribe!: boolean;
@@ -54,11 +59,11 @@ export class CardComponent implements OnInit {
   }
 
   isArticle(item: BaseItem): item is Article {
-    return (item as Article).author !== undefined;
+    return this.itemType.type === 'article';
   }
 
   isSubject(item: BaseItem): item is Subject {
-    return (item as Subject).description !== undefined;
+    return this.itemType.type === 'subject';
   }
 
   onButtonClick(itemId: number) {

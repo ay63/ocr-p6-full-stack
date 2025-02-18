@@ -14,7 +14,7 @@ export class FeedApiService{
 
   constructor(private httpClient: HttpClient, private authService: AuthService) { }
 
-  public get(): Observable<BaseItem[]> {
+  public getFeed(): Observable<BaseItem[]> {
     const id: number = parseInt(String(this.authService!.getAuthUser()!.id));
     return this.httpClient.get<BaseItem[]>(`${this.pathService}/${id}`);
   }

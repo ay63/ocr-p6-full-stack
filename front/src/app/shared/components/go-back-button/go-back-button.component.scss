@@ -1,0 +1,14 @@
+.go-back-container {
+  padding: 16px;
+}
+
+mat-icon {
+  transform: scale(2);
+}
+
+
+@media (max-width: 600px) {
+  mat-icon {
+    transform: scale(1.5);
+  }
+}

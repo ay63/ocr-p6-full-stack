@@ -12,6 +12,6 @@ import com.openclassrooms.mddapi.article.model.Article;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-    @Query("SELECT a FROM Article a WHERE a.author.id <> :userId")
+    @Query("SELECT a FROM Article a WHERE a.author.id <> :userId ORDER BY a.createdAt DESC")
     List<Article> findAllArticleByAuthorIdNot(@Param("userId") Long userId);
 }

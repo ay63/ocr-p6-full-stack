@@ -1,21 +1,34 @@
-<form [formGroup]="articleForm" (ngSubmit)="onSubmit()" class="form-container">
+<app-go-back-button></app-go-back-button>
+<form (ngSubmit)="onSubmit()" [formGroup]="articleForm" class="form-container">
   <h1>Créer un nouvel article</h1>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Thème</mat-label>
     <mat-select formControlName="subject">
       <mat-option *ngFor="let subject of subject$ | async" [value]="subject.id">{{ subject.title }}</mat-option>
     </mat-select>
+    <mat-error *ngIf="articleForm.get('subject')?.hasError('required') && articleForm.get('subject')?.touched">
+      This field is required
+    </mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Titre</mat-label>
-    <input matInput formControlName="title" placeholder="Titre de l'article">
+    <input formControlName="title" matInput placeholder="Titre de l'article">
+    <mat-error *ngIf="articleForm.get('title')?.hasError('required') && articleForm.get('title')?.touched">
+      Titre obligatoire
+    </mat-error>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Contenu</mat-label>
-    <textarea matInput formControlName="content" placeholder="Contenu de l'article"></textarea>
+    <textarea cols="50" formControlName="content" matInput placeholder="Contenu de l'article" rows="8"></textarea>
+    <mat-error *ngIf="articleForm.get('content')?.hasError('required') && articleForm.get('content')?.touched">
+      Contenu obligatoire
+    </mat-error>
+    <mat-error *ngIf="articleForm.get('content')?.hasError('maxlength')">
+      2000 caractères au maximum
+    </mat-error>
   </mat-form-field>
 
-  <button mat-raised-button color="primary" type="submit" [disabled]="articleForm.invalid">Créer</button>
+  <button [disabled]="articleForm.invalid" class="btn-default" mat-raised-button type="submit">Créer</button>
 </form>

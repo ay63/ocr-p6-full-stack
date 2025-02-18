@@ -2,8 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
+
+  img {
+    width: 225px;
+    height: 130px;
+    object-fit: contain;
+  }
 }
 
 .register-form {
@@ -21,6 +25,7 @@ mat-form-field {
 }
 
 button {
-  width: 100%;
+  width: 50%;
+  align-self: center;
 }
 

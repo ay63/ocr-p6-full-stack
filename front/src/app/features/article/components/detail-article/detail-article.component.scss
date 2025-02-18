@@ -1,10 +1,11 @@
 .article-card {
   display: flex;
   flex-direction: column;
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 16px;
+  max-width: 1000px;
+  margin: auto;
+  padding: 32px;
   gap: 16px;
+  box-shadow: none !important;
 }
 
 .back-button {
@@ -22,39 +23,37 @@
   gap: 16px;
 }
 
-
-.article-content {
-  font-size: 16px;
-  line-height: 1.5;
-  text-align: justify;
-}
-
-
 .comments-section {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .comment {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 16px;
   width: 100%;
 }
 
 .username {
   font-weight: bold;
-  font-size: 14px;
+  font-size: 20px;
+  line-height: 24px;
+  flex: 0 0 20%;
 }
 
 .comment-bubble {
-  background: #f1f1f1;
+  background: #EEE;
   padding: 10px;
-  border-radius: 10px;
-  max-width: 80%;
+  border-radius: 16px;
+  flex: 0 0 80%;
+  min-height: 100px;
 }
 
-/* ✍ Zone de saisie */
 .comment-input {
   display: flex;
   align-items: center;
@@ -73,4 +72,12 @@ textarea {
 .send-icon {
   cursor: pointer;
   color: purple;
+}
+
+@media (max-width: 480px) {
+  .article-card {
+    max-width: 350px;
+    padding: 16px;
+  }
+
 }

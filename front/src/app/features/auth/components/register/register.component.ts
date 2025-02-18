@@ -5,6 +5,9 @@ import {RegisterRequest} from "../../interface/request/registerRequest";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthApiService} from "../../services/auth-api.service";
 import {PATTERN_PASSWORD} from "../../../../core/utils/validator-form";
+import {
+  UnsubscribeObservableService
+} from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
 
 
 @Component({
@@ -15,7 +18,6 @@ import {PATTERN_PASSWORD} from "../../../../core/utils/validator-form";
 })
 export class RegisterComponent {
 
-  public onError: boolean = false;
   registerForm = new FormGroup({
     username: new FormControl("", [
       Validators.required,
@@ -40,18 +42,19 @@ export class RegisterComponent {
     private authApiService: AuthApiService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private matSnackBar: MatSnackBar) {
+    private matSnackBar: MatSnackBar,
+    private unsubscribeObservable: UnsubscribeObservableService
+  ) {
   }
 
   onSubmit(): void {
     if (this.registerForm.valid) {
       const registerRequest = this.registerForm.value as RegisterRequest;
-      this.authApiService.register(registerRequest).subscribe({
+      this.authApiService.register(registerRequest).pipe(this.unsubscribeObservable.takeUntilDestroy).subscribe({
           next: (_: void) => {
             this.matSnackBar.open("Your account has been created !", 'Close', {duration: 4000});
             this.router.navigate(['/login'])
-          },
-          error: _ => this.onError = true,
+          }
         }
       );
     }

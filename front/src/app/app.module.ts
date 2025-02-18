@@ -9,12 +9,12 @@ import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {AuthModule} from "./features/auth/auth.module";
 import {FeedModule} from "./features/feed/feed.module";
-import {JwtInterceptor} from "./core/interceptors/jwt.interceptor";
+import {JwtInterceptor} from "./core/interceptors/jwt/jwt.interceptor";
 import {ArticleModule} from "./features/article/article.module";
-import {HeaderComponent} from "./shared/components/header/header.component";
-import {Subject} from "rxjs";
+import {MainLayoutComponent} from "./shared/components/main-layout/main-layout.component";
 import {SubjectModule} from "./features/subject/subject.module";
 import {ProfileModule} from "./features/profile/profile.module";
+import {ErrorInterceptor} from "./core/interceptors/error/error.interceptor";
 
 const materialModule = [
   MatButton,
@@ -33,12 +33,13 @@ const materialModule = [
     SubjectModule,
     ProfileModule,
     BrowserAnimationsModule,
-    HeaderComponent,
+    MainLayoutComponent,
     ...materialModule,
   ],
   bootstrap: [AppComponent],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
 
 })

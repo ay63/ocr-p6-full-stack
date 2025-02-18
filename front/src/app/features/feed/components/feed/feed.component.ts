@@ -1,7 +1,10 @@
-import {Component,  OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FeedApiService} from "../../services/feed-api.service";
 import {Observable} from "rxjs";
 import {BaseItem} from "../../../../core/interfaces/baseItem";
+import {
+  UnsubscribeObservableService
+} from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
 
 @Component({
   selector: 'app-feed',
@@ -10,15 +13,16 @@ import {BaseItem} from "../../../../core/interfaces/baseItem";
   standalone: false
 })
 export class FeedComponent implements OnInit {
-  items$!:Observable<BaseItem[]>;
+  items$!: Observable<BaseItem[]>;
 
   constructor(
     private feedApi: FeedApiService,
+    private unsubscribeObservable: UnsubscribeObservableService
   ) {
   }
 
   ngOnInit(): void {
-    this.items$ =  this.feedApi.get()
+    this.items$ = this.feedApi.getFeed().pipe(this.unsubscribeObservable.takeUntilDestroy)
   }
 
 }

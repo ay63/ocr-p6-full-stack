@@ -1,43 +1,35 @@
+<app-go-back-button></app-go-back-button>
 <mat-card class="article-card">
-  <div class="back-button">
-    <mat-icon (click)="goBack()">arrow_back</mat-icon>
-    <span>Titre de l’article sélectionné</span>
-  </div>
-
+  <span class="title">{{ detail.title | titlecase }}</span>
   <div class="meta-info">
-    <span>{{ (detail$ | async)?.createdAt | date:'dd/MM/yyyy' }}</span>
-    <span>{{ (detail$ | async)?.authorName }}</span>
-    <span>{{ (detail$ | async)?.subject }}</span>
+    <span class="subtitle">{{ detail.createdAt | date:'dd/MM/yyyy' }}</span>
+    <span class="subtitle">{{ detail.author }}</span>
+    <span class="subtitle">{{ detail.subject }}</span>
   </div>
 
   <mat-card-content class="article-content">
-    <p>{{ (detail$ | async)?.content }}</p>
+    <p class="content">{{ detail.content }}</p>
   </mat-card-content>
 
   <mat-divider></mat-divider>
-
   <div class="comments-section">
     <h3>Commentaires</h3>
-
     <div *ngFor="let comment of comments$ | async" class="comment">
       <span class="profileName">{{ comment.profileName }}</span>
       <div class="comment-bubble">{{ comment.comment }}</div>
     </div>
-
-    <form [formGroup]="commentForm" (ngSubmit)="onSubmitComment()">
+    <form (ngSubmit)="onSubmitComment()" [formGroup]="commentForm">
       <div class="comment-input">
-        <textarea matInput formControlName="comment" placeholder="Écrivez ici votre commentaire" required></textarea>
-
+        <textarea (keydown.enter)="onSubmitComment()" formControlName="comment" matInput
+                  placeholder="Écrivez ici votre commentaire" required></textarea>
         <mat-icon
-          class="send-icon"
           (click)="onSubmitComment()"
           [class.disabled]="commentForm.invalid"
-          [ngClass]="{'active': !commentForm.invalid}">
+          [ngClass]="{'active': !commentForm.invalid}"
+          class="send-icon">
           send
         </mat-icon>
       </div>
     </form>
-
   </div>
 </mat-card>
-<p *ngIf="onError" class="error">Un erreur s'est produite</p>

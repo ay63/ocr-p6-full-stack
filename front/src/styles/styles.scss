@@ -1,13 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
-@import "sanitize";
+@use "sanitize";
 
-*{
+$base-btn-color: #7763C5;
+
+* {
   box-sizing: border-box;
 }
 
 body {
-  font-family: Roboto,
-  "Helvetica Neue", sans-serif;
+  font-family: Inter, "Helvetica Neue", sans-serif;
+  height: 100vh;
+  width: 100vw;
+}
+
+h2 {
+  font-size: 24px;
 }
 
 a {
@@ -15,6 +21,75 @@ a {
   text-decoration: none;
 }
 
-a:hover{
+a:hover {
   text-decoration: underline;
 }
+
+
+.mat-mdc-dialog-container,
+.mat-mdc-menu-panel,
+.mat-mdc-select-panel,
+.mat-mdc-tooltip,
+.mat-mdc-button,
+.mat-mdc-fab,
+.mat-mdc-sidenav,
+.mat-mdc-toolbar,
+.mat-mdc-expansion-panel,
+.mat-mdc-snack-bar-container,
+.mat-mdc-chip {
+  background-color: white !important;
+  color: black !important;
+}
+
+.mat-drawer-container,
+.mat-mdc-dialog-content,
+.mat-mdc-list-item,
+.mat-mdc-tab-label,
+.mat-mdc-stepper-header,
+.mat-mdc-autocomplete-panel {
+  background-color: white !important;
+  color: black !important;
+}
+
+.isActive {
+  color: #673ab7 !important;
+}
+
+.btn-default {
+  background-color: $base-btn-color !important;
+  color: white !important;
+  border-radius: 8px;
+}
+
+.btn-default-disabled {
+  background-color: gray !important;
+  color: white !important;
+  border-radius: 8px;
+}
+
+.title {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: black;
+  font-size: 14px;
+}
+
+.content {
+  font-size: 14px;
+  color: black;
+
+  &.scrop {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    max-height: 250px;
+  }
+}
+

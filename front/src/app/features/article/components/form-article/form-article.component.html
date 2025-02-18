@@ -3,10 +3,10 @@
   <h1>Créer un nouvel article</h1>
   <mat-form-field appearance="outline">
     <mat-label>Thème</mat-label>
-    <mat-select formControlName="subject">
-      <mat-option *ngFor="let subject of subject$ | async" [value]="subject.id">{{ subject.title }}</mat-option>
+    <mat-select formControlName="topic">
+      <mat-option *ngFor="let topic of topic$ | async" [value]="topic.id">{{ topic.title }}</mat-option>
     </mat-select>
-    <mat-error *ngIf="articleForm.get('subject')?.hasError('required') && articleForm.get('subject')?.touched">
+    <mat-error *ngIf="articleForm.get('topic')?.hasError('required') && articleForm.get('topic')?.touched">
       {{ errorsFormMessage.required }}
     </mat-error>
   </mat-form-field>

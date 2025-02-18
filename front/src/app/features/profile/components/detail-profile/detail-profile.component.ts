@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
-import {BaseItem} from "../../../../core/interfaces/baseItem";
+import {BaseItem} from "../../../../core/models/interfaces/baseItem";
 import {ProfileApiService} from "../../services/profile-api.service";
 import {SubscriptionApiService} from "../../../../core/services/subscription-api.service";
-import {AuthDataUser} from "../../../../core/interfaces/authDataUser";
+import {AuthDataUser} from "../../../../core/models/interfaces/authDataUser";
 import {AuthService} from "../../../auth/services/auth.service";
 import {ProfileUpdate} from "../../interface/profile-update";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -43,7 +43,7 @@ export class DetailProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.items$ = this.subscriptionApiService.getProfileSubjectSubscription().pipe(this.unsubscribeObservable.takeUntilDestroy)
+    this.items$ = this.subscriptionApiService.getProfileTopicSubscription().pipe(this.unsubscribeObservable.takeUntilDestroy)
     const userSessionInfo = this.authService.getAuthUser();
     if (userSessionInfo != null) {
       this.profileForm.patchValue({
@@ -65,12 +65,12 @@ export class DetailProfileComponent implements OnInit {
     }
   }
 
-  onUnsubscribe(subjectId: string): void {
+  onUnsubscribe(topicId: string): void {
     const userSessionInfo: AuthDataUser | null = this.authService.getAuthUser()
     const userId = userSessionInfo?.id
-    this.subscriptionApiService.deleteSubscription(subjectId, String(userId)).pipe(this.unsubscribeObservable.takeUntilDestroy).subscribe({
+    this.subscriptionApiService.deleteSubscription(topicId, String(userId)).pipe(this.unsubscribeObservable.takeUntilDestroy).subscribe({
       next: () => {
-        this.items$ = this.subscriptionApiService.getProfileSubjectSubscription().pipe(this.unsubscribeObservable.takeUntilDestroy)
+        this.items$ = this.subscriptionApiService.getProfileTopicSubscription().pipe(this.unsubscribeObservable.takeUntilDestroy)
       }
     })
   }

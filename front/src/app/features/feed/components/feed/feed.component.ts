@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FeedApiService} from "../../services/feed-api.service";
 import {Observable} from "rxjs";
-import {BaseItem} from "../../../../core/interfaces/baseItem";
+import {BaseItem} from "../../../../core/models/interfaces/baseItem";
 import {
   UnsubscribeObservableService
 } from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";

@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
-import {SubjectApiService} from "../../../subject/services/subject-api.service";
+import {TopicApiService} from "../../../topic/services/topic-api.service";
 import {ArticleApiService} from "../../services/article-api.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {ArticleRequest} from "../../interfaces/article-request";
-import {BaseItem} from "../../../../core/interfaces/baseItem";
+import {BaseItem} from "../../../../core/models/interfaces/baseItem";
 import {
   UnsubscribeObservableService
 } from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
@@ -21,15 +21,15 @@ import {getFormErrorMessage} from "../../../../core/utils/errors-message";
 export class FormArticleComponent implements OnInit {
 
   errorsFormMessage = getFormErrorMessage()
-  subject$!: Observable<BaseItem[]>;
+  topic$!: Observable<BaseItem[]>;
   articleForm = new FormGroup({
-    subject: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    topic: new FormControl('', [Validators.required, Validators.minLength(3)]),
     title: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(32)]),
     content: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(2000)]),
   })
 
   constructor(
-    private subjectApi: SubjectApiService,
+    private topicApi: TopicApiService,
     private articleApi: ArticleApiService,
     private matSnackBar: MatSnackBar,
     private router: Router,
@@ -38,7 +38,7 @@ export class FormArticleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subject$ = this.subjectApi.getAll();
+    this.topic$ = this.topicApi.getAll();
   }
 
   onSubmit(): void {

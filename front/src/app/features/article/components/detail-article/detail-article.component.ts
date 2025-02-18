@@ -15,7 +15,7 @@ import {ArticleResponseComment} from "../../interfaces/article-response-comment"
 import {
   UnsubscribeObservableService
 } from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
-import {GoBackButtonComponent} from "../../../../shared/components/go-back-button/go-back-button.component";
+import {GoBackButtonComponent} from "../../../../core/components/go-back-button/go-back-button.component";
 
 @Component({
   selector: 'app-detail-profile-article',

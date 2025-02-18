@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {BaseItem} from "../../../../core/models/interfaces/baseItem";
-import {TopicApiService, topicApiService} from "../../services/topic-api.service";
+import {TopicApiService} from "../../services/topic-api.service";
 import {SubscriptionApiService} from "../../../../core/services/subscription-api.service";
 import {AuthService} from "../../../auth/services/auth.service";
 import {AuthDataUser} from "../../../../core/models/interfaces/authDataUser";

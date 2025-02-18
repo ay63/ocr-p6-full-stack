@@ -1,5 +1,5 @@
 export interface ArticleRequest {
   "title": string
-  "subject": number,
+  "topic": number,
   "content": string
 }

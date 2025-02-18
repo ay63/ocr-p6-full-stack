@@ -1,4 +1,4 @@
-import {BaseItem} from "../../../core/interfaces/baseItem";
+import {BaseItem} from "../../../core/models/interfaces/baseItem";
 
 export interface Article extends BaseItem {
     content: string;

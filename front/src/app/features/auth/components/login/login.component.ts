@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
-import {AuthDataUser} from "../../../../core/interfaces/authDataUser";
+import {AuthDataUser} from "../../../../core/models/interfaces/authDataUser";
 import {Router} from "@angular/router";
 import {LoginRequest} from "../../interface/request/loginRequest";
 import {AuthApiService} from "../../services/auth-api.service";

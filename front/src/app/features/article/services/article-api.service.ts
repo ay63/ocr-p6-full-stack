@@ -6,7 +6,7 @@ import {AuthService} from "../../auth/services/auth.service";
 import {ArticleDetail} from "../interfaces/article-detail";
 import {ArticlePostComment} from "../interfaces/article-post-comment";
 import {ArticleResponseComment} from "../interfaces/article-response-comment";
-import {BaseItem} from "../../../core/interfaces/baseItem";
+import {BaseItem} from "../../../core/models/interfaces/baseItem";
 
 @Injectable(
   {

@@ -13,7 +13,7 @@ import lombok.Setter;
 public class AuthRegistrationRequestDto {
 
     @NotBlank
-    private String username;
+    private String profileName;
 
     @NotBlank
     @Email

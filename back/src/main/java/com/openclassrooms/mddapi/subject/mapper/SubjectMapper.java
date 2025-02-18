@@ -43,7 +43,7 @@ public abstract class SubjectMapper implements EntityMapper<SubjectDto, Subject>
     }
 
     String map(User value) {
-        return value != null ? value.getUsername() : null;
+        return value != null ? value.getProfileName() : null;
     }
 
     String map(Subject value) {

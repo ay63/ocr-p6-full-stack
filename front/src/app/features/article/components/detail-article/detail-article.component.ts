@@ -70,10 +70,6 @@ export class DetailArticleComponent implements OnInit {
     });
   }
 
-  goBack() {
-    window.history.back();
-  }
-
   onSubmitComment() {
     if (this.commentForm.valid) {
       const comment: ArticlePostComment = this.commentForm.value as ArticlePostComment;

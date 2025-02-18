@@ -31,13 +31,13 @@
     <mat-error *ngIf="articleForm.get('content')?.hasError('required') && articleForm.get('content')?.touched">
       {{ errorsFormMessage.required }}
     </mat-error>
-    <mat-error *ngIf="articleForm.get('content')?.hasError('maxlength')">
+    <mat-error *ngIf="articleForm.get('content')?.hasError('maxlength') && articleForm.get('content')?.touched">
       {{ errorsFormMessage.article.content.maxLength }}
     </mat-error>
-    <mat-error *ngIf="articleForm.get('content')?.hasError('minLength')">
+    <mat-error *ngIf="articleForm.get('content')?.hasError('minLength') && articleForm.get('content')?.touched">
       {{ errorsFormMessage.article.content.minLength }}
     </mat-error>
   </mat-form-field>
 
-  <button [disabled]="articleForm.invalid" class="btn-default" mat-raised-button type="submit">Créer</button>
+  <button [disabled]="articleForm.invalid" color="primary" mat-raised-button type="submit">Créer</button>
 </form>

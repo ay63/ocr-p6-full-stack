@@ -30,6 +30,8 @@
   gap: 16px;
   flex-wrap: wrap;
   justify-content: space-between;
+
+
 }
 
 .comment {
@@ -37,21 +39,18 @@
   flex-direction: row;
   gap: 16px;
   width: 100%;
-}
 
-.username {
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 24px;
-  flex: 0 0 20%;
-}
+  .profileName {
+    flex: 0 0 20%;
+  }
 
-.comment-bubble {
-  background: #EEE;
-  padding: 10px;
-  border-radius: 16px;
-  flex: 0 0 80%;
-  min-height: 100px;
+  .comment-bubble {
+    background: #EEE;
+    padding: 10px;
+    border-radius: 16px;
+    flex: 0 0 80%;
+    min-height: 100px;
+  }
 }
 
 .comment-input {
@@ -60,6 +59,7 @@
   border: 1px solid #ccc;
   padding: 8px;
   border-radius: 8px;
+
 }
 
 textarea {
@@ -80,4 +80,23 @@ textarea {
     padding: 16px;
   }
 
+  .comment {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+
+    .profileName {
+      flex: 0 0 20%;
+      order: 2;
+    }
+
+    .comment-bubble {
+      background: #EEE;
+      padding: 10px;
+      border-radius: 16px;
+      flex: 0 0 80%;
+      min-height: 100px;
+    }
+  }
 }

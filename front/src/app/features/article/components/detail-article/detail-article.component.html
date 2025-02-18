@@ -15,7 +15,7 @@
   <div class="comments-section">
     <h3>Commentaires</h3>
     <div *ngFor="let comment of comments$ | async" class="comment">
-      <span class="profileName">{{ comment.profileName }}</span>
+      <span class="profileName subtitle">{{ comment.profileName }}</span>
       <div class="comment-bubble">{{ comment.comment }}</div>
     </div>
     <form (ngSubmit)="onSubmitComment()" [formGroup]="commentForm">

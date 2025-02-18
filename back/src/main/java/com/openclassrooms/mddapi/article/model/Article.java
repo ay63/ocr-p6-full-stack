@@ -8,7 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.openclassrooms.mddapi.subject.model.Subject;
+import com.openclassrooms.mddapi.topic.model.Topic;
 import com.openclassrooms.mddapi.user.model.User;
 
 import jakarta.persistence.CascadeType;
@@ -49,8 +49,8 @@ public class Article {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "subject_id")
-    private Subject subject;
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
 
     @NotBlank
     @Size(min = 3, max = 2000)

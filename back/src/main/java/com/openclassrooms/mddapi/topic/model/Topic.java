@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.subject.model;
+package com.openclassrooms.mddapi.topic.model;
 
 import java.util.List;
 
@@ -23,8 +23,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "subjects")
-public class Subject {
+@Table(name = "topics")
+public class Topic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +39,7 @@ public class Subject {
     @NotBlank
     private String description;
 
-    @OneToMany(mappedBy = "subject")
+    @OneToMany(mappedBy = "topic")
     private List<Article> articles;
 
 }

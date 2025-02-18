@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.openclassrooms.mddapi.subject.model.Subject;
+import com.openclassrooms.mddapi.topic.model.Topic;
 import com.openclassrooms.mddapi.user.model.User;
 
 import jakarta.persistence.Column;
@@ -43,9 +43,9 @@ public class Subscription {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "subject_id", nullable = false)
+    @JoinColumn(name = "topic_id", nullable = false)
     @NotNull
-    private Subject subject;
+    private Topic topic;
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)

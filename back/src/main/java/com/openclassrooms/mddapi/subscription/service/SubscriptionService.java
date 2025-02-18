@@ -1,8 +1,9 @@
 package com.openclassrooms.mddapi.subscription.service;
 
 import java.util.List;
-import com.openclassrooms.mddapi.subject.model.Subject;
+
 import com.openclassrooms.mddapi.subscription.model.Subscription;
+import com.openclassrooms.mddapi.topic.model.Topic;
 
 public interface SubscriptionService {
 
@@ -14,5 +15,5 @@ public interface SubscriptionService {
 
     boolean isUserSubscribed(Long userId, Long subjectId); 
 
-    List<Subject> findAllSubscribeSubject(Long userId);
+    List<Topic> findAllSubscribeSubject(Long userId);
  }

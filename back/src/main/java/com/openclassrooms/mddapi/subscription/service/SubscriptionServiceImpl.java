@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.share.exception.BadRequestException;
 import com.openclassrooms.mddapi.share.exception.NotFoundException;
-import com.openclassrooms.mddapi.subject.model.Subject;
-import com.openclassrooms.mddapi.subject.respository.SubjectRepository;
 import com.openclassrooms.mddapi.subscription.exception.SubscriptionAlreadyExistsException;
 import com.openclassrooms.mddapi.subscription.model.Subscription;
 import com.openclassrooms.mddapi.subscription.repository.SubscriptionRepository;
+import com.openclassrooms.mddapi.topic.model.Topic;
+import com.openclassrooms.mddapi.topic.respository.TopicRepository;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.repository.UserRepository;
 
@@ -20,15 +20,15 @@ import jakarta.transaction.Transactional;
 public class SubscriptionServiceImpl implements SubscriptionService {
 
     private final SubscriptionRepository subscriptionRepository;
-    private final SubjectRepository subjectRepository;
+    private final TopicRepository topicRepository;
     private final UserRepository userRepository;
 
     public SubscriptionServiceImpl(
             SubscriptionRepository subscriptionRepository,
-            SubjectRepository subjectRepository,
+            TopicRepository topicRepository,
             UserRepository userRepository) {
         this.subscriptionRepository = subscriptionRepository;
-        this.subjectRepository = subjectRepository;
+        this.topicRepository = topicRepository;
         this.userRepository = userRepository;
     }
 
@@ -38,20 +38,20 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public void newSubscription(Long subjectId, Long userId) {
+    public void newSubscription(Long topicId, Long userId) {
 
-        Subject subject = subjectRepository.findById(subjectId).orElse(null);
+        Topic topic = topicRepository.findById(topicId).orElse(null);
         User user = userRepository.findById(userId).orElse(null);
 
-        if (subject == null || user == null) {
+        if (topic == null || user == null) {
             throw new NotFoundException();
         }
 
-        if (subscriptionRepository.existsByUserIdAndSubjectId(userId, subjectId)) {
+        if (subscriptionRepository.existsByUserIdAndTopicId(userId, topicId)) {
             throw new SubscriptionAlreadyExistsException();
         }
 
-        Subscription subscription = Subscription.builder().user(user).subject(subject).build();
+        Subscription subscription = Subscription.builder().user(user).topic(topic).build();
 
         try {
             subscriptionRepository.save(subscription);
@@ -63,31 +63,31 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     @Transactional
-    public void deleteSubscription(Long subjectId, Long userId) {
-        Subject subject = subjectRepository.findById(subjectId).orElse(null);
+    public void deleteSubscription(Long topicId, Long userId) {
+        Topic topic = topicRepository.findById(topicId).orElse(null);
         User user = userRepository.findById(userId).orElse(null);
 
-        if (subject == null || user == null) {
+        if (topic == null || user == null) {
             throw new NotFoundException();
         }
 
-        if (!subscriptionRepository.existsByUserIdAndSubjectId(userId, subjectId)) {
+        if (!subscriptionRepository.existsByUserIdAndTopicId(userId, topicId)) {
             throw new BadRequestException();
         }
 
-        this.subscriptionRepository.deleteByUserIdAndSubjectId(user.getId(), subject.getId());
+        this.subscriptionRepository.deleteByUserIdAndTopicId(user.getId(), topic.getId());
     }
 
     @Override
-    public boolean isUserSubscribed(Long userId, Long subjectId) {
-        if (userId == null || subjectId == null) {
+    public boolean isUserSubscribed(Long userId, Long topicId) {
+        if (userId == null || topicId == null) {
             return false;
         }
-        return subscriptionRepository.existsByUserIdAndSubjectId(userId, subjectId);
+        return subscriptionRepository.existsByUserIdAndTopicId(userId, topicId);
     }
 
     @Override
-    public List<Subject> findAllSubscribeSubject(Long userId) {
+    public List<Topic> findAllSubscribeSubject(Long userId) {
         return subscriptionRepository.findAllSubscribeSubject(userId);
     }
 }

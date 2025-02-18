@@ -1,0 +1,34 @@
+<mat-toolbar *ngIf="cantShowHeader || isLoggedIn">
+  <span class="logo">
+    <img (click)="goHome()" alt="mdd logo" class="logo-img" src="../../../../assets/logo_p6.png">
+  </span>
+  <nav *ngIf="!isMobile && isLoggedIn" class="header-menu">
+    <button (click)="OnClose()" mat-button routerLink="/article" routerLinkActive="isActive">Articles</button>
+    <button (click)="OnClose()" mat-button routerLink="/topic" routerLinkActive="isActive">Thèmes</button>
+    <button (click)="OnClose()" mat-icon-button routerLink="/profile" routerLinkActive="isActive">
+      <mat-icon class="profile-button">account_circle</mat-icon>
+    </button>
+  </nav>
+  <button (click)="toggleMenu()" *ngIf="isMobile && isLoggedIn" aria-label="Menu icon" mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container autosize="true">
+  <mat-sidenav *ngIf="isLoggedIn" class="expanded" mode="over" position="end">
+    <mat-nav-list>
+      <button (click)="OnClose()" mat-button routerLink="/article" routerLinkActive="isActive">Articles</button>
+      <button (click)="OnClose()" mat-button routerLink="/topic" routerLinkActive="isActive">Thèmes</button>
+    </mat-nav-list>
+    <div class="profile-mobile-button">
+      <button (click)="OnClose()" class="profile-button" mat-icon-button routerLink="/profile"
+              routerLinkActive="isActive">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

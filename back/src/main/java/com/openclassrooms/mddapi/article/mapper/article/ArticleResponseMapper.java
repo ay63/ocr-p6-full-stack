@@ -12,12 +12,12 @@ import com.openclassrooms.mddapi.share.mapper.EntityMapper;
 public abstract class ArticleResponseMapper implements EntityMapper<ArticleResponseDto, Article> {
 
     @Mapping(target = "id", source = "id")
-    @Mapping(target = "subject.title", source = "subject")
-    @Mapping(target = "author.profileName", source = "subject")
+    @Mapping(target = "topic.title", source = "topic")
+    @Mapping(target = "author.profileName", source = "author")
     public abstract Article toEntity(ArticleResponseDto articleResponseDto);
 
     @Mapping(target = "id", source = "id")
-    @Mapping(target = "subject", source = "subject.title")
+    @Mapping(target = "topic", source = "topic.title")
     @Mapping(target = "author", source = "author.profileName")
     public abstract ArticleResponseDto toDto(Article article);
 

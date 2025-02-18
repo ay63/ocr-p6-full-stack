@@ -78,7 +78,7 @@ public class AuthController {
 
         User user = new User();
         user.setEmail(authRegistrationRequestDto.getEmail());
-        user.setProfileName(authRegistrationRequestDto.getUsername());
+        user.setProfileName(authRegistrationRequestDto.getProfileName());
         user.setPassword(passwordEncoder.encode(authRegistrationRequestDto.getPassword()));
 
         userService.save(user);

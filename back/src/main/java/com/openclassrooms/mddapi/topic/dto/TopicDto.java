@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.subject.dto;
+package com.openclassrooms.mddapi.topic.dto;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SubjectDto {
+public class TopicDto {
     private Long id;
 
     @NotBlank

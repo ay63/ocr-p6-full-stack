@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.subject.mapper;
+package com.openclassrooms.mddapi.topic.mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.openclassrooms.mddapi.article.mapper.article.ArticleMapper;
 import com.openclassrooms.mddapi.share.mapper.EntityMapper;
-import com.openclassrooms.mddapi.subject.dto.SubjectDto;
-import com.openclassrooms.mddapi.subject.model.Subject;
 import com.openclassrooms.mddapi.subscription.service.SubscriptionService;
+import com.openclassrooms.mddapi.topic.dto.TopicDto;
+import com.openclassrooms.mddapi.topic.model.Topic;
 import com.openclassrooms.mddapi.user.model.User;
 
 @Component
 @Mapper(componentModel = "spring", uses = ArticleMapper.class, unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public abstract class SubjectMapper implements EntityMapper<SubjectDto, Subject> {
+public abstract class TopicMapper implements EntityMapper<TopicDto, Topic> {
 
     private SubscriptionService subscriptionService;
 
@@ -25,18 +25,18 @@ public abstract class SubjectMapper implements EntityMapper<SubjectDto, Subject>
 
     @Mapping(target = "articles", source = "articles")
     @Mapping(target = "isSubscribed", ignore = true) 
-    public abstract SubjectDto toDto(Subject subject, @Context Long userId);
+    public abstract TopicDto toDto(Topic topic, @Context Long userId);
 
-    public List<SubjectDto> toDtoList(List<Subject> subjects, @Context Long userId) {
-        return subjects.stream()
-                .map(subject -> toDto(subject, userId))
+    public List<TopicDto> toDtoList(List<Topic> topics, @Context Long userId) {
+        return topics.stream()
+                .map(topic -> toDto(topic, userId))
                 .collect(Collectors.toList());
     }
 
     @AfterMapping
-    protected void setIsSubscribed(@MappingTarget SubjectDto dto, Subject subject, @Context Long userId) {
+    protected void setIsSubscribed(@MappingTarget TopicDto dto, Topic topic, @Context Long userId) {
         if (subscriptionService != null && userId != null) {
-            dto.setIsSubscribed(subscriptionService.isUserSubscribed(userId, subject.getId()));
+            dto.setIsSubscribed(subscriptionService.isUserSubscribed(userId, topic.getId()));
         } else {
             dto.setIsSubscribed(false);
         }
@@ -46,7 +46,7 @@ public abstract class SubjectMapper implements EntityMapper<SubjectDto, Subject>
         return value != null ? value.getProfileName() : null;
     }
 
-    String map(Subject value) {
+    String map(Topic value) {
         return value != null ? value.getTitle() : null;
     }
 }

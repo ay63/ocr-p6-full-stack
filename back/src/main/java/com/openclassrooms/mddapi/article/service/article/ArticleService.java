@@ -10,5 +10,5 @@ public interface ArticleService {
 
     Article findById(Long id); 
 
-    List<Article> findAllArticleByAuthorIdNot(Long id);
+    List<Article> findAll();
 }

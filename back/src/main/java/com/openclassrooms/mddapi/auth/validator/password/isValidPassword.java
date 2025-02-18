@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface isValidPassword {
 
-    String message() default "Password must at least have: 8 character long, one majuscule and one number";
+    String message() default "Password must at least have: 8 character long, one majuscule and one number and special caractere";
 
     Class<?>[] groups() default {};
 

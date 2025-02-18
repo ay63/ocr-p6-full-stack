@@ -18,6 +18,7 @@ public class ValidPasswordConstraint implements ConstraintValidator<isValidPassw
         return (s.length() >= 8 &&
                 s.matches(".*[0-9].*") &&
                 s.matches(".*[A-Z].*") &&
+                s.matches(".*[a-z].*") &&
                 s.matches(".*[!@#$%^&*()_+={}\\[\\]:;<>,.?/~\\\\|-].*"));
     }
 }

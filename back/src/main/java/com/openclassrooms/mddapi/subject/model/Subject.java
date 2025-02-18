@@ -30,7 +30,7 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 3, max = 32)
+    @Size(min = 2, max = 32)
     @NotBlank
     @Column(unique = true)
     private String title;

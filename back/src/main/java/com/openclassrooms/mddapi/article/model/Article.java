@@ -53,7 +53,7 @@ public class Article {
     private Subject subject;
 
     @NotBlank
-    @Size(max = 2000)
+    @Size(min = 3, max = 2000)
     @Column
     private String content;
 

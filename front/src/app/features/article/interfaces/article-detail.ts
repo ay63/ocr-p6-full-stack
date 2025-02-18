@@ -3,7 +3,7 @@ export interface ArticleDetail {
   title: string;
   subject: string;
   content: string;
-  authorName: string;
+  author: string;
   createdAt: string;
   updatedAt: string;
 }

@@ -6,7 +6,7 @@ import {ArticleApiService} from "../../services/article-api.service";
 import {ActivatedRoute} from "@angular/router";
 import {MatCard, MatCardContent} from "@angular/material/card";
 import {MatInput} from "@angular/material/input";
-import {AsyncPipe, DatePipe, NgClass, NgForOf} from "@angular/common";
+import {AsyncPipe, DatePipe, NgClass, NgForOf, TitleCasePipe} from "@angular/common";
 import {MatDivider} from "@angular/material/divider";
 import {MatIcon} from "@angular/material/icon";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -31,7 +31,8 @@ import {GoBackButtonComponent} from "../../../../shared/components/go-back-butto
     NgClass,
     NgForOf,
     GoBackButtonComponent,
-    MatInput
+    MatInput,
+    TitleCasePipe
   ],
   templateUrl: './detail-article.component.html',
   styleUrl: './detail-article.component.scss'

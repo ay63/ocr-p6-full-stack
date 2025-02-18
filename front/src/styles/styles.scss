@@ -81,5 +81,15 @@ a:hover {
 .content {
   font-size: 14px;
   color: black;
+
+  &.scrop {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    max-height: 250px;
+  }
 }
 

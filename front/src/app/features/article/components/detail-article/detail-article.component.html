@@ -1,9 +1,9 @@
 <app-go-back-button></app-go-back-button>
 <mat-card class="article-card">
-  <span class="title">Titre de l’article sélectionné</span>
+  <span class="title">{{ detail.title | titlecase }}</span>
   <div class="meta-info">
     <span class="subtitle">{{ detail.createdAt | date:'dd/MM/yyyy' }}</span>
-    <span class="subtitle">{{ detail.authorName }}</span>
+    <span class="subtitle">{{ detail.author }}</span>
     <span class="subtitle">{{ detail.subject }}</span>
   </div>
 

@@ -10,7 +10,6 @@ import {BaseItem} from "../../../core/interfaces/baseItem";
 import {RouterLink} from "@angular/router";
 import {Subject} from "../../../features/subject/interfaces/subject";
 import {MatButton} from "@angular/material/button";
-import {TruncatePipe} from "../../../core/pipe/truncate.pipe";
 import {baseItemType} from "../../../core/types/baseItemType";
 
 @Component({
@@ -28,8 +27,7 @@ import {baseItemType} from "../../../core/types/baseItemType";
     NgIf,
     TitleCasePipe,
     RouterLink,
-    MatButton,
-    TruncatePipe
+    MatButton
   ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',

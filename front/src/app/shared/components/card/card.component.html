@@ -1,6 +1,6 @@
 <mat-grid-list [cols]="cols" class="card-container" cols="2" gutterSize="16px" rowHeight="200">
   <ng-container *ngIf="cardItems$ | async as items">
-    <ng-container *ngIf="items === undefined || items.length  == 0 ">
+    <ng-container *ngIf="items === undefined || items.length  == 0">
       <span class="not-items">Aucun élément présent</span>
     </ng-container>
 
@@ -23,12 +23,12 @@
           <!--Articles -->
           <ng-container *ngIf="isArticle(item)">
             <p class="subtitle">{{ item.createdAt | date:'dd/MM/yyyy' }} - {{ item.author | titlecase }}</p>
-            <p class="content">{{ item.content |truncate }}</p>
+            <p class="content scrop">{{ item.content }}</p>
           </ng-container>
 
           <!--Subject -->
           <ng-container *ngIf="isSubject(item)">
-            <p class="content">{{ item.description |truncate }}</p>
+            <p class="content scrop">{{ item.description }}</p>
           </ng-container>
         </mat-card-content>
 
@@ -53,6 +53,5 @@
       </mat-card>
     </mat-grid-tile>
   </ng-container>
-
 </mat-grid-list>
 

@@ -19,6 +19,7 @@ import {getFormErrorMessage} from "../../../../core/utils/errors-message";
 })
 export class LoginComponent {
 
+    onError: boolean = false
     errorsFormMessage = getFormErrorMessage()
     loginForm = new FormGroup({
         email: new FormControl('', [Validators.email, Validators.required]),
@@ -42,7 +43,8 @@ export class LoginComponent {
                 next: (response: AuthDataUser) => {
                     this.authService.saveAuthUser(response)
                     this.router.navigate(['/feed'])
-                }
+                },
+                error: (_) => this.onError = true
             });
         }
     }

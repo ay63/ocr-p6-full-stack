@@ -20,6 +20,11 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   private handleError(err: HttpErrorResponse) {
     let errorMessage = 'Une erreur est survenue';
+
+    if (err.url?.includes("login")) {
+      return;
+    }
+
     switch (err.status) {
       case 400:
         errorMessage = 'Erreur client';

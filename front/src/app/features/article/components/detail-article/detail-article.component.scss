@@ -72,6 +72,11 @@ textarea {
 .send-icon {
   cursor: pointer;
   color: purple;
+
+  &.disabled {
+    color: grey;
+    cursor: not-allowed;
+  }
 }
 
 @media (max-width: 480px) {

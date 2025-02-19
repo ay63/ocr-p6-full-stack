@@ -15,12 +15,12 @@
   <div class="comments-section">
     <h3>Commentaires</h3>
     <div *ngFor="let comment of comments$ | async" class="comment">
-      <span class="profileName subtitle">{{ comment.profileName }}</span>
+      <span class="profileName subtitle">{{ comment.profileName }} {{ comment.createdAt | date : 'dd/MM/yyyy'}}</span>
       <div class="comment-bubble">{{ comment.comment }}</div>
     </div>
     <form (ngSubmit)="onSubmitComment()" [formGroup]="commentForm">
       <div class="comment-input">
-        <textarea (keydown.enter)="onSubmitComment()" formControlName="comment" matInput
+        <textarea rows="6" (keydown.enter)="onSubmitComment()" formControlName="comment" matInput
                   placeholder="Écrivez ici votre commentaire" required></textarea>
         <mat-icon
           (click)="onSubmitComment()"

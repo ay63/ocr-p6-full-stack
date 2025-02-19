@@ -5,7 +5,7 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {Router, RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {MatNavList} from "@angular/material/list";
-import {NgIf} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {AuthService} from "../../../features/auth/services/auth.service";
 import {
@@ -26,7 +26,8 @@ import {
     MatSidenavContent,
     MatSidenav,
     NgIf,
-    RouterLinkActive
+    RouterLinkActive,
+    NgClass
   ],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss',

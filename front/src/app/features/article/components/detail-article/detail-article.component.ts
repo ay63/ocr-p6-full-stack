@@ -46,7 +46,11 @@ export class DetailArticleComponent implements OnInit {
   @Input() comments$!: Observable<ArticleResponseComment[]>;
 
   commentForm = new FormGroup({
-    comment: new FormControl('', [Validators.required, Validators.minLength(5)])
+    comment: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(256)
+    ])
   })
 
   constructor(private httpClient: HttpClient,

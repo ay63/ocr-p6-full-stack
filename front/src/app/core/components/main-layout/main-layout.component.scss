@@ -46,8 +46,13 @@ mat-sidenav .profile-mobile-button {
 
 mat-sidenav-content {
   padding-top: 3.5rem;
+
   @media screen and (min-width: 600px) {
     padding-top: 4rem;
+  }
+
+  &.no-padding {
+    padding: 0;
   }
 }
 

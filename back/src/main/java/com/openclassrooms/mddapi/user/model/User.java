@@ -1,16 +1,16 @@
 package com.openclassrooms.mddapi.user.model;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+
 import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.openclassrooms.mddapi.article.model.Article;
+import com.openclassrooms.mddapi.auth.validator.password.isValidPassword;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -20,6 +20,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -47,11 +48,13 @@ public class User {
     private String profileName;
 
     @NotNull
+    @Email
     @Size(min = 6, max = 64)
     @Column(unique = true)
     private String email;
 
     @Size(min = 8, max = 64)
+    @isValidPassword
     private String password;
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)

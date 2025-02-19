@@ -21,6 +21,9 @@ This project consists of two main codebases:
 - **Material angular**:  UI component library
 ### Installation Frontend 
 
+Navigate to the `front` folder
+>  `cd front`
+
 Run to install dependencies
 >  `npm install` 
 

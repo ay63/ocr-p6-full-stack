@@ -9,5 +9,5 @@ import com.openclassrooms.mddapi.article.model.Article;
 
 public interface CommentRepository extends JpaRepository<Comment, Long>{
     
-    List<Comment> findAllByArticle(Article article);
+    List<Comment> findAllByArticleOrderByCreatedAtDesc(Article article);
 }

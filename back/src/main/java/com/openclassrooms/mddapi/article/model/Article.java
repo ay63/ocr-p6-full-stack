@@ -24,7 +24,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,23 +45,23 @@ public class Article {
 
     @NotBlank
     @Size(min = 10, max = 64)
+    @Column(nullable = false)
     private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "topic_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "topic_id", nullable = false)
     private Topic topic;
 
     @NotBlank
     @Size(min = 3, max = 2000)
-    @Column
+    @Column(nullable = false)
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id")
-    @NotNull
+    @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
     private List<Comment> comments = new ArrayList<>();
 

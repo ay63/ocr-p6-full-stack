@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.user.model;
+package com.openclassrooms.mddapi.user.dto.model;
 
 import java.time.LocalDateTime;
 

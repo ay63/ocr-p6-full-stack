@@ -1,7 +1,7 @@
 package com.openclassrooms.mddapi.user.model;
 
 import java.time.LocalDateTime;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
@@ -9,8 +9,11 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.openclassrooms.mddapi.article.model.Article;
+import com.openclassrooms.mddapi.article.model.Comment;
 import com.openclassrooms.mddapi.auth.validator.password.isValidPassword;
+import com.openclassrooms.mddapi.subscription.model.Subscription;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -36,7 +39,6 @@ import lombok.NoArgsConstructor;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -44,21 +46,31 @@ public class User {
 
     @NotNull
     @Size(min = 3, max = 16)
-    @Column(name = "profile_name")
+    @Column(name = "profile_name", nullable = false)
     private String profileName;
 
     @NotNull
     @Email
     @Size(min = 6, max = 64)
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Size(min = 8, max = 64)
     @isValidPassword
+    @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private List<Article> articles;
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Article> articles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Subscription> subscriptions = new ArrayList<>();
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)

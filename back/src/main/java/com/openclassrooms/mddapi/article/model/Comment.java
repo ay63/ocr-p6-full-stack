@@ -11,6 +11,7 @@ import com.openclassrooms.mddapi.user.model.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,22 +33,23 @@ import lombok.NoArgsConstructor;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "comments")
 public class Comment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
     @Size(max = 256)
+    @Column(nullable = false)
     private String comment;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false) 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id", nullable = false)
-    private Article article;
+    @Builder.Default
+    private Article article = null;
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)
@@ -56,5 +58,4 @@ public class Comment {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
 }

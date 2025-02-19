@@ -1,4 +1,65 @@
-/* You can add global styles to this file, and also import other style files */
+@use "sanitize";
+@use "override-material";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+$primary-color: #7763C5;
+
+.mat-app-background {
+  background-color: white !important;
+}
+
+.mat-drawer-container {
+  background-color: white !important;
+}
+
+
+body {
+  font-family: Inter, "Helvetica Neue", sans-serif;
+  height: 100vh;
+  width: 100vw;
+}
+
+h1 {
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  line-height: 24px !important;
+  padding: 8px !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.isActiveLink {
+  color: $primary-color !important;
+}
+
+.title {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: black;
+  font-size: 14px;
+}
+
+.content {
+  font-size: 14px;
+  color: black;
+
+  &.scrop {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    max-height: 250px;
+  }
+}
+

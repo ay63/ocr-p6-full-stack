@@ -1,0 +1,30 @@
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 225px;
+    height: 130px;
+    object-fit: contain;
+  }
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+  max-width: 600px;
+  padding: 24px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  width: 50%;
+  align-self: center;
+}
+

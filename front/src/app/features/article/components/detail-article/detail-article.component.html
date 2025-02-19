@@ -1,0 +1,51 @@
+<app-go-back-button></app-go-back-button>
+<mat-card class="article-card">
+  <span class="title">{{ detail.title | titlecase }}</span>
+  <div class="meta-info">
+    <span class="subtitle">{{ detail.createdAt | date:'dd/MM/yyyy' }}</span>
+    <span class="subtitle">{{ detail.author }}</span>
+    <span class="subtitle">{{ detail.topic }}</span>
+  </div>
+
+  <mat-card-content class="article-content">
+    <p class="content">{{ detail.content }}</p>
+  </mat-card-content>
+
+  <mat-divider></mat-divider>
+  <div class="comments-section">
+    <h3>Commentaires</h3>
+    <div *ngFor="let comment of comments$ | async" class="comment">
+      <div class="info-comment">
+        <span class="profileName subtitle">{{ comment.profileName }} </span>
+        <span>{{ comment.createdAt | date : 'dd/MM/yyyy' }}</span>
+      </div>
+
+      <div class="comment-bubble">{{ comment.comment }}</div>
+    </div>
+    <form (ngSubmit)="onSubmitComment()" [formGroup]="commentForm">
+
+      <mat-form-field appearance="outline" class="comment-input">
+        <textarea (keydown.enter)="onSubmitComment()" formControlName="comment" matInput
+                  placeholder="Écrivez ici votre commentaire"
+                  required rows="6"></textarea>
+        <mat-icon
+          (click)="onSubmitComment()"
+          [class.disabled]="commentForm.invalid"
+          [ngClass]="{'active': !commentForm.invalid}"
+          class="send-icon">
+          send
+        </mat-icon>
+        <mat-error
+          *ngIf="commentForm.get('comment')?.hasError('maxlength') && commentForm.get('comment')?.touched">
+          {{ errorsFormMessage.article.comment.maxLength }}
+        </mat-error>
+        <mat-error
+          *ngIf="commentForm.get('comment')?.hasError('minlength') && commentForm.get('comment')?.touched">
+          {{ errorsFormMessage.article.comment.minLength }}
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+
+</mat-card>
+

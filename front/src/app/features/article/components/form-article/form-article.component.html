@@ -1,0 +1,43 @@
+<app-go-back-button></app-go-back-button>
+<form (ngSubmit)="onSubmit()" [formGroup]="articleForm" class="form-container">
+  <h1>Créer un nouvel article</h1>
+  <mat-form-field appearance="outline">
+    <mat-label>Thème</mat-label>
+    <mat-select formControlName="topic">
+      <mat-option *ngFor="let topic of topic$ | async" [value]="topic.id">{{ topic.title }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="articleForm.get('topic')?.hasError('required') && articleForm.get('topic')?.touched">
+      {{ errorsFormMessage.required }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Titre</mat-label>
+    <input formControlName="title" matInput placeholder="Titre de l'article">
+    <mat-error *ngIf="articleForm.get('title')?.hasError('required') && articleForm.get('title')?.touched">
+      {{ errorsFormMessage.required }}
+    </mat-error>
+    <mat-error *ngIf="articleForm.get('title')?.hasError('minLength') && articleForm.get('title')?.touched">
+      {{ errorsFormMessage.article.title.minLength }}
+    </mat-error>
+    <mat-error *ngIf="articleForm.get('title')?.hasError('maxLength') && articleForm.get('title')?.touched">
+      {{ errorsFormMessage.article.title.maxLength }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Contenu</mat-label>
+    <textarea cols="50" formControlName="content" matInput placeholder="Contenu de l'article" rows="8"></textarea>
+    <mat-error *ngIf="articleForm.get('content')?.hasError('required') && articleForm.get('content')?.touched">
+      {{ errorsFormMessage.required }}
+    </mat-error>
+    <mat-error *ngIf="articleForm.get('content')?.hasError('maxlength') && articleForm.get('content')?.touched">
+      {{ errorsFormMessage.article.content.maxLength }}
+    </mat-error>
+    <mat-error *ngIf="articleForm.get('content')?.hasError('minLength') && articleForm.get('content')?.touched">
+      {{ errorsFormMessage.article.content.minLength }}
+    </mat-error>
+  </mat-form-field>
+
+  <button [disabled]="articleForm.invalid" color="primary" mat-raised-button type="submit">Créer</button>
+</form>

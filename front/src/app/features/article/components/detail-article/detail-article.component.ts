@@ -5,8 +5,8 @@ import {HttpClient} from "@angular/common/http";
 import {ArticleApiService} from "../../services/article-api.service";
 import {ActivatedRoute} from "@angular/router";
 import {MatCard, MatCardContent} from "@angular/material/card";
-import {MatInput} from "@angular/material/input";
-import {AsyncPipe, DatePipe, NgClass, NgForOf, TitleCasePipe} from "@angular/common";
+import {MatError, MatFormField, MatInput} from "@angular/material/input";
+import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, TitleCasePipe} from "@angular/common";
 import {MatDivider} from "@angular/material/divider";
 import {MatIcon} from "@angular/material/icon";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -16,6 +16,7 @@ import {
   UnsubscribeObservableService
 } from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
 import {GoBackButtonComponent} from "../../../../core/components/go-back-button/go-back-button.component";
+import {getFormErrorMessage} from "../../../../core/utils/errors-message";
 
 @Component({
   selector: 'app-detail-profile-article',
@@ -32,13 +33,18 @@ import {GoBackButtonComponent} from "../../../../core/components/go-back-button/
     NgForOf,
     GoBackButtonComponent,
     MatInput,
-    TitleCasePipe
+    TitleCasePipe,
+    MatError,
+    NgIf,
+    MatFormField
   ],
   templateUrl: './detail-article.component.html',
   styleUrl: './detail-article.component.scss'
 })
 export class DetailArticleComponent implements OnInit {
 
+
+  errorsFormMessage = getFormErrorMessage()
   @Input()
   detail!: ArticleDetail;
   articleId!: string;

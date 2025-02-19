@@ -17,6 +17,10 @@ export const getFormErrorMessage = () => {
       content: {
         minLength: "Le contenu doit contenir au moins 3 caractères.",
         maxLength: "Le contenu doit contenir moins de 2000 caractères."
+      },
+      comment: {
+        minLength: "Le commentaire doit contenir au moins 5 caractères.",
+        maxLength: "Le commentaire doit contenir moins de 256 caractères."
       }
     },
     subject: {

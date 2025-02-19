@@ -59,7 +59,7 @@ export class DetailProfileComponent implements OnInit {
       this.profileApiService.putProfile(profile).pipe(this.unsubscribeObservable.takeUntilDestroy).subscribe({
         next: (response: AuthDataUser) => {
           this.authService.saveAuthUser(response)
-          this.matSnackBar.open("Profile mis à jour!", 'Fermer', {duration: 4000});
+          this.matSnackBar.open("Profile mis à jour !", 'Fermer', {duration: 4000});
         }
       });
     }
@@ -78,6 +78,10 @@ export class DetailProfileComponent implements OnInit {
   onLogout(): void {
     this.authService.clearAuthData()
     this.router.navigate(['/']);
+  }
+
+  formHasNotInputValue(): boolean {
+    return !Object.values(this.profileForm.value).some(value => value?.trim() !== '');
   }
 }
 

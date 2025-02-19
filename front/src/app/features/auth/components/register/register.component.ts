@@ -52,7 +52,7 @@ export class RegisterComponent {
             const registerRequest = this.registerForm.value as RegisterRequest;
             this.authApiService.register(registerRequest).pipe(this.unsubscribeObservable.takeUntilDestroy).subscribe({
                     next: (_: void) => {
-                        this.matSnackBar.open("Your account has been created !", 'Close', {duration: 4000});
+                        this.matSnackBar.open("Votre compte a bien été créé !", 'Fermer', {duration: 4000});
                         this.router.navigate(['/login'])
                     }
                 }

@@ -46,11 +46,11 @@ export class FormArticleComponent implements OnInit {
       const articleRequest = this.articleForm.value as unknown as ArticleRequest;
       this.articleApi.post(articleRequest).pipe(this.unsubscribeObservable.takeUntilDestroy).subscribe({
         next: (_: void) => {
-          this.matSnackBar.open("Article created !", 'Close', {duration: 4000});
+          this.matSnackBar.open("Article créé !", 'Fermer', {duration: 4000});
           this.router.navigate(['/feed'])
         },
         error: (_: void) => {
-          this.matSnackBar.open("Something goes wrong, please try later !", 'Close', {duration: 4000});
+          this.matSnackBar.open("Erreur, veuillez essayer plus tard !", 'Fermer', {duration: 4000});
         }
       })
     }

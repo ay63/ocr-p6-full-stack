@@ -30,6 +30,6 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> findAllByArticle(Article article) {
-        return commentRepository.findAllByArticle(article);
+        return commentRepository.findAllByArticleOrderByCreatedAtDesc(article);
     }
 }

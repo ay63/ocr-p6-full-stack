@@ -5,6 +5,7 @@ import {DetailArticleComponent} from "./components/detail-article/detail-article
 import {ListArticleComponent} from "./components/list-article/list-article.component";
 
 const routes: Routes = [
+
   {title : 'AllArticles', path : '', component : ListArticleComponent},
   {title: 'CreateArticle', path: 'create-article', component: FormArticleComponent},
   {title: 'DetailArticle', path: 'detail-profile-article-article/:id', component: DetailArticleComponent},

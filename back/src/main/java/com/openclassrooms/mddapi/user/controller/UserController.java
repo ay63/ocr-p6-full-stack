@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.mddapi.auth.dto.response.AuthResponse;
 import com.openclassrooms.mddapi.auth.service.jwt.JwtService;
 import com.openclassrooms.mddapi.user.dto.request.UserUpdateRequestDto;
-import com.openclassrooms.mddapi.user.dto.response.UserResponseDto;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.UserDetailsImpl;
 import com.openclassrooms.mddapi.user.service.UserService;
@@ -32,17 +30,6 @@ public class UserController {
             JwtService jwtService) {
         this.userService = userService;
         this.jwtService = jwtService;
-    }
-
-    @GetMapping("/me")
-    public ResponseEntity<?> me(Authentication authentication) {
-        User user = this.userService.findByEmail(authentication.getName());
-
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok().body(new UserResponseDto(user.getEmail(), user.getProfileName()));
     }
 
     @PutMapping(path = "/update")

@@ -19,7 +19,7 @@ public class ArticleDto {
     private String title;
 
     @NotNull
-    private Long subject;
+    private Long topic;
 
     @NotBlank
     @Size(max = 2000)

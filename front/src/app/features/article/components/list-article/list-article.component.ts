@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {CardComponent} from "../../../../shared/components/card/card.component";
+import {CardComponent} from "../../../../core/components/card/card.component";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
 import {BehaviorSubject, map, Observable} from "rxjs";
-import {BaseItem} from "../../../../core/interfaces/baseItem";
+import {BaseItem} from "../../../../core/models/interfaces/baseItem";
 import {ArticleApiService} from "../../services/article-api.service";
 import {
   UnsubscribeObservableService

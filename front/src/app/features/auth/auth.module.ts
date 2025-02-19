@@ -8,7 +8,7 @@ import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {ReactiveFormsModule} from "@angular/forms";
-import {GoBackButtonComponent} from "../../shared/components/go-back-button/go-back-button.component";
+import {GoBackButtonComponent} from "../../core/components/go-back-button/go-back-button.component";
 
 const materialModule = [
   MatButton,

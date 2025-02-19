@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {AuthService} from "../../auth/services/auth.service";
-import {BaseItem} from "../../../core/interfaces/baseItem";
+import {BaseItem} from "../../../core/models/interfaces/baseItem";
 
 @Injectable(
   {

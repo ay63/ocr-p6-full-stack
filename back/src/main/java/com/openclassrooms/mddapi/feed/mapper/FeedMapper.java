@@ -13,27 +13,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.openclassrooms.mddapi.article.model.Article;
 import com.openclassrooms.mddapi.feed.dto.response.FeedResponseDto;
 import com.openclassrooms.mddapi.share.mapper.EntityMapper;
-import com.openclassrooms.mddapi.subject.model.Subject;
-import com.openclassrooms.mddapi.subject.service.SubjectService;
+import com.openclassrooms.mddapi.topic.model.Topic;
+import com.openclassrooms.mddapi.topic.service.TopicService;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.UserService;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = { UserService.class,
-        SubjectService.class }, imports = { List.class,
-                Collections.class, Collectors.class, Optional.class, User.class, Subject.class })
+        TopicService.class }, imports = { List.class,
+                Collections.class, Collectors.class, Optional.class, User.class, Topic.class })
 public abstract class FeedMapper implements EntityMapper<FeedResponseDto, Article> {
 
     @Autowired
-    protected SubjectService subjectService;
+    protected TopicService topicService;
 
     @Autowired
     protected UserService userService;
 
-    @Mapping(target = "subject", expression = "java(getSubjectId(feedResponseDto.getSubject()))")
+    @Mapping(target = "topic", expression = "java(getByTopicName(feedResponseDto.getTopic()))")
     public abstract Article toEntity(FeedResponseDto feedResponseDto);
 
     @Mapping(source = "author.profileName", target = "author")
-    @Mapping(source = "subject.title", target = "subject")
+    @Mapping(source = "topic.title", target = "topic")
     public abstract FeedResponseDto toDto(Article article);
 
     public User getAuthorFromId(Long authorId) {
@@ -43,11 +43,11 @@ public abstract class FeedMapper implements EntityMapper<FeedResponseDto, Articl
         return userService.findById(authorId);
     }
 
-    public Subject getSubjectId(Long subjectId) {
-        if (subjectId == null) {
+    public Topic getByTopicName(String title) {
+        if (title == null) {
             return null;
         }
-        return subjectService.findById(subjectId);
+        return topicService.findByTitle(title);
     }
 
 }

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {jwtDecode, JwtPayload} from "jwt-decode";
-import {AuthDataUser} from "../../../core/interfaces/authDataUser";
+import {AuthDataUser} from "../../../core/models/interfaces/authDataUser";
 import {CookieService} from "ngx-cookie-service";
 import {BehaviorSubject, Observable} from "rxjs";
 

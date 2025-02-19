@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openclassrooms.mddapi.subject.dto.SubjectDto;
-import com.openclassrooms.mddapi.subject.mapper.SubjectMapper;
-import com.openclassrooms.mddapi.subject.model.Subject;
 import com.openclassrooms.mddapi.subscription.service.SubscriptionService;
+import com.openclassrooms.mddapi.topic.dto.TopicDto;
+import com.openclassrooms.mddapi.topic.mapper.TopicMapper;
+import com.openclassrooms.mddapi.topic.model.Topic;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.UserService;
 
@@ -24,16 +24,16 @@ public class SubscriptionController {
 
     private final SubscriptionService subscriptionService;
     private final UserService userService;
-    private final SubjectMapper subjectMapper;
+    private final TopicMapper subjectMapper;
 
     public SubscriptionController(SubscriptionService subscriptionService, UserService userService,
-            SubjectMapper subjectMapper) {
+            TopicMapper subjectMapper) {
         this.subscriptionService = subscriptionService;
         this.userService = userService;
         this.subjectMapper = subjectMapper;
     }
 
-    @PostMapping("subject/{subjectId}/user/{userId}")
+    @PostMapping("topic/{subjectId}/user/{userId}")
     public ResponseEntity<?> subscribe(@PathVariable("subjectId") String subjectId,
             @PathVariable("userId") String userId) {
 
@@ -46,7 +46,7 @@ public class SubscriptionController {
         }
     }
 
-    @DeleteMapping("subject/{subjectId}/user/{userId}")
+    @DeleteMapping("topic/{subjectId}/user/{userId}")
     public ResponseEntity<?> delete(
             @PathVariable("subjectId") String subjectId,
             @PathVariable("userId") String userId) {
@@ -61,14 +61,14 @@ public class SubscriptionController {
     }
 
     @GetMapping("subscribed")
-    public ResponseEntity<List<SubjectDto>> getAllSubscribeSubject(Authentication authentication) {
+    public ResponseEntity<List<TopicDto>> getAllSubscribeSubject(Authentication authentication) {
         String email = authentication.getName();
         User user = userService.findByEmail(email);
 
-        List<Subject> subs = subscriptionService.findAllSubscribeSubject(user.getId());
-        List<SubjectDto> subjectsDto = subjectMapper.toDtoList(subs, user.getId());
+        List<Topic> topics = subscriptionService.findAllSubscribeSubject(user.getId());
+        List<TopicDto> topicDtos = subjectMapper.toDtoList(topics, user.getId());
 
-        return ResponseEntity.ok().body(subjectsDto);
+        return ResponseEntity.ok().body(topicDtos);
     }
 
 }

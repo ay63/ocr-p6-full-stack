@@ -8,7 +8,7 @@ import {DetailProfileComponent} from "./components/detail-profile/detail-profile
 import {MatButton} from "@angular/material/button";
 import {ProfileRoutingModule} from "./profile-routing.module";
 import {MatDivider} from "@angular/material/divider";
-import {CardComponent} from "../../shared/components/card/card.component";
+import {CardComponent} from "../../core/components/card/card.component";
 
 @NgModule({
   declarations: [

@@ -41,14 +41,8 @@ public class ArticleController {
 
     @GetMapping
     public ResponseEntity<?> all(Authentication authentication) {
-        String email = authentication.getName();
-        User user = userService.findByEmail(email);
-
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        List<Article> articles = articleService.findAllArticleByAuthorIdNot(user.getId());
+ 
+        List<Article> articles = articleService.findAll();
 
         List<ArticleResponseDto> articleResponseDtos = articleResponseMapper.toDto(articles);
 
@@ -81,7 +75,7 @@ public class ArticleController {
         Article article = this.articleService.findById(id);
 
         if (article == null) {
-            ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().build();
         }
 
         ArticleResponseDto articleResponseDto = this.articleResponseMapper.toDto(article);

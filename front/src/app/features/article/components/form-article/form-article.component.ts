@@ -1,15 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
-import {SubjectApiService} from "../../../subject/services/subject-api.service";
+import {TopicApiService} from "../../../topic/services/topic-api.service";
 import {ArticleApiService} from "../../services/article-api.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {ArticleRequest} from "../../interfaces/article-request";
-import {BaseItem} from "../../../../core/interfaces/baseItem";
+import {BaseItem} from "../../../../core/models/interfaces/baseItem";
 import {
   UnsubscribeObservableService
 } from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
+import {getFormErrorMessage} from "../../../../core/utils/errors-message";
 
 @Component({
   selector: 'app-form-article',
@@ -19,15 +20,16 @@ import {
 })
 export class FormArticleComponent implements OnInit {
 
-  subject$!: Observable<BaseItem[]>;
+  errorsFormMessage = getFormErrorMessage()
+  topic$!: Observable<BaseItem[]>;
   articleForm = new FormGroup({
-    subject: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    title: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    content: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
+    topic: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    title: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(32)]),
+    content: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(2000)]),
   })
 
   constructor(
-    private subjectApi: SubjectApiService,
+    private topicApi: TopicApiService,
     private articleApi: ArticleApiService,
     private matSnackBar: MatSnackBar,
     private router: Router,
@@ -36,7 +38,7 @@ export class FormArticleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subject$ = this.subjectApi.getAll();
+    this.topic$ = this.topicApi.getAll();
   }
 
   onSubmit(): void {
@@ -44,14 +46,15 @@ export class FormArticleComponent implements OnInit {
       const articleRequest = this.articleForm.value as unknown as ArticleRequest;
       this.articleApi.post(articleRequest).pipe(this.unsubscribeObservable.takeUntilDestroy).subscribe({
         next: (_: void) => {
-          this.matSnackBar.open("Article created !", 'Close', {duration: 4000});
+          this.matSnackBar.open("Article créé !", 'Fermer', {duration: 4000});
           this.router.navigate(['/feed'])
         },
         error: (_: void) => {
-          this.matSnackBar.open("Something goes wrong, please try later !", 'Close', {duration: 4000});
+          this.matSnackBar.open("Erreur, veuillez essayer plus tard !", 'Fermer', {duration: 4000});
         }
       })
     }
   }
+
 
 }

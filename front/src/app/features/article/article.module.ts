@@ -8,8 +8,8 @@ import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatButton} from "@angular/material/button";
-import {MainLayoutComponent} from "../../shared/components/main-layout/main-layout.component";
-import {GoBackButtonComponent} from "../../shared/components/go-back-button/go-back-button.component";
+import {MainLayoutComponent} from "../../core/components/main-layout/main-layout.component";
+import {GoBackButtonComponent} from "../../core/components/go-back-button/go-back-button.component";
 
 
 const materialModule = [

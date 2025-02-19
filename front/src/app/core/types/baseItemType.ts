@@ -1,3 +1,3 @@
 export type baseItemType = {
-  type: 'article' | 'subject';
+  type: 'article' | 'topic';
 };

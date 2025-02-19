@@ -13,26 +13,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.openclassrooms.mddapi.article.dto.model.ArticleDto;
 import com.openclassrooms.mddapi.article.model.Article;
 import com.openclassrooms.mddapi.share.mapper.EntityMapper;
-import com.openclassrooms.mddapi.subject.model.Subject;
-import com.openclassrooms.mddapi.subject.service.SubjectService;
+import com.openclassrooms.mddapi.topic.model.Topic;
+import com.openclassrooms.mddapi.topic.service.TopicService;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.UserService;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        uses = { UserService.class, SubjectService.class }, imports = { List.class,
-                Collections.class, Collectors.class, Optional.class, User.class, Subject.class })
+        uses = { UserService.class, TopicService.class }, imports = { List.class,
+                Collections.class, Collectors.class, Optional.class, User.class, Topic.class })
 public abstract class ArticleMapper implements EntityMapper<ArticleDto, Article> {
 
     @Autowired
-    protected SubjectService subjectService;
+    protected TopicService topicService;
 
     @Autowired
     protected UserService userService;
 
-    @Mapping(target = "subject", expression = "java(getSubjectId(articleDto.getSubject()))")
+    @Mapping(target = "topic", expression = "java(getTopicId(articleDto.getTopic()))")
     public abstract Article toEntity(ArticleDto articleDto);
 
-    @Mapping(source = "subject.id", target = "subject")
+    @Mapping(source = "topic.id", target = "topic")
     public abstract ArticleDto toDto(Article article);
 
     public User getAuthorFromId(Long authorId) {
@@ -42,11 +42,11 @@ public abstract class ArticleMapper implements EntityMapper<ArticleDto, Article>
         return userService.findById(authorId);
     }
 
-    public Subject getSubjectId(Long subjectId) {
-        if (subjectId == null) {
+    public Topic getTopicId(Long topicId) {
+        if (topicId == null) {
             return null;
         }
-        return subjectService.findById(subjectId);
+        return topicService.findById(topicId);
     }
 
 }

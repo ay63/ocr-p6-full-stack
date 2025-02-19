@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from './shared/components/home/home.component';
-import {NotFoundComponent} from "./shared/components/not-found/not-found.component";
+import {HomeComponent} from './core/components/home/home.component';
+import {NotFoundComponent} from "./core/components/not-found/not-found.component";
 import {UnauthGuard} from "./core/guards/unauth.guard";
 import {AuthGuard} from "./core/guards/auth.guard";
 
@@ -27,9 +27,9 @@ const routes: Routes = [
     loadChildren: () => import('./features/article/article.module').then(m => m.ArticleModule)
   },
   {
-    path: 'subject',
+    path: 'topic',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./features/subject/subject.module').then(m => m.SubjectModule)
+    loadChildren: () => import('./features/topic/topic.module').then(m => m.TopicModule)
   },
   {
     path: 'profile',
@@ -38,6 +38,7 @@ const routes: Routes = [
   },
   {path: '404', component: NotFoundComponent},
   {path: '500', component: NotFoundComponent},
+  {path: '400', component: NotFoundComponent},
   {path: '**', redirectTo: '404'}
 ];
 

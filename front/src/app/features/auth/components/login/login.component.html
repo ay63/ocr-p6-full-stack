@@ -1,21 +1,33 @@
 <app-go-back-button></app-go-back-button>
 <div class="login-container">
   <img alt="mdd logo" src="assets/logo_p6.png">
-  <h2>Se connecter</h2>
+  <h1>Se connecter</h1>
   <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="login-form">
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input formControlName="email" matInput required>
-      <mat-error *ngIf="loginForm.get('email')?.invalid">Ce champ est requis</mat-error>
+      <mat-error *ngIf="loginForm.get('email')?.invalid">{{ errorsFormMessage.email.format }}</mat-error>
+      <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+        {{ errorsFormMessage.required }}
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Mot de passe</mat-label>
       <input formControlName="password" matInput required type="password">
-      <mat-error *ngIf="loginForm.get('password')?.invalid">Le mot de passe doit avoir au moins 8 caractères</mat-error>
+      <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+        {{ errorsFormMessage.required }}
+      </mat-error>
+      <mat-error *ngIf="loginForm.get('password')?.hasError('pattern')">
+        {{ errorsFormMessage.password.pattern }}
+      </mat-error>
     </mat-form-field>
 
-    <button [disabled]="loginForm.invalid" class="btn-default" mat-raised-button type="submit">Se connecter
+    <button [disabled]="loginForm.invalid" color="primary" mat-raised-button type="submit">Se connecter
     </button>
   </form>
+  <mat-error *ngIf="onError">
+    Email ou mot de passe incorrect
+  </mat-error>
 </div>
+

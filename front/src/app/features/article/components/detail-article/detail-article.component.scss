@@ -30,6 +30,8 @@
   gap: 16px;
   flex-wrap: wrap;
   justify-content: space-between;
+
+
 }
 
 .comment {
@@ -37,21 +39,24 @@
   flex-direction: row;
   gap: 16px;
   width: 100%;
-}
 
-.username {
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 24px;
-  flex: 0 0 20%;
-}
+  .profileName {
+    flex: 0 0 20%;
+  }
 
-.comment-bubble {
-  background: #EEE;
-  padding: 10px;
-  border-radius: 16px;
-  flex: 0 0 80%;
-  min-height: 100px;
+  .comment-bubble {
+    background: #EEE;
+    padding: 10px;
+    border-radius: 16px;
+    flex: 0 0 80%;
+    min-height: 100px;
+  }
+
+  .info-comment{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
 }
 
 .comment-input {
@@ -72,6 +77,11 @@ textarea {
 .send-icon {
   cursor: pointer;
   color: purple;
+
+  &.disabled {
+    color: grey;
+    cursor: not-allowed;
+  }
 }
 
 @media (max-width: 480px) {
@@ -80,4 +90,29 @@ textarea {
     padding: 16px;
   }
 
+  .comment {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+
+    .info-comment{
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      order: 2;
+      width: 100%;
+
+      .profileName {
+        flex: 1;
+      }
+    }
+
+    .comment-bubble {
+      background: #EEE;
+      padding: 10px;
+      border-radius: 16px;
+      min-height: 100px;
+    }
+  }
 }

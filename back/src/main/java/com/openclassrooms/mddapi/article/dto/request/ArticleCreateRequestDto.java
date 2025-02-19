@@ -15,7 +15,7 @@ public class ArticleCreateRequestDto {
     private String title;
 
     @NotEmpty
-    private Long subjects;
+    private Long topic;
 
     @NotBlank
     @Size(max = 2000)

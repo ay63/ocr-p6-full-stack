@@ -13,7 +13,7 @@ public class FeedResponseDto {
 
     private String title;
 
-    private String subject;
+    private String topic;
 
     private String content;
 

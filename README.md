@@ -1,25 +1,70 @@
-# P6-Full-Stack-reseau-dev
+# ORION project
 
-## Front
+## Description
+This project consists of two main codebases:
+- **front**: all the frontend for the social network MDD
+- **back**: all the backend for the social network MDD
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+## Prerequisites
+- **Frontend**:
+  - Angular CLI `19.1.5`
+- **Backend**:
+  - Java `21`
+  - Mysql `8.0.30`
+  
+## Installation
 
-Don't forget to install your node_modules before starting (`npm install`).
+## Frontend
 
-### Development server
+### Technologies Frontend
+- **Angular**: Framework for building the web application.
+- **Material angular**:  UI component library
+### Installation Frontend 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Run to install dependencies
+>  `npm install` 
 
-### Build
+Start the application with
+>  `npm run start`. 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+The app will be available at `http://localhost:4200`.
 
-### Where to start
+## Backend
 
-As you may have seen if you already started the app, a simple home page containing a logo, a title and a button is available. If you take a look at its code (in the `home.component.html`) you will see that an external UI library is already configured in the project.
+### Technologies Backend
+- **Spring boot 3** 
+- **Java 21**
 
-This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your interfaces quickly.
+### Installation Backend
 
-Note: I recommend to use material however it's not mandatory, if you prefer you can get rid of it.
+Navigate to the `back` folder
+>  `cd back`
 
-Good luck!
+### Start Backend
+Start the application with 
+> `mvn spring-boot:run` 
+
+The app will be available at `http://localhost:8080`.
+
+## Database  
+
+### Using Command Line  
+
+#### Import the script:  
+> `source path/to/sql/script.sql`  
+
+### Using MySQL Workbench  
+
+1. Open MySQL Workbench.  
+2. Connect to the MySQL server.  
+3. Go to the **"File"** menu and select **"Run SQL Script"**.  
+4. Select the SQL file to import, located in the project root: 
+  > `resources > sql > script.sql`
+-
+## Postman
+
+### Import Postman Routes
+
+Select "Import" in the sidebar. 
+The JSON file will be located at the root of the project in the folder: 
+> `resources > postman > mdd.postman_collection.json`

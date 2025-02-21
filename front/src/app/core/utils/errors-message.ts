@@ -2,7 +2,7 @@ export const getFormErrorMessage = () => {
   return {
     required: "Ce champ est requis.",
     password: {
-      pattern: "Longeur entre 8 et 64 caractères, avec au moins une minuscule, une majuscule, un chiffre et un caractère spécial."
+      pattern: "Longeur entre 8 et 64 caractères, au moins une minuscule, une majuscule, un chiffre et un caractère spécial."
     },
     email: {
       minLength: "L'email doit contenir au moins 6 caractères.",

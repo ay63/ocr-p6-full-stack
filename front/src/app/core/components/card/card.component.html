@@ -5,7 +5,7 @@
             <span class="not-items">Aucun élément présent</span>
         </ng-container>
 
-        <mat-grid-tile *ngFor="let item of items">
+        <mat-grid-tile *ngFor="let item of items; trackBy: trackById">
             <mat-card class="item-card">
                 <mat-card-header>
                     <!--Articles -->

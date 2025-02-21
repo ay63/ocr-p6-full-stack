@@ -69,4 +69,8 @@ export class CardComponent implements OnInit {
   onButtonClick(itemId: number) {
     this.onBtnAction.emit(String(itemId));
   }
+
+  trackById(index: number, item: BaseItem): number {
+    return item.id;
+  }
 }

@@ -4,52 +4,28 @@ import {ArticleDetail} from "../../interfaces/article-detail";
 import {HttpClient} from "@angular/common/http";
 import {ArticleApiService} from "../../services/article-api.service";
 import {ActivatedRoute} from "@angular/router";
-import {MatCard, MatCardContent} from "@angular/material/card";
-import {MatError, MatFormField, MatInput} from "@angular/material/input";
-import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, TitleCasePipe} from "@angular/common";
-import {MatDivider} from "@angular/material/divider";
-import {MatIcon} from "@angular/material/icon";
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ArticlePostComment} from "../../interfaces/article-post-comment";
 import {ArticleResponseComment} from "../../interfaces/article-response-comment";
 import {
   UnsubscribeObservableService
 } from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
-import {GoBackButtonComponent} from "../../../../core/components/go-back-button/go-back-button.component";
 import {getFormErrorMessage} from "../../../../core/utils/errors-message";
 
 @Component({
   selector: 'app-detail-profile-article',
-  imports: [
-    MatCardContent,
-    MatCard,
-    AsyncPipe,
-    DatePipe,
-    MatDivider,
-    MatIcon,
-    FormsModule,
-    ReactiveFormsModule,
-    NgClass,
-    NgForOf,
-    GoBackButtonComponent,
-    MatInput,
-    TitleCasePipe,
-    MatError,
-    NgIf,
-    MatFormField
-  ],
   templateUrl: './detail-article.component.html',
-  styleUrl: './detail-article.component.scss'
+  styleUrl: './detail-article.component.scss',
+  standalone: false
 })
 export class DetailArticleComponent implements OnInit {
 
-
-  errorsFormMessage = getFormErrorMessage()
+  @Input() comments$!: Observable<ArticleResponseComment[]>;
   @Input()
   detail!: ArticleDetail;
   articleId!: string;
+  errorsFormMessage = getFormErrorMessage()
 
-  @Input() comments$!: Observable<ArticleResponseComment[]>;
 
   commentForm = new FormGroup({
     comment: new FormControl('', [

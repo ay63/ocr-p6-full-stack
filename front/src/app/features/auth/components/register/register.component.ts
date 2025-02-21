@@ -60,5 +60,4 @@ export class RegisterComponent {
         }
     }
 
-    protected readonly getErrorMessage = getFormErrorMessage;
 }

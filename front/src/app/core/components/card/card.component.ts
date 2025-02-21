@@ -14,23 +14,9 @@ import {baseItemType} from "../../types/baseItemType";
 
 @Component({
   selector: 'app-card',
-  imports: [
-    AsyncPipe,
-    DatePipe,
-    MatCard,
-    MatCardContent,
-    MatCardHeader,
-    MatCardTitle,
-    MatGridList,
-    MatGridTile,
-    NgForOf,
-    NgIf,
-    TitleCasePipe,
-    RouterLink,
-    MatButton
-  ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
+  standalone: false
 })
 export class CardComponent implements OnInit {
   cols: number = 2;

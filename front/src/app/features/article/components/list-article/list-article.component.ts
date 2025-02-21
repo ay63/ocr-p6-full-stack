@@ -1,31 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {CardComponent} from "../../../../core/components/card/card.component";
-import {MatButton, MatIconButton} from "@angular/material/button";
-import {MatIcon} from "@angular/material/icon";
-import {RouterLink} from "@angular/router";
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {BaseCartItem} from "../../../../core/models/interfaces/baseCartItem";
 import {ArticleApiService} from "../../services/article-api.service";
 import {
   UnsubscribeObservableService
 } from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
-import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {Article} from "../../interfaces/article";
 
 @Component({
   selector: 'app-list-article',
-  imports: [
-    MatButton,
-    MatIcon,
-    MatIconButton,
-    RouterLink,
-    CardComponent,
-    MatMenuTrigger,
-    MatMenu,
-    MatMenuItem
-  ],
   templateUrl: './list-article.component.html',
   styleUrl: './list-article.component.scss',
+  standalone: false
 })
 export class ListArticleComponent implements OnInit {
   items$!: Observable<BaseCartItem[]>;

@@ -14,24 +14,9 @@ import {
 
 @Component({
   selector: 'app-main-layout',
-  imports: [
-    MatToolbar,
-    MatIcon,
-    MatButton,
-    MatIconButton,
-    RouterLink,
-    MatSidenavContainer,
-    MatNavList,
-    RouterOutlet,
-    MatSidenavContent,
-    MatSidenav,
-    NgIf,
-    RouterLinkActive,
-    NgClass
-  ],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss',
-  standalone: true
+  standalone: false
 })
 export class MainLayoutComponent implements OnInit {
   @ViewChild(MatSidenav) sidenav!: MatSidenav;

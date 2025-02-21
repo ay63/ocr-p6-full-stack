@@ -18,11 +18,22 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 3rem;
+  gap: 32px;
+  width: 100%;
+
+  button {
+    max-width: 150px;
+    width: 100%;
+  }
+
 }
 
 @media (max-width: 600px) {
   .responsive-img {
     width: 300px;
+  }
+
+  .home-btn-container {
+    flex-direction: column;
   }
 }

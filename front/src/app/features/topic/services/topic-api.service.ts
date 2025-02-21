@@ -1,7 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
-import {BaseItem} from "../../../core/models/interfaces/baseItem";
+import {BaseCartItem} from "../../../core/models/interfaces/baseCartItem";
 
 @Injectable(
   {
@@ -14,7 +14,7 @@ export class TopicApiService {
   constructor(private httpClient: HttpClient) {
   }
 
-  public getAll(): Observable<BaseItem[]> {
-    return this.httpClient.get<BaseItem[]>(this.pathService)
+  public getAll(): Observable<BaseCartItem[]> {
+    return this.httpClient.get<BaseCartItem[]>(this.pathService)
   }
 }

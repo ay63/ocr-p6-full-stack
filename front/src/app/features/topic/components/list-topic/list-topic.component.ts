@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {BaseItem} from "../../../../core/models/interfaces/baseItem";
+import {BaseCartItem} from "../../../../core/models/interfaces/baseCartItem";
 import {TopicApiService} from "../../services/topic-api.service";
 import {SubscriptionApiService} from "../../../../core/services/subscription-api.service";
 import {AuthService} from "../../../auth/services/auth.service";
@@ -15,7 +15,7 @@ import {tap} from "rxjs/operators";
   standalone: false
 })
 export class ListTopicComponent implements OnInit {
-  private itemsSubject = new BehaviorSubject<(BaseItem & { isSubscribed?: boolean })[]>([]);
+  private itemsSubject = new BehaviorSubject<(BaseCartItem & { isSubscribed?: boolean })[]>([]);
   items$ = this.itemsSubject.asObservable();
 
   constructor(

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {BehaviorSubject, Observable, tap} from "rxjs";
-import {BaseItem} from "../../../../core/models/interfaces/baseItem";
+import {BaseCartItem} from "../../../../core/models/interfaces/baseCartItem";
 import {ProfileApiService} from "../../services/profile-api.service";
 import {SubscriptionApiService} from "../../../../core/services/subscription-api.service";
 import {AuthDataUser} from "../../../../core/models/interfaces/authDataUser";
@@ -21,9 +21,9 @@ import {getFormErrorMessage} from "../../../../core/utils/errors-message";
 })
 export class DetailProfileComponent implements OnInit {
 
-  private itemsSubject: BehaviorSubject<BaseItem[]> = new BehaviorSubject<BaseItem[]>([]);
+  private itemsSubject: BehaviorSubject<BaseCartItem[]> = new BehaviorSubject<BaseCartItem[]>([]);
   errorsFormMessage = getFormErrorMessage()
-  items$: Observable<BaseItem[]> = this.itemsSubject.asObservable();
+  items$: Observable<BaseCartItem[]> = this.itemsSubject.asObservable();
 
   profileForm = new FormGroup({
     profileName: new FormControl("", [
@@ -88,8 +88,8 @@ export class DetailProfileComponent implements OnInit {
     const userSessionInfo: AuthDataUser | null = this.authService.getAuthUser()
     const userId:number | undefined = userSessionInfo?.id;
 
-    const currentItems: BaseItem[] = this.itemsSubject.value;
-    const updatedItems: BaseItem[] = currentItems.filter(item => item.id !== Number(topicId));
+    const currentItems: BaseCartItem[] = this.itemsSubject.value;
+    const updatedItems: BaseCartItem[] = currentItems.filter(item => item.id !== Number(topicId));
     this.itemsSubject.next(updatedItems);
 
     this.subscriptionApiService.deleteSubscription(topicId, String(userId))

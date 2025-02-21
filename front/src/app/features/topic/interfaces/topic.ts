@@ -1,7 +1,7 @@
-import {BaseItem} from "../../../core/models/interfaces/baseItem";
+import {BaseCartItem} from "../../../core/models/interfaces/baseCartItem";
 
 
-export interface Topic extends BaseItem {
+export interface Topic extends BaseCartItem {
   description: string;
   isSubscribed: boolean
 }

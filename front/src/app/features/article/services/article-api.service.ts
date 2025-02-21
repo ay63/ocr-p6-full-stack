@@ -6,7 +6,7 @@ import {AuthService} from "../../auth/services/auth.service";
 import {ArticleDetail} from "../interfaces/article-detail";
 import {ArticlePostComment} from "../interfaces/article-post-comment";
 import {ArticleResponseComment} from "../interfaces/article-response-comment";
-import {BaseItem} from "../../../core/models/interfaces/baseItem";
+import {BaseCartItem} from "../../../core/models/interfaces/baseCartItem";
 
 @Injectable(
   {
@@ -35,7 +35,7 @@ export class ArticleApiService {
     return this.httpClient.get<ArticleResponseComment[]>(`${this.pathService}/comment/${id}`);
   }
 
-  public getAllArticles(): Observable<BaseItem[]> {
-    return this.httpClient.get<BaseItem[]>(`${this.pathService}`);
+  public getAllArticles(): Observable<BaseCartItem[]> {
+    return this.httpClient.get<BaseCartItem[]>(`${this.pathService}`);
   }
 }

@@ -4,7 +4,7 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
 import {BehaviorSubject, map, Observable} from "rxjs";
-import {BaseItem} from "../../../../core/models/interfaces/baseItem";
+import {BaseCartItem} from "../../../../core/models/interfaces/baseCartItem";
 import {ArticleApiService} from "../../services/article-api.service";
 import {
   UnsubscribeObservableService
@@ -28,7 +28,7 @@ import {Article} from "../../interfaces/article";
   styleUrl: './list-article.component.scss',
 })
 export class ListArticleComponent implements OnInit {
-  items$!: Observable<BaseItem[]>;
+  items$!: Observable<BaseCartItem[]>;
   private sortOrder$ = new BehaviorSubject<'asc' | 'desc'>('desc');
 
   constructor(
@@ -42,27 +42,27 @@ export class ListArticleComponent implements OnInit {
       this.unsubscribeObservable.takeUntilDestroy);
   }
 
-  sortByDate(a: BaseItem, b: BaseItem): number {
+  sortByDate(a: BaseCartItem, b: BaseCartItem): number {
     if (this.isArticle(a) && this.isArticle(b)) {
-      const dateA = new Date(a.createdAt).getTime();
-      const dateB = new Date(b.createdAt).getTime();
+      const dateA: number = new Date(a.createdAt).getTime();
+      const dateB: number = new Date(b.createdAt).getTime();
       return this.sortOrder$.value === 'asc' ? dateA - dateB : dateB - dateA;
     }
     return 0;
   }
 
-  sortItems(items: BaseItem[]): BaseItem[] {
+  sortItems(items: BaseCartItem[]): BaseCartItem[] {
     return [...items].sort((a, b) => this.sortByDate(a, b));
   }
 
   onSort(order: 'asc' | 'desc') {
     this.sortOrder$.next(order);
     this.items$ = this.items$.pipe(
-      map(items => this.sortItems(items)) // Applique le tri immédiatement après avoir changé l'ordre
+      map(items => this.sortItems(items))
     );
   }
 
-  isArticle(item: BaseItem): item is Article {
+  isArticle(item: BaseCartItem): item is Article {
     return (item as Article).createdAt !== undefined;
   }
 

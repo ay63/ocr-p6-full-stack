@@ -5,7 +5,7 @@ import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {Article} from "../../../features/article/interfaces/article";
 import {Observable} from "rxjs";
-import {BaseItem} from "../../models/interfaces/baseItem";
+import {BaseCartItem} from "../../models/interfaces/baseCartItem";
 
 import {RouterLink} from "@angular/router";
 import {Topic} from "../../../features/topic/interfaces/topic";
@@ -36,7 +36,7 @@ export class CardComponent implements OnInit {
   cols: number = 2;
 
   @Input()
-  public cardItems$!: Observable<BaseItem[]>;
+  public cardItems$!: Observable<BaseCartItem[]>;
 
   @Input()
   itemType!: baseItemType;
@@ -58,11 +58,11 @@ export class CardComponent implements OnInit {
     });
   }
 
-  isArticle(item: BaseItem): item is Article {
+  isArticle(item: BaseCartItem): item is Article {
     return this.itemType.type === 'article';
   }
 
-  isTopic(item: BaseItem): item is Topic {
+  isTopic(item: BaseCartItem): item is Topic {
     return this.itemType.type === 'topic';
   }
 
@@ -70,7 +70,7 @@ export class CardComponent implements OnInit {
     this.onBtnAction.emit(String(itemId));
   }
 
-  trackById(index: number, item: BaseItem): number {
+  trackById(index: number, item: BaseCartItem): number {
     return item.id;
   }
 }

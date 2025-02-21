@@ -1,7 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
-import {BaseItem} from "../models/interfaces/baseItem";
+import {BaseCartItem} from "../models/interfaces/baseCartItem";
 
 @Injectable(
   {
@@ -23,8 +23,8 @@ export class SubscriptionApiService {
   }
 
 
-  public getProfileTopicSubscription(): Observable<BaseItem[]> {
-    return this.httpClient.get<BaseItem[]>(`${this.pathService}/subscribed`)
+  public getProfileTopicSubscription(): Observable<BaseCartItem[]> {
+    return this.httpClient.get<BaseCartItem[]>(`${this.pathService}/subscribed`)
   }
 
 }

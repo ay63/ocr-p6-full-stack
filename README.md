@@ -32,10 +32,14 @@ Navigate to the `front` folder
 >  `cd front`
 
 Run to install dependencies
->  `npm install` 
+``` 
+npm install
+``` 
 
 Start the application with
->  `npm run start`. 
+``` 
+npm run start
+``` 
 
 The app will be available at `http://localhost:4200`.
 
@@ -47,16 +51,25 @@ The app will be available at `http://localhost:4200`.
 - **Lombok**
 - **Mapstruct**
 
+
+
 ### Installation Backend
 
 Navigate to the `back` folder
 >  `cd back`
 
 ### Start Backend
-Start the application with 
-> `mvn spring-boot:run` 
+Start the application with
+``` 
+mvn spring-boot:run
+``` 
 
 The app will be available at `http://localhost:8080`.
+
+### Build documentation
+``` 
+mvn javadoc:javadoc
+```
 
 ## Database  
 
@@ -90,3 +103,4 @@ You will find the sql script in path:
 Select "Import" in the sidebar. 
 The JSON file will be located at the root of the project in the folder: 
 > `resources > postman > mdd.postman_collection.json`
+

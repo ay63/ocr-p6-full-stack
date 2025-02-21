@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.openclassrooms.mddapi.auth.service.jwt.JwtService;
 import com.openclassrooms.mddapi.topic.dto.TopicDto;
 import com.openclassrooms.mddapi.topic.mapper.TopicMapper;
 import com.openclassrooms.mddapi.topic.service.TopicService;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.UserService;
-
 
 @RestController
 @RequestMapping("topic")
@@ -22,17 +22,21 @@ public class TopicController {
     private final TopicService subjectService;
     private final TopicMapper subjectMapper;
     private final UserService userService;
+    private final JwtService jwtService;
 
-    public TopicController(TopicService subjectService, TopicMapper subjectMapper, UserService userService) {
+    public TopicController(TopicService subjectService,
+            TopicMapper subjectMapper,
+            UserService userService,
+            JwtService jwtService) {
         this.subjectService = subjectService;
         this.subjectMapper = subjectMapper;
         this.userService = userService;
+        this.jwtService = jwtService;
     }
 
     @GetMapping
     public ResponseEntity<List<TopicDto>> getAll(Authentication authentication) {
-        String email = authentication.getName();
-        User user = userService.findByEmail(email);
+        User user = userService.findByEmail(jwtService.getTokenSubject(authentication));
         List<TopicDto> subjectsDto = subjectMapper.toDtoList(subjectService.getAll(), user.getId());
 
         return ResponseEntity.ok().body(subjectsDto);

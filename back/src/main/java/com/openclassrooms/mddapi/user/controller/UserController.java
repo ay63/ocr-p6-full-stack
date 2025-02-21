@@ -3,7 +3,6 @@ package com.openclassrooms.mddapi.user.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,10 +36,7 @@ public class UserController {
             Authentication authentication) {
 
         if (authentication.isAuthenticated()) {
-            Jwt jwt = (Jwt) authentication.getPrincipal();
-            String email = jwt.getSubject();
-
-            User user = userService.findByEmail(email);
+            User user = userService.findByEmail(jwtService.getTokenSubject(authentication));
             if (user == null) {
                 return ResponseEntity.notFound().build();
             }

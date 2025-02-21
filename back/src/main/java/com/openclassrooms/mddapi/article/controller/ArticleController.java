@@ -17,6 +17,7 @@ import com.openclassrooms.mddapi.article.mapper.article.ArticleMapper;
 import com.openclassrooms.mddapi.article.mapper.article.ArticleResponseMapper;
 import com.openclassrooms.mddapi.article.model.Article;
 import com.openclassrooms.mddapi.article.service.article.ArticleService;
+import com.openclassrooms.mddapi.auth.service.jwt.JwtService;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.UserService;
 
@@ -30,19 +31,23 @@ public class ArticleController {
     private ArticleService articleService;
     private ArticleResponseMapper articleResponseMapper;
     private UserService userService;
+    private JwtService jwtService;
 
-    public ArticleController(ArticleMapper articleMapper, ArticleService articleService,
-            ArticleResponseMapper articleResponseMapper, UserService userService) {
+    public ArticleController(ArticleMapper articleMapper,
+            ArticleService articleService,
+            ArticleResponseMapper articleResponseMapper,
+            UserService userService,
+            JwtService jwtService) {
         this.articleMapper = articleMapper;
         this.articleService = articleService;
         this.articleResponseMapper = articleResponseMapper;
         this.userService = userService;
+        this.jwtService = jwtService;
     }
 
     @GetMapping
     public ResponseEntity<?> all(Authentication authentication) {
- 
-        List<Article> articles = articleService.findAll();
+        List<Article> articles = articleService.findAllByOrderByCreatedAtDesc();
 
         List<ArticleResponseDto> articleResponseDtos = articleResponseMapper.toDto(articles);
 
@@ -57,8 +62,7 @@ public class ArticleController {
             return ResponseEntity.badRequest().build();
         }
 
-        String email = authentication.getName();
-        User user = userService.findByEmail(email);
+        User user = userService.findByEmail(jwtService.getTokenSubject(authentication));
 
         if (user == null) {
             return ResponseEntity.notFound().build();

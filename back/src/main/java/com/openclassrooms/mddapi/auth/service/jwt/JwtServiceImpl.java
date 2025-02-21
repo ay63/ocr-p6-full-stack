@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.jwt.JwsHeader;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.user.service.UserDetailsImpl;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 
 @Service
@@ -44,5 +46,16 @@ public class JwtServiceImpl implements JwtService {
                 claims);
 
         return this.jwtEncoder.encode(jwtEncoderParameters).getTokenValue();
+    }
+
+    public String getTokenSubject(Authentication authentication) throws BadCredentialsException {
+
+        try {
+            Jwt jwt = (Jwt) authentication.getPrincipal();
+            return jwt.getSubject();
+        } catch (Exception e) {
+            throw new BadCredentialsException("Error extracting subject from JWT", e);
+        }
+
     }
 }

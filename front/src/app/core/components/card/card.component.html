@@ -24,12 +24,12 @@
                     <!--Articles -->
                     <ng-container *ngIf="isArticle(item)">
                         <p class="subtitle">{{ item.createdAt | date:'dd/MM/yyyy' }} - {{ item.author | titlecase }}</p>
-                        <p class="content scrop">{{ item.content }}</p>
+                        <p class="content crop">{{ item.content }}</p>
                     </ng-container>
 
                     <!-- Topics -->
                     <ng-container *ngIf="isTopic(item)">
-                        <p class="content scrop">{{ item.description }}</p>
+                        <p class="content crop">{{ item.description }}</p>
                     </ng-container>
                 </mat-card-content>
 

@@ -24,7 +24,7 @@ export class FormArticleComponent implements OnInit {
   topic$!: Observable<BaseItem[]>;
   articleForm = new FormGroup({
     topic: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    title: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(32)]),
+    title: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(64)]),
     content: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(2000)]),
   })
 

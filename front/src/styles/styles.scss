@@ -3,14 +3,6 @@
 
 $primary-color: #7763C5;
 
-.mat-app-background {
-  background-color: white !important;
-}
-
-.mat-drawer-container {
-  background-color: white !important;
-}
-
 
 body {
   font-family: Inter, "Helvetica Neue", sans-serif;
@@ -27,20 +19,24 @@ h1 {
 
 a {
   text-decoration: none;
-}
 
-a:hover {
-  text-decoration: underline;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .isActiveLink {
   color: $primary-color !important;
 }
 
+/* Article and Topic */
 .title {
+  display: block;
   color: black;
   font-size: 16px;
   font-weight: 700;
+  overflow: hidden;
+  margin-bottom: 16px;
 }
 
 .subtitle {
@@ -52,7 +48,7 @@ a:hover {
   font-size: 14px;
   color: black;
 
-  &.scrop {
+  &.crop {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -62,4 +58,3 @@ a:hover {
     max-height: 250px;
   }
 }
-

@@ -13,7 +13,7 @@ This project consists of two main codebases:
 - **Backend**:
   - Spring boot `3.4.3` 
   - Java `21`
-  - PostgreSQL `17`
+  - PostgreSQL JDBC `42.6.0` 
 
 ## Test user credentials  
 - **Email :** josefa.fox@mdd.com

@@ -8,6 +8,7 @@ import com.openclassrooms.mddapi.article.model.Article;
 import com.openclassrooms.mddapi.article.model.Comment;
 import com.openclassrooms.mddapi.article.service.article.ArticleService;
 import com.openclassrooms.mddapi.article.service.comment.CommentService;
+import com.openclassrooms.mddapi.auth.service.jwt.JwtService;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.UserService;
 
@@ -33,13 +34,18 @@ public class CommentController {
     private final CommentService commentService;
     private final ArticleService articleService;
     private final UserService userService;
+    private final JwtService jwtService;
 
-    public CommentController(CommentMapper commentMapper, CommentService commentService, ArticleService articleService,
-            UserService userService) {
+    public CommentController(CommentMapper commentMapper,
+            CommentService commentService,
+            ArticleService articleService,
+            UserService userService,
+            JwtService jwtService) {
         this.commentMapper = commentMapper;
         this.commentService = commentService;
         this.articleService = articleService;
         this.userService = userService;
+        this.jwtService = jwtService;
     }
 
     @PostMapping
@@ -50,8 +56,7 @@ public class CommentController {
             return ResponseEntity.badRequest().build();
         }
 
-        String email = authentication.getName();
-        User user = userService.findByEmail(email);
+        User user = userService.findByEmail(jwtService.getTokenSubject(authentication));
 
         comment.setUser(user);
         commentService.save(comment);

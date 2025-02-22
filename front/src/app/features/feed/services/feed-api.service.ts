@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {AuthService} from "../../auth/services/auth.service";
-import {BaseItem} from "../../../core/models/interfaces/baseItem";
+import {Article} from "../../article/interfaces/article";
 
 @Injectable(
   {
@@ -12,11 +12,10 @@ import {BaseItem} from "../../../core/models/interfaces/baseItem";
 export class FeedApiService{
   private pathService = '/api/feed';
 
-  constructor(private httpClient: HttpClient, private authService: AuthService) { }
+  constructor(private httpClient: HttpClient) { }
 
-  public getFeed(): Observable<BaseItem[]> {
-    const id: number = parseInt(String(this.authService!.getAuthUser()!.id));
-    return this.httpClient.get<BaseItem[]>(`${this.pathService}/${id}`);
+  public getFeed(): Observable<Article[]> {
+    return this.httpClient.get<Article[]>(`${this.pathService}`);
   }
 
 }

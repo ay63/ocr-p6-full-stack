@@ -25,7 +25,7 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Mot de passe</mat-label>
-                <input formControlName="password" matInput type="password">
+                <input formControlName="password" matInput type="password" autocomplete>
                 <mat-error
                         *ngIf="profileForm.get('password')?.hasError('pattern') && profileForm.get('password')?.touched">
                     {{ errorsFormMessage.password.pattern }}
@@ -45,6 +45,5 @@
 
 <div class="subscribe-container">
     <h1>Abonnements</h1>
-    <app-card (onBtnAction)="onUnsubscribe($event)" [canUnsubscribe]="true" [cardItems$]="items$"
-              [itemType]="{type: 'topic'}"/>
+    <app-card-topic [canUnsubscribe]="true" (onBtnAction)="onUnsubscribe($event)"  [cardItems$]="items$" />
 </div>

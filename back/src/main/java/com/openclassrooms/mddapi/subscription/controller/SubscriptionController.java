@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.openclassrooms.mddapi.auth.service.jwt.JwtService;
 import com.openclassrooms.mddapi.subscription.service.SubscriptionService;
 import com.openclassrooms.mddapi.topic.dto.TopicDto;
 import com.openclassrooms.mddapi.topic.mapper.TopicMapper;
@@ -25,12 +26,16 @@ public class SubscriptionController {
     private final SubscriptionService subscriptionService;
     private final UserService userService;
     private final TopicMapper subjectMapper;
+    private final JwtService jwtService;
 
-    public SubscriptionController(SubscriptionService subscriptionService, UserService userService,
-            TopicMapper subjectMapper) {
+    public SubscriptionController(SubscriptionService subscriptionService,
+            UserService userService,
+            TopicMapper subjectMapper,
+            JwtService jwtService) {
         this.subscriptionService = subscriptionService;
         this.userService = userService;
         this.subjectMapper = subjectMapper;
+        this.jwtService = jwtService;
     }
 
     @PostMapping("topic/{subjectId}/user/{userId}")
@@ -62,8 +67,7 @@ public class SubscriptionController {
 
     @GetMapping("subscribed")
     public ResponseEntity<List<TopicDto>> getAllSubscribeSubject(Authentication authentication) {
-        String email = authentication.getName();
-        User user = userService.findByEmail(email);
+        User user = userService.findByEmail(jwtService.getTokenSubject(authentication));
 
         List<Topic> topics = subscriptionService.findAllSubscribeSubject(user.getId());
         List<TopicDto> topicDtos = subjectMapper.toDtoList(topics, user.getId());

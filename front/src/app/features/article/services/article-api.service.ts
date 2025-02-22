@@ -2,11 +2,10 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {ArticleRequest} from "../interfaces/article-request";
-import {AuthService} from "../../auth/services/auth.service";
 import {ArticleDetail} from "../interfaces/article-detail";
 import {ArticlePostComment} from "../interfaces/article-post-comment";
 import {ArticleResponseComment} from "../interfaces/article-response-comment";
-import {BaseItem} from "../../../core/models/interfaces/baseItem";
+import {Article} from "../interfaces/article";
 
 @Injectable(
   {
@@ -16,7 +15,7 @@ import {BaseItem} from "../../../core/models/interfaces/baseItem";
 export class ArticleApiService {
   private pathService = '/api/article';
 
-  constructor(private httpClient: HttpClient, private authService: AuthService) {
+  constructor(private httpClient: HttpClient) {
   }
 
   public post(articleRequest: ArticleRequest): Observable<void> {
@@ -35,7 +34,7 @@ export class ArticleApiService {
     return this.httpClient.get<ArticleResponseComment[]>(`${this.pathService}/comment/${id}`);
   }
 
-  public getAllArticles(): Observable<BaseItem[]> {
-    return this.httpClient.get<BaseItem[]>(`${this.pathService}`);
+  public getAllArticles(): Observable<Article[]> {
+    return this.httpClient.get<Article[]>(`${this.pathService}`);
   }
 }

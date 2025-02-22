@@ -23,11 +23,10 @@ public class ArticleServiceImpl implements ArticleService {
     public Article findById(Long id) {
         return this.articleRepository.findById(id).orElse(null);
     }
-    
 
     @Override
-    public List<Article> findAll() {
-        return this.articleRepository.findAll();
+    public List<Article> findAllByOrderByCreatedAtDesc() {
+        return this.articleRepository.findAllByOrderByCreatedAtDesc();
     }
 
 }

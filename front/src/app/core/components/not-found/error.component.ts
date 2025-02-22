@@ -2,12 +2,12 @@ import {Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'app-not-found',
-  templateUrl: './not-found.component.html',
-  standalone: true,
-  styleUrls: ['./not-found.component.scss']
+  selector: 'app-error',
+  templateUrl: './error.component.html',
+  standalone: false,
+  styleUrls: ['./error.component.scss']
 })
-export class NotFoundComponent {
+export class ErrorComponent {
 
   errorMessage!: string;
   statusCode!: number;

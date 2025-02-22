@@ -1,7 +1,6 @@
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
-import {BaseItem} from "../../../core/models/interfaces/baseItem";
 import {ProfileUpdate} from "../interface/profile-update";
 import {AuthDataUser} from "../../../core/models/interfaces/authDataUser";
 

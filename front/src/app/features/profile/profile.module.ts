@@ -1,14 +1,8 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MatCard} from "@angular/material/card";
-import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
-import {ReactiveFormsModule} from "@angular/forms";
-import {MatInput} from "@angular/material/input";
 import {DetailProfileComponent} from "./components/detail-profile/detail-profile.component";
-import {MatButton} from "@angular/material/button";
 import {ProfileRoutingModule} from "./profile-routing.module";
-import {MatDivider} from "@angular/material/divider";
-import {CardComponent} from "../../core/components/card/card.component";
+import {CoreModule} from "../../core/core.module";
+import {FeedApiService} from "../feed/services/feed-api.service";
 
 @NgModule({
   declarations: [
@@ -16,16 +10,10 @@ import {CardComponent} from "../../core/components/card/card.component";
   ],
   imports: [
     ProfileRoutingModule,
-    CommonModule,
-    MatCard,
-    MatFormField,
-    ReactiveFormsModule,
-    MatInput,
-    MatButton,
-    MatLabel,
-    MatDivider,
-    MatError,
-    CardComponent
+    CoreModule,
+  ],
+  providers: [
+    FeedApiService
   ]
 })
 export class ProfileModule {

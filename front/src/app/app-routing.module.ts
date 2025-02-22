@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './core/components/home/home.component';
-import {NotFoundComponent} from "./core/components/not-found/not-found.component";
+import {ErrorComponent} from "./core/components/not-found/error.component";
 import {UnauthGuard} from "./core/guards/unauth.guard";
 import {AuthGuard} from "./core/guards/auth.guard";
 
@@ -36,9 +36,9 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./features/profile/profile.module').then(m => m.ProfileModule)
   },
-  {path: '404', component: NotFoundComponent},
-  {path: '500', component: NotFoundComponent},
-  {path: '400', component: NotFoundComponent},
+  {path: '404', component: ErrorComponent},
+  {path: '500', component: ErrorComponent},
+  {path: '400', component: ErrorComponent},
   {path: '**', redirectTo: '404'}
 ];
 

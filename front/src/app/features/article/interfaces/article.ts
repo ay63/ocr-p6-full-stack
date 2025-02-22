@@ -1,6 +1,6 @@
-import {BaseItem} from "../../../core/models/interfaces/baseItem";
+import {BaseCartItem} from "../../../core/models/interfaces/baseCartItem";
 
-export interface Article extends BaseItem {
+export interface Article extends BaseCartItem {
     content: string;
     author: string;
     createdAt: string;

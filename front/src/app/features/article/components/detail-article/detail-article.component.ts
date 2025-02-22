@@ -22,7 +22,7 @@ export class DetailArticleComponent implements OnInit {
 
   @Input() comments$!: Observable<ArticleResponseComment[]>;
   @Input()
-  detail!: ArticleDetail;
+  detail!: ArticleDetail | undefined;
   articleId!: string;
   errorsFormMessage = getFormErrorMessage()
 

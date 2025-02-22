@@ -36,17 +36,11 @@ public class FeedController {
         this.jwtService = jwtService;
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<?> feed(@PathVariable("id") String userId, Authentication authentication) {
-
+    @GetMapping
+    public ResponseEntity<?> feed(Authentication authentication) {
         User user = userService.findByEmail(jwtService.getTokenSubject(authentication));
-        Long id = Long.valueOf(userId);
-
+        
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED).build();
-        }
-
-        if (user.getId() != id) {
             return ResponseEntity.status(HttpStatus.SC_UNAUTHORIZED).build();
         }
 

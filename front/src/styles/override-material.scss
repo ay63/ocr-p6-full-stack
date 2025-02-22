@@ -98,11 +98,24 @@ $my-theme: mat.m2-define-light-theme((
 @include mat.all-component-themes($my-theme);
 
 
-
 .mat-app-background {
   background-color: white !important;
 }
 
 .mat-drawer-container {
   background-color: white !important;
+}
+
+.mat-mdc-card{
+  box-shadow: none !important;
+}
+
+mat-card-title {
+  line-height: 1.4 !important;
+}
+
+@media (max-width: 600px) {
+  mat-card-title {
+    line-height: 1.2 !important;
+  }
 }

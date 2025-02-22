@@ -6,11 +6,11 @@ import {ArticleApiService} from "../../services/article-api.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {ArticleRequest} from "../../interfaces/article-request";
-import {BaseCartItem} from "../../../../core/models/interfaces/baseCartItem";
 import {
   UnsubscribeObservableService
 } from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
 import {getFormErrorMessage} from "../../../../core/utils/errors-message";
+import {Topic} from "../../../topic/interfaces/topic";
 
 @Component({
   selector: 'app-form-article',
@@ -21,7 +21,7 @@ import {getFormErrorMessage} from "../../../../core/utils/errors-message";
 export class FormArticleComponent implements OnInit {
 
   errorsFormMessage = getFormErrorMessage()
-  topic$!: Observable<BaseCartItem[]>;
+  topic$!: Observable<Topic[]>;
   articleForm = new FormGroup({
     topic: new FormControl('', [Validators.required, Validators.minLength(3)]),
     title: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(64)]),

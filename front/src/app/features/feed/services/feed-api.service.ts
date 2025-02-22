@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {AuthService} from "../../auth/services/auth.service";
-import {BaseCartItem} from "../../../core/models/interfaces/baseCartItem";
+import {Article} from "../../article/interfaces/article";
 
 @Injectable(
   {
@@ -12,10 +12,10 @@ import {BaseCartItem} from "../../../core/models/interfaces/baseCartItem";
 export class FeedApiService{
   private pathService = '/api/feed';
 
-  constructor(private httpClient: HttpClient, private authService: AuthService) { }
+  constructor(private httpClient: HttpClient) { }
 
-  public getFeed(): Observable<BaseCartItem[]> {
-    return this.httpClient.get<BaseCartItem[]>(`${this.pathService}`);
+  public getFeed(): Observable<Article[]> {
+    return this.httpClient.get<Article[]>(`${this.pathService}`);
   }
 
 }

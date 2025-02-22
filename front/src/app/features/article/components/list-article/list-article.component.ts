@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, map, Observable} from "rxjs";
-import {BaseCartItem} from "../../../../core/models/interfaces/baseCartItem";
 import {ArticleApiService} from "../../services/article-api.service";
 import {
   UnsubscribeObservableService
@@ -14,7 +13,7 @@ import {Article} from "../../interfaces/article";
   standalone: false
 })
 export class ListArticleComponent implements OnInit {
-  items$!: Observable<BaseCartItem[]>;
+  items$!: Observable<Article[]>;
   private sortOrder$ = new BehaviorSubject<'asc' | 'desc'>('desc');
 
   constructor(
@@ -28,16 +27,17 @@ export class ListArticleComponent implements OnInit {
       this.unsubscribeObservable.takeUntilDestroy);
   }
 
-  sortByDate(a: BaseCartItem, b: BaseCartItem): number {
-    if (this.isArticle(a) && this.isArticle(b)) {
-      const dateA: number = new Date(a.createdAt).getTime();
-      const dateB: number = new Date(b.createdAt).getTime();
-      return this.sortOrder$.value === 'asc' ? dateA - dateB : dateB - dateA;
+  sortByDate(a: Article, b: Article): number {
+    const dateA: number = new Date(a.createdAt).getTime();
+    const dateB: number = new Date(b.createdAt).getTime();
+    if (dateA === dateB) {
+      return 0;
     }
-    return 0;
+    return this.sortOrder$.value === 'asc' ? dateA - dateB : dateB - dateA;
+
   }
 
-  sortItems(items: BaseCartItem[]): BaseCartItem[] {
+  sortItems(items: Article[]): Article[] {
     return [...items].sort((a, b) => this.sortByDate(a, b));
   }
 
@@ -48,8 +48,5 @@ export class ListArticleComponent implements OnInit {
     );
   }
 
-  isArticle(item: BaseCartItem): item is Article {
-    return (item as Article).createdAt !== undefined;
-  }
 
 }

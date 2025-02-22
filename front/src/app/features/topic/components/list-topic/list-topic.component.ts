@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {BaseCartItem} from "../../../../core/models/interfaces/baseCartItem";
 import {TopicApiService} from "../../services/topic-api.service";
 import {SubscriptionApiService} from "../../../../core/services/subscription-api.service";
 import {AuthService} from "../../../auth/services/auth.service";
 import {AuthDataUser} from "../../../../core/models/interfaces/authDataUser";
-import {UnsubscribeObservableService} from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
+import {
+  UnsubscribeObservableService
+} from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
 import {tap} from "rxjs/operators";
+import {Topic} from "../../interfaces/topic";
 
 @Component({
   selector: 'app-list-topic',
@@ -15,7 +17,7 @@ import {tap} from "rxjs/operators";
   standalone: false
 })
 export class ListTopicComponent implements OnInit {
-  private itemsSubject = new BehaviorSubject<(BaseCartItem & { isSubscribed?: boolean })[]>([]);
+  private itemsSubject = new BehaviorSubject<Topic[]>([]);
   items$ = this.itemsSubject.asObservable();
 
   constructor(
@@ -30,15 +32,6 @@ export class ListTopicComponent implements OnInit {
     this.loadTopics();
   }
 
-  private loadTopics(): void {
-    this.topicApiService.getAll()
-      .pipe(
-        this.unsubscribeObservable.takeUntilDestroy,
-        tap(items => this.itemsSubject.next(items))
-      )
-      .subscribe();
-  }
-
   onSubscribe(topicId: string): void {
     const userSessionInfo: AuthDataUser | null = this.authService.getAuthUser()
     const userId = userSessionInfo?.id
@@ -46,9 +39,9 @@ export class ListTopicComponent implements OnInit {
       return
     }
 
-    const currentItems = this.itemsSubject.value;
+    const currentItems: Topic[] = this.itemsSubject.value;
     const updatedItems = currentItems.map(item =>
-      item.id === +topicId ? {...item, isSubscribed: true} : item
+      item.id === Number(topicId) ? {...item, isSubscribed: true} : item
     );
     this.itemsSubject.next(updatedItems);
 
@@ -59,6 +52,15 @@ export class ListTopicComponent implements OnInit {
           this.itemsSubject.next(currentItems);
         }
       });
+  }
+
+  private loadTopics(): void {
+    this.topicApiService.getAll()
+      .pipe(
+        this.unsubscribeObservable.takeUntilDestroy,
+        tap(items => this.itemsSubject.next(items))
+      )
+      .subscribe();
   }
 
 }

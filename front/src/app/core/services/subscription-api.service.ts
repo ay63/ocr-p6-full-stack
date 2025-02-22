@@ -1,7 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
-import {BaseCartItem} from "../models/interfaces/baseCartItem";
+import {Topic} from "../../features/topic/interfaces/topic";
 
 @Injectable(
   {
@@ -22,9 +22,8 @@ export class SubscriptionApiService {
     return this.httpClient.delete<void>(`${this.pathService}/topic/${topicId}/user/${userId}`)
   }
 
-
-  public getProfileTopicSubscription(): Observable<BaseCartItem[]> {
-    return this.httpClient.get<BaseCartItem[]>(`${this.pathService}/subscribed`)
+  public getProfileTopicSubscription(): Observable<Topic[]> {
+    return this.httpClient.get<Topic[]>(`${this.pathService}/subscribed`)
   }
 
 }

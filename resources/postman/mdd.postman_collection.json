@@ -440,22 +440,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/feed/:id",
+							"raw": "localhost:8080/api/feed",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"api",
-								"feed",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "16",
-									"description": "userId"
-								}
+								"feed"
 							]
 						}
 					},

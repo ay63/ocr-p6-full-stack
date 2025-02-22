@@ -1,0 +1,24 @@
+<ng-container *ngIf="cardItems$ | async as items">
+  <mat-grid-list [cols]="items.length > 1 ? cols : 1" class="card-container" cols="2" gutterSize="16px"
+                 rowHeight="200">
+    <ng-container *ngIf="items.length  === 0">
+      <span class="not-items">Aucun élément présent</span>
+    </ng-container>
+
+    <mat-grid-tile *ngFor="let item of items; trackBy: trackById">
+      <mat-card class="item-card">
+        <mat-card-header>
+          <mat-card-title>
+            <a [routerLink]="['/article/detail-profile-article-article',item.id]"
+               class="title"> {{ item.title | titlecase }} </a>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p class="subtitle">{{ item.createdAt | date:'dd/MM/yyyy' }} - {{ item.author | titlecase }}</p>
+          <p class="content crop">{{ item.content }}</p>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-container>

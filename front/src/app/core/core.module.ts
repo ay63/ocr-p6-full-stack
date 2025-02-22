@@ -5,7 +5,7 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle} from "@angular/material/card";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
-import {CardComponent} from "./components/card/card.component";
+import {CardArticleComponent} from "./components/card/card-article.component";
 import {HomeComponent} from "./components/home/home.component";
 import {ErrorComponent} from "./components/not-found/error.component";
 import {GoBackButtonComponent} from "./components/go-back-button/go-back-button.component";
@@ -16,11 +16,12 @@ import {MatIcon} from "@angular/material/icon";
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {MatNavList} from "@angular/material/list";
 import {MatToolbar} from "@angular/material/toolbar";
-import {MatError, MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
+import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatDivider} from "@angular/material/divider";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
-import {MatInput, MatInputModule} from "@angular/material/input";
+import {MatInput} from "@angular/material/input";
 import {MatOption, MatSelect} from "@angular/material/select";
+import {CardTopicComponent} from "./components/card-topic/card-topic.component";
 
 const materialModule = [
   MatSidenavContainer,
@@ -65,15 +66,15 @@ const angularImport = [
   RouterLinkActive
 ]
 
-
 @NgModule({
   declarations: [
-    CardComponent,
+    CardArticleComponent,
     GoBackButtonComponent,
     HomeComponent,
     MainLayoutComponent,
     ErrorComponent,
     GoBackButtonComponent,
+    CardTopicComponent
   ],
   providers: [
     UnsubscribeObservableService,
@@ -87,16 +88,17 @@ const angularImport = [
     ...pipes
   ],
   exports: [
-    CardComponent,
+    CardArticleComponent,
     GoBackButtonComponent,
     HomeComponent,
     MainLayoutComponent,
     ErrorComponent,
     GoBackButtonComponent,
     ReactiveFormsModule,
+    CardTopicComponent,
     ...materialModule,
     ...angularImport,
-    ...pipes
+    ...pipes,
   ]
 })
 export class CoreModule {

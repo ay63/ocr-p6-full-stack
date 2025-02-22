@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {BehaviorSubject, Observable, tap} from "rxjs";
-import {BaseCartItem} from "../../../../core/models/interfaces/baseCartItem";
 import {ProfileApiService} from "../../services/profile-api.service";
 import {SubscriptionApiService} from "../../../../core/services/subscription-api.service";
 import {AuthDataUser} from "../../../../core/models/interfaces/authDataUser";
@@ -12,6 +11,7 @@ import {Router} from "@angular/router";
 import {PATTERN_PASSWORD} from "../../../../core/utils/validator-form";
 import {UnsubscribeObservableService} from "../../../../core/services/unsubsribe-observable/unsubscribe-observable.service";
 import {getFormErrorMessage} from "../../../../core/utils/errors-message";
+import {Topic} from "../../../topic/interfaces/topic";
 
 @Component({
   selector: 'app-detail-profile-article',
@@ -21,9 +21,9 @@ import {getFormErrorMessage} from "../../../../core/utils/errors-message";
 })
 export class DetailProfileComponent implements OnInit {
 
-  private itemsSubject: BehaviorSubject<BaseCartItem[]> = new BehaviorSubject<BaseCartItem[]>([]);
+  private itemsSubject: BehaviorSubject<Topic[]> = new BehaviorSubject<Topic[]>([]);
   errorsFormMessage = getFormErrorMessage()
-  items$: Observable<BaseCartItem[]> = this.itemsSubject.asObservable();
+  items$: Observable<Topic[]> = this.itemsSubject.asObservable();
 
   profileForm = new FormGroup({
     profileName: new FormControl("", [
@@ -88,8 +88,8 @@ export class DetailProfileComponent implements OnInit {
     const userSessionInfo: AuthDataUser | null = this.authService.getAuthUser()
     const userId:number | undefined = userSessionInfo?.id;
 
-    const currentItems: BaseCartItem[] = this.itemsSubject.value;
-    const updatedItems: BaseCartItem[] = currentItems.filter(item => item.id !== Number(topicId));
+    const currentItems: Topic[] = this.itemsSubject.value;
+    const updatedItems: Topic[] = currentItems.filter(item => item.id !== Number(topicId));
     this.itemsSubject.next(updatedItems);
 
     this.subscriptionApiService.deleteSubscription(topicId, String(userId))

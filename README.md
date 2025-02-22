@@ -11,9 +11,9 @@ This project consists of two main codebases:
   - Material angular `19.1.3`
   
 - **Backend**:
+  - Spring boot `3.4.3` 
   - Java `21`
   - PostgreSQL `17`
-
 
 ## User database credentials  
 - **Email :** josefa.fox@mdd.com

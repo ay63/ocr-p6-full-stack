@@ -45,6 +45,5 @@
 
 <div class="subscribe-container">
     <h1>Abonnements</h1>
-    <app-card (onBtnAction)="onUnsubscribe($event)" [canUnsubscribe]="true" [cardItems$]="items$"
-              [itemType]="{type: 'topic'}"/>
+    <app-card-topic [canUnsubscribe]="true" (onBtnAction)="onUnsubscribe($event)"  [cardItems$]="items$" />
 </div>

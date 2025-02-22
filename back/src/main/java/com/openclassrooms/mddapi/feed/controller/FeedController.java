@@ -15,11 +15,15 @@ import com.openclassrooms.mddapi.feed.service.FeedService;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.UserService;
 
-import lombok.extern.log4j.Log4j2;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("feed")
-@Log4j2
 public class FeedController {
 
     private final UserService userService;
@@ -35,8 +39,29 @@ public class FeedController {
         this.jwtService = jwtService;
     }
 
+     @Operation(
+            description = "Get feed user",
+            tags = {"Feed"}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "return feed user",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(
+                                schema = @Schema(implementation = FeedResponseDto.class)
+                        )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "unauthorized",
+                    content = @Content()
+            ),
+    })
     @GetMapping
-    public ResponseEntity<?> feed(Authentication authentication) {
+    public ResponseEntity<List<FeedResponseDto>> feed(Authentication authentication) {
         User user = userService.findByEmail(jwtService.getTokenSubject(authentication));
 
         if (user == null) {

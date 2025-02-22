@@ -21,6 +21,12 @@ import com.openclassrooms.mddapi.auth.service.jwt.JwtService;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
 @RestController
@@ -45,8 +51,36 @@ public class ArticleController {
         this.jwtService = jwtService;
     }
 
+
+    @Operation(
+        description = "Get all articles",
+        tags = {"Articles"},
+        method = "GET"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "return articles list",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(
+                                schema = @Schema(implementation = ArticleResponseDto.class)
+                        )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "unauthorized",
+                    content = @Content()
+            ),
+            @ApiResponse(
+                responseCode = "400",
+                description = "bad request",
+                content = @Content()
+            )
+    })
     @GetMapping
-    public ResponseEntity<?> all(Authentication authentication) {
+    public ResponseEntity<List<ArticleResponseDto>> all(Authentication authentication) {
         List<Article> articles = articleService.findAllByOrderByCreatedAtDesc();
 
         List<ArticleResponseDto> articleResponseDtos = articleResponseMapper.toDto(articles);
@@ -54,6 +88,31 @@ public class ArticleController {
         return ResponseEntity.ok().body(articleResponseDtos);
     }
 
+    @Operation(
+        description = "Create articles",
+        tags = {"Articles"},
+        method = "POST"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Create article",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ArticleResponseDto.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "unauthorized",
+                    content = @Content()
+            ),
+            @ApiResponse(
+                responseCode = "400",
+                description = "bad request",
+                content = @Content()
+            )
+    })
     @PostMapping("create")
     public ResponseEntity<?> create(@Valid @RequestBody ArticleDto articleDto, Authentication authentication) {
         Article article = this.articleMapper.toEntity(articleDto);
@@ -74,6 +133,31 @@ public class ArticleController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(
+        description = "Get one article",
+        tags = {"Articles"},
+        method = "GET"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Get on article",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ArticleResponseDto.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "unauthorized",
+                    content = @Content()
+            ),
+            @ApiResponse(
+                responseCode = "400",
+                description = "bad request",
+                content = @Content()
+            )
+    })
     @GetMapping(path = "/{id}")
     public ResponseEntity<ArticleResponseDto> get(@PathVariable("id") Long id) {
         Article article = this.articleService.findById(id);

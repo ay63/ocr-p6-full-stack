@@ -19,6 +19,13 @@ import com.openclassrooms.mddapi.topic.model.Topic;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping("subscription")
 public class SubscriptionController {
@@ -38,6 +45,29 @@ public class SubscriptionController {
         this.jwtService = jwtService;
     }
 
+
+    @Operation(
+        description = "Post subscription",
+        tags = {"Subscription"},
+        method = "POST"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Add subscription",
+                    content = @Content()
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "unauthorized",
+                    content = @Content()
+            ),
+            @ApiResponse(
+                responseCode = "400",
+                description = "Bad request",
+                content = @Content()
+        )
+    })
     @PostMapping("topic/{subjectId}/user/{userId}")
     public ResponseEntity<?> subscribe(@PathVariable("subjectId") String subjectId,
             @PathVariable("userId") String userId) {
@@ -51,6 +81,28 @@ public class SubscriptionController {
         }
     }
 
+    @Operation(
+        description = "Delete subscription",
+        tags = {"Subscription"},
+        method = "DELETE"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Delete subscription",
+                    content = @Content()
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "unauthorized",
+                    content = @Content()
+            ),
+            @ApiResponse(
+                responseCode = "400",
+                description = "Bad request",
+                content = @Content()
+        )
+    })
     @DeleteMapping("topic/{subjectId}/user/{userId}")
     public ResponseEntity<?> delete(
             @PathVariable("subjectId") String subjectId,
@@ -65,6 +117,34 @@ public class SubscriptionController {
         }
     }
 
+
+    @Operation(
+        description = "Get subscriptions",
+        tags = {"Subscription"},
+        method = "DELETE"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Get subscription",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(
+                                schema = @Schema(implementation = TopicDto.class)
+                        )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "unauthorized",
+                    content = @Content()
+            ),
+            @ApiResponse(
+                responseCode = "400",
+                description = "Bad request",
+                content = @Content()
+        )
+    })
     @GetMapping("subscribed")
     public ResponseEntity<List<TopicDto>> getAllSubscribeSubject(Authentication authentication) {
         User user = userService.findByEmail(jwtService.getTokenSubject(authentication));

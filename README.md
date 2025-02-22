@@ -15,7 +15,7 @@ This project consists of two main codebases:
   - Java `21`
   - PostgreSQL `17`
 
-## User database credentials  
+## Test user credentials  
 - **Email :** josefa.fox@mdd.com
 - **Password :** aqw!AQW!123
 

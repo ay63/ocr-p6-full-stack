@@ -15,6 +15,11 @@ import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.UserDetailsImpl;
 import com.openclassrooms.mddapi.user.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
 @RestController
@@ -31,6 +36,31 @@ public class UserController {
         this.jwtService = jwtService;
     }
 
+    @Operation(
+        description = "Update user date",
+        tags = {"User"},
+        method = "PUT"
+    )
+    @ApiResponses(value = {
+        @ApiResponse(
+                responseCode = "200",
+                description = "return new token with new user data",
+                content = @Content(
+                        mediaType = "application/json",
+                        schema = @Schema(implementation = AuthResponse.class)
+                )
+        ),
+        @ApiResponse(
+                responseCode = "401",
+                description = "unauthorized",
+                content = @Content()
+                ),
+        @ApiResponse(
+                responseCode = "400", 
+                description = "bad request",
+                content = @Content()
+                )   
+    })
     @PutMapping(path = "/update")
     public ResponseEntity<?> update(@Valid @RequestBody UserUpdateRequestDto userUpdateRequestDto,
             Authentication authentication) {

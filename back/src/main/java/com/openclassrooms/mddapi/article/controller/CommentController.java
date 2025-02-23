@@ -12,6 +12,11 @@ import com.openclassrooms.mddapi.auth.service.jwt.JwtService;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 
@@ -48,6 +53,31 @@ public class CommentController {
         this.jwtService = jwtService;
     }
 
+    @Operation(
+        description = "Post one comment",
+        tags = {"Articles"},
+        method = "GET"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Post one comment",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = CommentDto.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "unauthorized",
+                    content = @Content()
+            ),
+            @ApiResponse(
+                responseCode = "400",
+                description = "Bad request",
+                content = @Content()
+        )
+    })
     @PostMapping
     public ResponseEntity<?> create(Authentication authentication, @Valid @RequestBody CommentDto commentDto) {
 
@@ -63,9 +93,39 @@ public class CommentController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(
+        description = "Get article comments",
+        tags = {"Articles"},
+        method = "GET"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Get article comments",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = CommentDto.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "unauthorized",
+                    content = @Content()
+            ),
+            @ApiResponse(
+                responseCode = "400",
+                description = "Bad request",
+                content = @Content()
+        )
+    })
     @GetMapping("/{articleId}")
     public ResponseEntity<List<CommentDto>> getComments(@PathVariable("articleId") String articleId) {
         Article article = articleService.findById(Long.parseLong(articleId));
+
+        if(article == null){
+            return ResponseEntity.notFound().build();
+        }
+
         List<Comment> comments = commentService.findAllByArticle(article);
         List<CommentDto> commentDtos = commentMapper.toDto(comments);
 

@@ -45,11 +45,21 @@ The app will be available at `http://localhost:4200`.
 
 ## Backend
 
+## RSA Keys
+
+Generate public and private key
+
+```
+openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
+openssl rsa -pubout -in private_key.pem -out public_key.pem
+```
+
 ### Technologies Backend
 - **Spring boot 3** 
 - **Java 21**
 - **Lombok**
 - **Mapstruct**
+- **PostgreSQL**
 
 
 
@@ -69,6 +79,12 @@ The app will be available at `http://localhost:8080`.
 ### Build documentation
 ``` 
 mvn javadoc:javadoc
+```
+
+### Swagger/OpenApi
+
+``` 
+http://localhost:8080/api/swagger-ui/index.html
 ```
 
 ## Database  

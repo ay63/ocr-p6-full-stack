@@ -46,7 +46,10 @@ public class SpringSecurityConfig {
 
     private final static String[] publicEndPoints = {
             "/auth/login",
-            "/auth/register"
+            "/auth/register",
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html"
     };
 
     /**

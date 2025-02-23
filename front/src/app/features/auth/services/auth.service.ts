@@ -34,7 +34,7 @@ export class AuthService {
   }
 
   public getAuthUser(): AuthDataUser | null {
-    const authDataUser = this.getAuthData();
+    const authDataUser: AuthDataUser | null = this.getAuthData();
 
     if (!authDataUser) {
       return null;
@@ -52,8 +52,25 @@ export class AuthService {
     return authDataUser.token;
   }
 
+  public getAuthData(): AuthDataUser | null {
+    const jsonData = this.cookieService.get(this.AUTH_DATA_USER_COOKIE);
+    return jsonData ? JSON.parse(jsonData) : null;
+  }
+
+  public clearAuthData() {
+    this.cookieService.delete(this.AUTH_DATA_USER_COOKIE, '/');
+    this.checkAuthStatus();
+  }
+
   public isAuthentication(): boolean {
-    const token = this.getToken();
+    const isTokenValid: boolean = this.checkValidToken();
+    this.isLogin.next(isTokenValid);
+
+    return isTokenValid
+  }
+
+  private checkValidToken(): boolean {
+    const token: string | null = this.getToken();
 
     if (token == null) {
       return false;
@@ -67,22 +84,13 @@ export class AuthService {
     }
     const now = new Date();
 
+
     return !(now.getTime() > expiry * 1000);
   }
 
-  getAuthData(): AuthDataUser | null {
-    const jsonData = this.cookieService.get(this.AUTH_DATA_USER_COOKIE);
-    return jsonData ? JSON.parse(jsonData) : null;
-  }
-
-  clearAuthData() {
-    this.cookieService.delete(this.AUTH_DATA_USER_COOKIE, '/');
-    this.checkAuthStatus();
-  }
-
   private checkAuthStatus(): void {
-    const isAuth = this.isAuthentication();
-    this.isLogin.next(isAuth);
+    const isTokenValid: boolean = this.checkValidToken();
+    this.isLogin.next(isTokenValid);
   }
 }
 

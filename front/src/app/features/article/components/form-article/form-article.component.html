@@ -17,24 +17,24 @@
     <mat-error *ngIf="articleForm.get('title')?.hasError('required') && articleForm.get('title')?.touched">
       {{ errorsFormMessage.required }}
     </mat-error>
-    <mat-error *ngIf="articleForm.get('title')?.hasError('minLength') && articleForm.get('title')?.touched">
+    <mat-error *ngIf="articleForm.get('title')?.hasError('minlength') && articleForm.get('title')?.touched">
       {{ errorsFormMessage.article.title.minLength }}
     </mat-error>
-    <mat-error *ngIf="articleForm.get('title')?.hasError('maxLength') && articleForm.get('title')?.touched">
+    <mat-error *ngIf="articleForm.get('title')?.hasError('maxlength') && articleForm.get('title')?.touched">
       {{ errorsFormMessage.article.title.maxLength }}
     </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Contenu</mat-label>
-    <textarea cols="50" formControlName="content" matInput placeholder="Contenu de l'article" rows="8"></textarea>
+    <textarea cols="30" formControlName="content" matInput placeholder="Contenu de l'article" rows="8"></textarea>
     <mat-error *ngIf="articleForm.get('content')?.hasError('required') && articleForm.get('content')?.touched">
       {{ errorsFormMessage.required }}
     </mat-error>
     <mat-error *ngIf="articleForm.get('content')?.hasError('maxlength') && articleForm.get('content')?.touched">
       {{ errorsFormMessage.article.content.maxLength }}
     </mat-error>
-    <mat-error *ngIf="articleForm.get('content')?.hasError('minLength') && articleForm.get('content')?.touched">
+    <mat-error *ngIf="articleForm.get('content')?.hasError('minlength') && articleForm.get('content')?.touched">
       {{ errorsFormMessage.article.content.minLength }}
     </mat-error>
   </mat-form-field>

@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   max-height: 100%;
-
+  margin-top: 25px;
   img {
     width: 225px;
     height: 130px;
@@ -14,7 +14,7 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 32px;
   width: 100%;
   max-width: 600px;
   padding: 24px;

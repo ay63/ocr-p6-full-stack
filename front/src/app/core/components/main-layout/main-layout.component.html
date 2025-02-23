@@ -1,4 +1,4 @@
-<mat-toolbar *ngIf="cantShowHeader || isLoggedIn">
+<mat-toolbar *ngIf="(cantShowHeader && !isMobile) || isLoggedIn">
   <span class="logo">
     <img (click)="goHome()" alt="mdd logo" class="logo-img" src="../../../../assets/logo_p6.png">
   </span>

@@ -11,7 +11,7 @@ import {ErrorComponent} from "./components/not-found/error.component";
 import {GoBackButtonComponent} from "./components/go-back-button/go-back-button.component";
 import {MainLayoutComponent} from "./components/main-layout/main-layout.component";
 import {UnsubscribeObservableService} from "./services/unsubsribe-observable/unsubscribe-observable.service";
-import {SubscriptionApiService} from "./services/subscription-api.service";
+import {SubscriptionApiService} from "./services/api/subscription-api.service";
 import {MatIcon} from "@angular/material/icon";
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {MatNavList} from "@angular/material/list";
@@ -22,6 +22,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatInput} from "@angular/material/input";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {CardTopicComponent} from "./components/card-topic/card-topic.component";
+import {BreakpointService} from "./services/breakpoint/breakpoint.service";
 
 const materialModule = [
   MatSidenavContainer,
@@ -78,7 +79,8 @@ const angularImport = [
   ],
   providers: [
     UnsubscribeObservableService,
-    SubscriptionApiService
+    SubscriptionApiService,
+    BreakpointService
   ],
   imports: [
     CommonModule,

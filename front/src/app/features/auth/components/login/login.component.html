@@ -1,6 +1,6 @@
 <app-go-back-button></app-go-back-button>
 <div class="login-container">
-  <img alt="mdd logo" src="assets/logo_p6.png">
+  <img alt="mdd logo" src="assets/logo_p6.png" *ngIf="isMobile">
   <h1>Se connecter</h1>
   <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="login-form">
     <mat-form-field appearance="outline">

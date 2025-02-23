@@ -1,16 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatToolbar} from "@angular/material/toolbar";
-import {MatIcon} from "@angular/material/icon";
-import {MatButton, MatIconButton} from "@angular/material/button";
-import {Router, RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
-import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
-import {MatNavList} from "@angular/material/list";
-import {NgClass, NgIf} from "@angular/common";
-import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {Router} from "@angular/router";
+import {MatSidenav} from "@angular/material/sidenav";
 import {AuthService} from "../../../features/auth/services/auth.service";
-import {
-  UnsubscribeObservableService
-} from "../../services/unsubsribe-observable/unsubscribe-observable.service";
+import {UnsubscribeObservableService} from "../../services/unsubsribe-observable/unsubscribe-observable.service";
+import {BreakpointService} from "../../services/breakpoint/breakpoint.service";
 
 @Component({
   selector: 'app-main-layout',
@@ -20,8 +13,8 @@ import {
 })
 export class MainLayoutComponent implements OnInit {
   @ViewChild(MatSidenav) sidenav!: MatSidenav;
-  isMobile = true;
-  isCollapsed = true;
+  isMobile!: boolean;
+  isCollapsed: boolean = true;
   isLoggedIn!: boolean;
   allowedNotLoginHeader: string[] = ['/register', '/login'];
   cantShowHeader: boolean = false;
@@ -29,8 +22,9 @@ export class MainLayoutComponent implements OnInit {
   constructor(
     private unsubscribeObservable: UnsubscribeObservableService,
     private authService: AuthService,
-    private breakpointObserver: BreakpointObserver,
-    private router: Router) {
+    private router: Router,
+    private breakpointService: BreakpointService,
+  ) {
   }
 
   goHome(): void {
@@ -38,11 +32,9 @@ export class MainLayoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.breakpointObserver.observe([Breakpoints.Handset])
+    this.breakpointService.getIsMobile()
       .pipe(this.unsubscribeObservable.takeUntilDestroy)
-      .subscribe(result => {
-        this.isMobile = result.matches;
-      });
+      .subscribe((isMobile: boolean) => this.isMobile = isMobile);
 
     this.authService.isLoggedIn().pipe(
       this.unsubscribeObservable.takeUntilDestroy

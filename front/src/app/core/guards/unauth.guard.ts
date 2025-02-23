@@ -11,5 +11,6 @@ export const UnauthGuard: CanActivateFn = (route, state) => {
     router.navigate(['feed']);
     return false;
   }
+  authService.clearAuthData();
   return true;
 };

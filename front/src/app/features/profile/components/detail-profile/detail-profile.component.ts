@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {BehaviorSubject, Observable, tap} from "rxjs";
 import {ProfileApiService} from "../../services/profile-api.service";
-import {SubscriptionApiService} from "../../../../core/services/api/subscription-api.service";
+import {SubscriptionApiService} from "../../../topic/services/subscription-api.service";
 import {AuthDataUser} from "../../../../core/models/interfaces/authDataUser";
 import {AuthService} from "../../../auth/services/auth.service";
 import {ProfileUpdate} from "../../interface/profile-update";

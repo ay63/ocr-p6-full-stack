@@ -89,7 +89,7 @@ INSERT INTO articles (title, content, created_at, updated_at, author_id, topic_i
   '2024-01-10 10:15:00',
   '2024-01-11 12:00:00',
   1,
-  1
+  2
 ),
 (
   'Introduction aux bases de données relationnelles',
@@ -105,7 +105,7 @@ INSERT INTO articles (title, content, created_at, updated_at, author_id, topic_i
   '2024-02-20 09:00:00',
   '2024-02-21 11:30:00',
   1,
-  3
+  14
 ),
 (
   'Pourquoi choisir TypeScript pour vos projets JavaScript',
@@ -113,7 +113,7 @@ INSERT INTO articles (title, content, created_at, updated_at, author_id, topic_i
   '2024-03-01 16:45:00',
   '2024-03-02 08:20:00',
   1,
-  4
+  1
 ),
 (
   'Les bonnes pratiques en programmation orientée objet',
@@ -121,5 +121,5 @@ INSERT INTO articles (title, content, created_at, updated_at, author_id, topic_i
   '2024-03-15 13:10:00',
   '2024-03-16 14:00:00',
   1,
-  5
+  3
 );

@@ -11,7 +11,7 @@ import {ErrorComponent} from "./components/not-found/error.component";
 import {GoBackButtonComponent} from "./components/go-back-button/go-back-button.component";
 import {MainLayoutComponent} from "./components/main-layout/main-layout.component";
 import {UnsubscribeObservableService} from "./services/unsubsribe-observable/unsubscribe-observable.service";
-import {SubscriptionApiService} from "./services/api/subscription-api.service";
+import {SubscriptionApiService} from "../features/topic/services/subscription-api.service";
 import {MatIcon} from "@angular/material/icon";
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {MatNavList} from "@angular/material/list";

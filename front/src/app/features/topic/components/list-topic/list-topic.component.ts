@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {TopicApiService} from "../../services/topic-api.service";
-import {SubscriptionApiService} from "../../../../core/services/api/subscription-api.service";
+import {SubscriptionApiService} from "../../services/subscription-api.service";
 import {AuthService} from "../../../auth/services/auth.service";
 import {AuthDataUser} from "../../../../core/models/interfaces/authDataUser";
 import {

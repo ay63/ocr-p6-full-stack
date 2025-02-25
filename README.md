@@ -68,6 +68,12 @@ openssl rsa -pubout -in private_key.pem -out public_key.pem
 Navigate to the `back` folder
 >  `cd back`
 
+
+### Install
+```
+mvn clean install
+```
+
 ### Start Backend
 Start the application with
 ``` 

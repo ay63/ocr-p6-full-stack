@@ -51,43 +51,6 @@ public class ArticleController {
         this.jwtService = jwtService;
     }
 
-
-    @Operation(
-        description = "Get all articles",
-        tags = {"Articles"},
-        method = "GET"
-    )
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "return articles list",
-                    content = @Content(
-                            mediaType = "application/json",
-                            array = @ArraySchema(
-                                schema = @Schema(implementation = ArticleResponseDto.class)
-                        )
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "401",
-                    description = "unauthorized",
-                    content = @Content()
-            ),
-            @ApiResponse(
-                responseCode = "400",
-                description = "bad request",
-                content = @Content()
-            )
-    })
-    @GetMapping
-    public ResponseEntity<List<ArticleResponseDto>> all(Authentication authentication) {
-        List<Article> articles = articleService.findAllByOrderByCreatedAtDesc();
-
-        List<ArticleResponseDto> articleResponseDtos = articleResponseMapper.toDto(articles);
-
-        return ResponseEntity.ok().body(articleResponseDtos);
-    }
-
     @Operation(
         description = "Create articles",
         tags = {"Articles"},

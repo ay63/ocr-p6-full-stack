@@ -1,8 +1,10 @@
 package com.openclassrooms.mddapi.user.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +14,7 @@ import com.openclassrooms.mddapi.auth.dto.response.AuthResponse;
 import com.openclassrooms.mddapi.auth.service.jwt.JwtService;
 import com.openclassrooms.mddapi.user.dto.request.UserUpdateRequestDto;
 import com.openclassrooms.mddapi.user.model.User;
-import com.openclassrooms.mddapi.user.service.UserDetailsImpl;
+import com.openclassrooms.mddapi.user.model.UserDetailsImpl;
 import com.openclassrooms.mddapi.user.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,7 +39,7 @@ public class UserController {
     }
 
     @Operation(
-        description = "Update user date",
+        description = "Update user data",
         tags = {"User"},
         method = "PUT"
     )
@@ -75,17 +77,19 @@ public class UserController {
             userService.save(userUpdated);
 
             UserDetailsImpl userDetails = new UserDetailsImpl(
-                    user.getId(),
-                    user.getProfileName(),
-                    user.getEmail(),
-                    user.getPassword());
+                    userUpdated.getId(),
+                    userUpdated.getProfileName(),
+                    userUpdated.getEmail(),
+                    userUpdated.getPassword());
 
             Authentication newAuth = new UsernamePasswordAuthenticationToken(
                     userDetails,
                     null,
                     userDetails.getAuthorities());
-
-            String token = jwtService.generateToken(newAuth);
+                    
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
+           
+        String token = jwtService.generateToken(newAuth);
 
             return ResponseEntity.ok(new AuthResponse(
                     userUpdated.getId(),

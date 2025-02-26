@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.user.model.User;
+import com.openclassrooms.mddapi.user.model.UserDetailsImpl;
 import com.openclassrooms.mddapi.user.repository.UserRepository;
 
 import jakarta.transaction.Transactional;

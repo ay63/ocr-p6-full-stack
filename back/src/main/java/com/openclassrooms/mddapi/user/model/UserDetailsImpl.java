@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.user.service;
+package com.openclassrooms.mddapi.user.model;
 
 import java.util.Collection;
 import java.util.HashSet;

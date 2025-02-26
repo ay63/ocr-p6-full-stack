@@ -18,7 +18,7 @@ import com.openclassrooms.mddapi.auth.dto.response.AuthResponse;
 import com.openclassrooms.mddapi.auth.service.jwt.JwtService;
 import com.openclassrooms.mddapi.share.dto.response.MessageResponse;
 import com.openclassrooms.mddapi.user.model.User;
-import com.openclassrooms.mddapi.user.service.UserDetailsImpl;
+import com.openclassrooms.mddapi.user.model.UserDetailsImpl;
 import com.openclassrooms.mddapi.user.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;

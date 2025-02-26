@@ -10,6 +10,5 @@ public interface ArticleService {
 
     Article findById(Long id); 
 
-    List<Article> findAllByOrderByCreatedAtDesc();
 
 }

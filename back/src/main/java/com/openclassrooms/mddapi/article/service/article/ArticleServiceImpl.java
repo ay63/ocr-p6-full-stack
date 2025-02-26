@@ -24,9 +24,4 @@ public class ArticleServiceImpl implements ArticleService {
         return this.articleRepository.findById(id).orElse(null);
     }
 
-    @Override
-    public List<Article> findAllByOrderByCreatedAtDesc() {
-        return this.articleRepository.findAllByOrderByCreatedAtDesc();
-    }
-
 }

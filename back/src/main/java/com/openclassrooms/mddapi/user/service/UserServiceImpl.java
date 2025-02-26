@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
     private final ValidPasswordConstraint validPasswordConstraint;
 
 
-
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder,
             com.openclassrooms.mddapi.auth.validator.password.ValidPasswordConstraint validPasswordConstraint) {
         this.userRepository = userRepository;
@@ -53,12 +52,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(User user, UserUpdateRequestDto userUpdateRequestDto) {
-        return this.checkUserAndUpdateIt(user,userUpdateRequestDto);
-    }
-
-    @Override
-    public User checkUserAndUpdateIt(User user, UserUpdateRequestDto userUpdateRequestDto){
+    public User updateUserData(User user, UserUpdateRequestDto userUpdateRequestDto){
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
 
@@ -94,7 +88,7 @@ public class UserServiceImpl implements UserService {
             user.setProfileName(userUpdateRequestDto.getProfileName());
         }
 
-        return user;
+        return this.userRepository.save(user);
     }
 
 }

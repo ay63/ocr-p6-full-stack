@@ -73,8 +73,7 @@ public class UserController {
                 return ResponseEntity.notFound().build();
             }
 
-            User userUpdated = userService.update(user, userUpdateRequestDto);
-            userService.save(userUpdated);
+            User userUpdated = userService.updateUserData(user, userUpdateRequestDto);
 
             UserDetailsImpl userDetails = new UserDetailsImpl(
                     userUpdated.getId(),
@@ -88,7 +87,6 @@ public class UserController {
                     userDetails.getAuthorities());
                     
         SecurityContextHolder.getContext().setAuthentication(newAuth);
-           
         String token = jwtService.generateToken(newAuth);
 
             return ResponseEntity.ok(new AuthResponse(

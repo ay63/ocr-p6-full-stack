@@ -13,7 +13,5 @@ public interface UserService {
 
     void save(User user);
 
-    User update(User user, UserUpdateRequestDto userUpdateRequestDto);
-
-    User checkUserAndUpdateIt(User user, UserUpdateRequestDto userUpdateRequestDto);
+    User updateUserData(User user, UserUpdateRequestDto userUpdateRequestDto);
 }

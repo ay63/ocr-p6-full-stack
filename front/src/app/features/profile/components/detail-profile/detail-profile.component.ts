@@ -22,6 +22,7 @@ import {Topic} from "../../../topic/interfaces/topic";
 export class DetailProfileComponent implements OnInit {
 
   private itemsSubject: BehaviorSubject<Topic[]> = new BehaviorSubject<Topic[]>([]);
+  isCheckingUsername: boolean = false;
   errorsFormMessage = getFormErrorMessage()
   items$: Observable<Topic[]> = this.itemsSubject.asObservable();
 
@@ -71,16 +72,32 @@ export class DetailProfileComponent implements OnInit {
   }
 
   saveProfile() {
-    if (this.profileForm.valid) {
+    if (this.profileForm.valid && !this.isCheckingUsername) {
       const profile: ProfileUpdate = this.profileForm.value as ProfileUpdate;
-      this.profileApiService.putProfile(profile)
-        .pipe(this.unsubscribeObservable.takeUntilDestroy)
-        .subscribe({
-          next: (response: AuthDataUser) => {
-            this.authService.saveAuthUser(response)
-            this.matSnackBar.open("Profile mis à jour !", 'Fermer', {duration: 4000});
-          }
-        });
+      const currentUsername: string | undefined = this.authService.getAuthUser()?.profileName;
+
+      if (profile.profileName && profile.profileName !== currentUsername) {
+        this.isCheckingUsername = true;
+
+        this.profileApiService.checkProfileNameExists(profile.profileName)
+          .pipe(this.unsubscribeObservable.takeUntilDestroy)
+          .subscribe({
+            next: (exists: boolean) => {
+              this.isCheckingUsername = false;
+              if (exists) {
+                this.matSnackBar.open("Ce nom d'utilisateur est déjà utilisé", 'Fermer', {duration: 4000});
+              } else {
+                this.updateProfile(profile);
+              }
+            },
+            error: () => {
+              this.isCheckingUsername = false;
+              this.matSnackBar.open("Erreur lors de la vérification du nom d'utilisateur", 'Fermer', {duration: 4000});
+            }
+          });
+      } else {
+        this.updateProfile(profile);
+      }
     }
   }
 
@@ -109,5 +126,19 @@ export class DetailProfileComponent implements OnInit {
 
   formHasNotInputValue(): boolean {
     return !Object.values(this.profileForm.value).some(value => value?.trim() !== '');
+  }
+
+  updateProfile(profile: ProfileUpdate) {
+    this.profileApiService.putProfile(profile)
+      .pipe(this.unsubscribeObservable.takeUntilDestroy)
+      .subscribe({
+        next: (response: AuthDataUser) => {
+          this.authService.saveAuthUser(response);
+          this.matSnackBar.open("Profil mis à jour !", 'Fermer', {duration: 4000});
+        },
+        error: () => {
+          this.matSnackBar.open("Erreur lors de la mise à jour du profil", 'Fermer', {duration: 4000});
+        }
+      });
   }
 }

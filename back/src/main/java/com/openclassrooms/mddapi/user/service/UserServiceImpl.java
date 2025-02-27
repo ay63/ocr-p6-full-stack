@@ -47,6 +47,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Boolean existsByProfileName(String username) {
+        return userRepository.existsByProfileName(username);
+    }
+
+    @Override
     public void save(User user) {
         userRepository.save(user);
     }
@@ -90,5 +95,7 @@ public class UserServiceImpl implements UserService {
 
         return this.userRepository.save(user);
     }
+
+
 
 }

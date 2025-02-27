@@ -1,10 +1,12 @@
 package com.openclassrooms.mddapi.user.controller;
 
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +18,6 @@ import com.openclassrooms.mddapi.user.dto.request.UserUpdateRequestDto;
 import com.openclassrooms.mddapi.user.model.User;
 import com.openclassrooms.mddapi.user.model.UserDetailsImpl;
 import com.openclassrooms.mddapi.user.service.UserService;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -97,6 +98,36 @@ public class UserController {
         }
 
         return ResponseEntity.badRequest().build();
+    }
+
+    @Operation(
+        description = "Check profile name all ready use",
+        tags = {"User"},
+        method = "GET"
+    )
+    @ApiResponses(value = {
+        @ApiResponse(
+                responseCode = "200",
+                content = @Content(
+                        mediaType = "application/json",
+                        schema = @Schema(implementation = ResponseEntity.class)
+                )
+        ),
+        @ApiResponse(
+                responseCode = "401",
+                description = "unauthorized",
+                content = @Content()
+                ),
+        @ApiResponse(
+                responseCode = "400", 
+                description = "bad request",
+                content = @Content()
+                )   
+    })
+    @GetMapping(path = "/check-profile-name/{profileName}")
+    public ResponseEntity<Boolean> checkProfileName(@PathVariable("profileName") String profileName) {
+        boolean exists = userService.existsByProfileName(profileName);
+        return ResponseEntity.ok(exists);
     }
 
 }

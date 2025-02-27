@@ -14,4 +14,6 @@ public interface UserService {
     void save(User user);
 
     User updateUserData(User user, UserUpdateRequestDto userUpdateRequestDto);
+
+    Boolean existsByProfileName(String profileName);
 }

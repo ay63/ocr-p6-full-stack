@@ -18,4 +18,8 @@ export class ProfileApiService {
   public putProfile(profileUpdate: ProfileUpdate): Observable<AuthDataUser> {
     return this.httpClient.put<AuthDataUser>(`${this.pathService}/update`, profileUpdate)
   }
+
+  public checkProfileNameExists(profileName: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${this.pathService}/check-profile-name/${profileName}`);
+  }
 }

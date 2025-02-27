@@ -1,5 +1,5 @@
 <ng-container *ngIf="cardItems$ | async as items">
-  <mat-grid-list [cols]="items.length > 1 ? cols : 1" class="card-container" cols="2" gutterSize="16px"
+  <mat-grid-list [cols]="cols |async" class="card-container" cols="2" gutterSize="16px"
                  rowHeight="200">
     <ng-container *ngIf="items.length  === 0">
       <span class="not-items">Aucun élément présent</span>

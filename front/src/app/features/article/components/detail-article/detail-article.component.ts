@@ -49,8 +49,10 @@ export class DetailArticleComponent implements OnInit {
       distinctUntilChanged()
     ).subscribe(id => {
       this.articleId = id!;
-      this.articleApiService.getArticleById(this.articleId).pipe(this.unsubscribeObservable.takeUntilDestroy).subscribe((detail: ArticleDetail) => {
-        this.detail = detail;
+      this.articleApiService.getArticleById(this.articleId)
+        .pipe(this.unsubscribeObservable.takeUntilDestroy)
+        .subscribe((detail: ArticleDetail) => {
+          this.detail = detail;
       });
       this.comments$ = this.articleApiService.getCommentsByArticleId(this.articleId).pipe(this.unsubscribeObservable.takeUntilDestroy);
     });

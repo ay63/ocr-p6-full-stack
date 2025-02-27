@@ -21,7 +21,8 @@ export class ErrorInterceptor implements HttpInterceptor {
   private handleError(err: HttpErrorResponse) {
     let errorMessage = 'Une erreur est survenue';
 
-    if (err.url?.includes("login")) {
+    const urlsToIgnore:string[] = ["login", "profile"];
+    if (err.url && urlsToIgnore.some(url => err.url?.includes(url))) {
       return;
     }
 

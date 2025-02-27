@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from "rxjs";
-import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {Topic} from "../../../features/topic/interfaces/topic";
+import {BreakpointService} from "../../services/breakpoint/breakpoint.service";
+import {UnsubscribeObservableService} from "../../services/unsubsribe-observable/unsubscribe-observable.service";
 
 @Component({
   selector: 'app-card-topic',
@@ -10,7 +11,8 @@ import {Topic} from "../../../features/topic/interfaces/topic";
   standalone: false
 })
 export class CardTopicComponent implements OnInit {
-  cols: number = 2;
+  cols!: Observable<number>;
+
 
   @Input()
   public cardItems$!: Observable<Topic[]>;
@@ -21,13 +23,15 @@ export class CardTopicComponent implements OnInit {
   @Input()
   canUnsubscribe!: boolean;
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(private breakpointService: BreakpointService,
+              private unsubscribeObservableService: UnsubscribeObservableService) {
   }
 
   ngOnInit(): void {
-    this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.XSmall]).subscribe(result => {
-      this.cols = result.matches ? 1 : 2;
-    });
+    this.cardItems$.pipe(this.unsubscribeObservableService.takeUntilDestroy).subscribe(items => {
+        this.cols = this.breakpointService.gridBreakPoint(items);
+      }
+    )
   }
 
   onButtonClick(itemId: number) {

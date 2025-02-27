@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ac4a0765-4d11-42aa-8b8c-b65ffdbd1243",
+		"_postman_id": "e219d3df-d38f-44af-9432-979a47830523",
 		"name": "MDD",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "6466127"
@@ -109,6 +109,43 @@
 								"api",
 								"user",
 								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check profile name",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/user/check-profile-name/:profileName",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"check-profile-name",
+								":profileName"
+							],
+							"variable": [
+								{
+									"key": "profileName",
+									"value": "josefa.fox"
+								}
 							]
 						}
 					},
